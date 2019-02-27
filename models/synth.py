@@ -19,5 +19,8 @@ class SynthSchema(ma.ModelSchema, BaseSchema):
     jam = fields.Nested('JamSchema',
         only=('jam_name', 'id', 'created_by'))
 
+    beats = fields.Nested('BeatSchema',
+        only=('step',))
+
     class Meta:
         model = Synth
