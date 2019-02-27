@@ -189,7 +189,14 @@ class Jam extends React.Component {
         />
         <div className="interfaceBeta">
           {this.state.owned_synths[0].beats.map((note, i) =>
-            <div key={i} className='rotate'>
+            <div key={i} className="bar-container">
+              <div
+                style={
+                  { height: `calc((${noteRangeLookup.indexOf(note.pitch)}/36)*100%)`}
+                }
+                className={`inner-bar ${currentBeat===i ? 'current':''}`}
+              >
+              </div>
               <input
                 type="range"
                 orient="vertical"
