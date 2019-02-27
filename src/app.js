@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { Redirect } from 'react-router'
+// import { Redirect } from 'react-router'
 import axios from 'axios'
-import Tone from 'tone'
+// import Tone from 'tone'
 import Header from './components/common/Header'
+import Home from './components/Home'
+import Register from './components/Register'
 
 
 import Jam from './components/Jam'
@@ -31,10 +33,22 @@ class App extends React.Component {
     if(!this.state.user) return null
     const jams = this.state.user.created_jams
     const currentJam = jams[jams.length-1]
+
+    const JamWithProps = () => {
+      return (
+        <Jam {...currentJam}/>
+      )
+    }
+
     return(
       <BrowserRouter>
         <main>
-          {this.state.user && <Jam {...currentJam}/>}
+          <Header />
+          <Switch>
+            <Route path="/register" component={Register} />
+            <Route path="/jam" component={JamWithProps} />
+            <Route path="/" component={Home} />
+          </Switch>
         </main>
       </BrowserRouter>
     )
