@@ -2912,6 +2912,11 @@ ini@^1.3.4, ini@~1.3.0:
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
   integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
 
+input-range-scss@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/input-range-scss/-/input-range-scss-1.5.1.tgz#329beb333b3002f6964c8276c7605627ee3ed87f"
+  integrity sha512-osL2GDyJDXeTnNOVvXcizDKf1d1CTG+GLVu/tHX14HWkUwdn1TugfN6xBnPY0HHsqlVEgwTdXNRZc0Kz8qCm5g==
+
 internal-ip@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-4.2.0.tgz#46e81b638d84c338e5c67e42b1a17db67d0814fa"

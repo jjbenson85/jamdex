@@ -3,6 +3,7 @@ import Tone from 'tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
+
 import MonoSynth from './MonoSynth'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
@@ -147,6 +148,7 @@ class Jam extends React.Component {
     const owned_synths = [...this.state.owned_synths]
     owned_synths[0].beats[i][name] = noteRangeLookup[value]
     this.setState({ owned_synths })
+    this.delayedCallback()
   }
 
   // render(){
@@ -154,7 +156,6 @@ class Jam extends React.Component {
   //   ownedSynths[0].beats[i].pitch = `${value}3`
   //
   //   this.setState({ owned_synths: ownedSynths })
-  //   this.delayedCallback()
   //
   // }
 
@@ -206,6 +207,7 @@ class Jam extends React.Component {
               </div>
               <input
                 type="range"
+                orient="vertical"
                 name="pitch"
                 min="0"
                 max="35"
@@ -215,7 +217,6 @@ class Jam extends React.Component {
                   this.handleChange(e, i)
                 }
                 }
-                orient="vertical"
               />
             </div>
           )}

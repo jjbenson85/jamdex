@@ -8,8 +8,8 @@ const Header = (props) => {
   return(
     <header>
       <div className="left">
-        <div className="nav-item">JamDex</div>
-        <div className="nav-item">Home</div>
+        <Link to="/" className="nav-item">JamDex</Link>
+        <Link to="/jam" className="nav-item">My Jam</Link>
       </div>
 
 
