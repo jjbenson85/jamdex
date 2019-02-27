@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request, g
 from models.jam import Jam, JamSchema
 from lib.secure_route import secure_route
 
@@ -19,3 +19,16 @@ def index():
 def show(jam_id):
     jam = Jam.query.get(jam_id)
     return jam_schema.jsonify(jam)
+
+@api.route('/jams/<int:jam_id>', methods=['PUT'])
+def update(jam_id):
+    jam = Jam.query.get(jam_id)
+    if not jam:
+        return jsonify({'message': 'Not found'}), 404
+    jam, errors = jam_schema.load(request.get_json(), instance=jam)
+    if errors:
+        print(errors)
+        return jsonify(errors), 422
+    jam.save()
+
+    return jam_schema.jsonify(jam), 200
