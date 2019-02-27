@@ -148,16 +148,8 @@ class Jam extends React.Component {
     const owned_synths = [...this.state.owned_synths]
     owned_synths[0].beats[i][name] = noteRangeLookup[value]
     this.setState({ owned_synths })
+    this.delayedCallback()
   }
-
-  // render(){
-  //   const ownedSynths = [...this.state.owned_synths]
-  //   ownedSynths[0].beats[i].pitch = `${value}3`
-  //
-  //   this.setState({ owned_synths: ownedSynths })
-  //   this.delayedCallback()
-  //
-  // }
 
   saveChanges(){
     const state = {...this.state}
