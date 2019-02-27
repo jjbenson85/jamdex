@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Redirect } from 'react-router'
 import axios from 'axios'
 // import Tone from 'tone'
-import Header from './components/Header'
+import Header from './components/common/Header'
 
 
 import Jam from './components/Jam'

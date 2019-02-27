@@ -1,8 +1,10 @@
 import React from 'react'
 import Tone from 'tone'
 
-
 import MonoSynth from './MonoSynth'
+import noteRangeLookup from '../lib/noteRangeLookup'
+
+import '../scss/components/InterfaceBeta.scss'
 
 class Jam extends React.Component {
 
@@ -104,10 +106,10 @@ class Jam extends React.Component {
     }
 
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount(){
-    console.log('props',this.props)
     this.setState({...this.props})
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
@@ -118,26 +120,33 @@ class Jam extends React.Component {
   playSound(){
     Tone.Transport.start()
     this.loop.start()
-    console.log('clicked start')
   }
 
   stopSound(){
     Tone.Transport.stop()
     this.loop.stop()
-    console.log('clicked stop')
   }
 
   handleSelect({ target: { value } }, i){
     const owned_synths = [...this.state.owned_synths]
-    owned_synths[0].beats[i].pitch = `${value}3`
+    const pitch = owned_synths[0].beats[i].pitch
+    if (isNaN(value)) {
+      owned_synths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
+    } else owned_synths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
 
     this.setState({ owned_synths })
   }
 
+  handleChange(e, i){
+    const value = e.target.value
+    const name = e.target.name
+    console.log('handle hange',value, name)
+    const owned_synths = [...this.state.owned_synths]
+    owned_synths[0].beats[i][name] = noteRangeLookup[value]
+    this.setState({ owned_synths })
+  }
+
   render(){
-    console.log('Jam State',this.state.owned_synths[0].beats[0].pitch)
-    console.log('Jam Beat',this.state.transport.beat)
-    console.log(this.state.owned_synths[0].beats[this.state.transport.beat].pitch)
     return(
       <div>
         <h1>JAM</h1>
@@ -149,30 +158,24 @@ class Jam extends React.Component {
           pitch={this.state.owned_synths[0].beats[this.state.transport.beat].pitch}
           duration={this.state.owned_synths[0].beats[this.state.transport.beat].duration}
         />
-        {this.state.owned_synths[0].beats.map((note, i) =>
-          {console.log('note',note.pitch.substring(0, note.pitch.length - 1))
-          return <select
-            key={i}
-            id={`select-note-${i}`}
-            value={note.pitch.substring(0, note.pitch.length - 1)}
-            onChange={(e) => {
-              this.handleSelect(e, i)
-            }}
-          >
-            <option value='A'>A</option>
-            <option value='A#'>A#</option>
-            <option value='B'>B</option>
-            <option value='C'>C</option>
-            <option value='C#'>C#</option>
-            <option value='D'>D</option>
-            <option value='D#'>D#</option>
-            <option value='E'>E</option>
-            <option value='F'>F</option>
-            <option value='F#'>F#</option>
-            <option value='G'>G</option>
-            <option value='G#'>G#</option>
-          </select>}
-        )}
+        <div className="interfaceBeta">
+          {this.state.owned_synths[0].beats.map((note, i) =>
+            <div key={i}>
+              <input
+                type="range"
+                name="pitch"
+                min="0"
+                max="35"
+                value={noteRangeLookup.indexOf(note.pitch)}
+                onChange={(e) => {
+                  console.log(e.target.value)
+                  this.handleChange(e, i)
+                }
+                }
+              />
+            </div>
+          )}
+        </div>
       </div>
     )
   }
