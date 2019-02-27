@@ -3,8 +3,10 @@ import Tone from 'tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
-
 import MonoSynth from './MonoSynth'
+import noteRangeLookup from '../lib/noteRangeLookup'
+
+import '../scss/components/InterfaceBeta.scss'
 
 class Jam extends React.Component {
 
@@ -106,11 +108,11 @@ class Jam extends React.Component {
     }
 
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 250)
   }
 
   componentDidMount(){
-    console.log('props',this.props)
     this.setState({...this.props})
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
@@ -121,23 +123,40 @@ class Jam extends React.Component {
   playSound(){
     Tone.Transport.start()
     this.loop.start()
-    console.log('clicked start')
   }
 
   stopSound(){
     Tone.Transport.stop()
     this.loop.stop()
-    console.log('clicked stop')
   }
 
   handleSelect({ target: { value } }, i){
-    const ownedSynths = [...this.state.owned_synths]
-    ownedSynths[0].beats[i].pitch = `${value}3`
+    const owned_synths = [...this.state.owned_synths]
+    const pitch = owned_synths[0].beats[i].pitch
+    if (isNaN(value)) {
+      owned_synths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
+    } else owned_synths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
 
-    this.setState({ owned_synths: ownedSynths })
-    this.delayedCallback()
-
+    this.setState({ owned_synths })
   }
+
+  handleChange(e, i){
+    const value = e.target.value
+    const name = e.target.name
+    console.log('handle hange',value, name)
+    const owned_synths = [...this.state.owned_synths]
+    owned_synths[0].beats[i][name] = noteRangeLookup[value]
+    this.setState({ owned_synths })
+  }
+
+  // render(){
+  //   const ownedSynths = [...this.state.owned_synths]
+  //   ownedSynths[0].beats[i].pitch = `${value}3`
+  //
+  //   this.setState({ owned_synths: ownedSynths })
+  //   this.delayedCallback()
+  //
+  // }
 
   saveChanges(){
     const state = {...this.state}
@@ -175,29 +194,24 @@ class Jam extends React.Component {
           pitch={pitch}
           duration={duration}
         />
-        {this.state.owned_synths[0].beats.map((note, i) =>
-          <select
-            key={i}
-            id={`select-note-${i}`}
-            value={note.pitch.substring(0, note.pitch.length - 1)}
-            onChange={(e) => {
-              this.handleSelect(e, i)
-            }}
-          >
-            <option value='A'>A</option>
-            <option value='A#'>A#</option>
-            <option value='B'>B</option>
-            <option value='C'>C</option>
-            <option value='C#'>C#</option>
-            <option value='D'>D</option>
-            <option value='D#'>D#</option>
-            <option value='E'>E</option>
-            <option value='F'>F</option>
-            <option value='F#'>F#</option>
-            <option value='G'>G</option>
-            <option value='G#'>G#</option>
-          </select>
-        )}
+        <div className="interfaceBeta">
+          {this.state.owned_synths[0].beats.map((note, i) =>
+            <div key={i}>
+              <input
+                type="range"
+                name="pitch"
+                min="0"
+                max="35"
+                value={noteRangeLookup.indexOf(note.pitch)}
+                onChange={(e) => {
+                  console.log(e.target.value)
+                  this.handleChange(e, i)
+                }
+                }
+              />
+            </div>
+          )}
+        </div>
       </div>
     )
   }
