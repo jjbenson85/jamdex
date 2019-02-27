@@ -3,6 +3,7 @@ import Tone from 'tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
+
 import MonoSynth from './MonoSynth'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
@@ -196,9 +197,10 @@ class Jam extends React.Component {
         />
         <div className="interfaceBeta">
           {this.state.owned_synths[0].beats.map((note, i) =>
-            <div key={i}>
+            <div key={i} className='rotate'>
               <input
                 type="range"
+                orient="vertical"
                 name="pitch"
                 min="0"
                 max="35"

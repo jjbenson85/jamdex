@@ -1,39 +1,42 @@
 import React from 'react'
 
 import axios from 'axios'
-import RegisterForm from './auth/RegisterForm'
+import LoginForm from './auth/LoginForm'
 
 class Register extends React.Component{
   constructor(){
     super()
     this.state = {
-      registerData: {},
+      loginData: {
+        email: '',
+        password: ''
+      },
       register: true,
       error: {}
     }
     this.handleChange = this.handleChange.bind(this)
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.changeState = this.changeState.bind(this)
-    this.registerFunction = this.registerFunction.bind(this)
+    this.loginFunction = this.loginFunction.bind(this)
 
   }
 
   handleChange({target: {name, value}}){
-    const registerData = {...this.state.registerData, [name]: value }
+    const loginData = {...this.state.loginData, [name]: value }
     const errors = {...this.state.errors, [name]: null }
-    this.setState({ registerData, errors })
+    this.setState({ loginData, errors })
   }
 
-  registerFunction(e){
+  loginFunction(e){
     e.preventDefault()
-    console.log('registerFunction', this.state.registerData)
+    console.log('loginFunction', this.state.loginData)
     axios
-      .post('api/register', this.state.registerData)
+      .post('api/login', this.state.loginData)
       .then(res => {
         console.log(res)
         // Flash.setMessage('success', res.data.message)
-        this.setState({...this.state,  registerData: {}, register: false})
-        this.props.history.push('/')
+        this.setState({...this.state,  loginData: {}, register: false})
+        this.props.history.push('/jam')
       })
       .catch(err =>this.setState({...this.state, error: err.response.data }))
   }
@@ -46,7 +49,7 @@ class Register extends React.Component{
   //   e.preventDefault(e)
   //   console.log(e)
   //   const command = e.target.name
-  //   if(command === 'register' ) this.registerFunction()
+  //   if(command === 'register' ) this.loginFunction()
   //   else this.loginFunction()
   // }
 
@@ -55,12 +58,12 @@ class Register extends React.Component{
     return(
       <section>
         <h1>Register</h1>
-        <RegisterForm
-          handleSubmit={this.registerFunction}
+        <LoginForm
+          handleSubmit={this.loginFunction}
           handleChange={this.handleChange}
-          data={this.state.registerData}
-          errors={this.state.error}
+          data={this.state.loginData}
           changeState={this.changeState}
+          errors={this.state.error}
         />
       </section>
     )

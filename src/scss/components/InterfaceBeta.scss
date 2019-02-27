@@ -1,9 +1,20 @@
+
 div.interfaceBeta {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  transform: rotate(-90deg);
+  // flex-direction: column;
+  justify-content: space-around;
+  // transform: rotate(-90deg);
 
-  div {
+  div.rotate {
+    // transform: rotate(90deg)
+  }
+
+  input[type=range][orient=vertical]
+  {
+      writing-mode: bt-lr; /* IE */
+      -webkit-appearance: slider-vertical; /* WebKit */
+      width: 8px;
+      height: 175px;
+      padding: 0 5px;
   }
 }
