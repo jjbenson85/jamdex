@@ -6,6 +6,7 @@
   "author": "Dexter De Leon <dexdeleon@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "seed": "pipenv run python seeds.py",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve:react": "webpack-dev-server --mode=development",
     "serve:flask": "pipenv run flask run -p 4000",
