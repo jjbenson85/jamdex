@@ -1,5 +1,7 @@
 import React from 'react'
 import Tone from 'tone'
+import debounce from 'lodash/debounce'
+import axios from 'axios'
 
 
 import MonoSynth from './MonoSynth'
@@ -104,6 +106,7 @@ class Jam extends React.Component {
     }
 
     this.handleSelect = this.handleSelect.bind(this)
+    this.delayedCallback = debounce(this.saveChanges, 250)
   }
 
   componentDidMount(){
@@ -128,16 +131,39 @@ class Jam extends React.Component {
   }
 
   handleSelect({ target: { value } }, i){
-    const owned_synths = [...this.state.owned_synths]
-    owned_synths[0].beats[i].pitch = `${value}3`
+    const ownedSynths = [...this.state.owned_synths]
+    ownedSynths[0].beats[i].pitch = `${value}3`
 
-    this.setState({ owned_synths })
+    this.setState({ owned_synths: ownedSynths })
+    this.delayedCallback()
+
+  }
+
+  saveChanges(){
+    const state = {...this.state}
+    console.log('About to save', state)
+    //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
+    delete state.created_at
+    delete state.updated_at
+    state.owned_synths = state.owned_synths.map((synth)=>{
+      delete synth.created_at
+      delete synth.updated_at
+      return synth
+    })
+    console.log('state',state)
+    axios.put('/api/jams/1',{...state})
+      .then(res => console.log('Saved dat Jam\n', res))
+      .catch(err => console.error(err.message))
   }
 
   render(){
-    console.log('Jam State',this.state.owned_synths[0].beats[0].pitch)
-    console.log('Jam Beat',this.state.transport.beat)
-    console.log(this.state.owned_synths[0].beats[this.state.transport.beat].pitch)
+    // console.log('Jam State',this.state.owned_synths[0].beats[0].pitch)
+    // console.log('Jam Beat',this.state.transport.beat)
+    // console.log(this.state.owned_synths[0].beats[this.state.transport.beat].pitch)
+    const currentBeat = this.state.transport.beat
+    const beats = this.state.owned_synths[0].beats
+    beats.sort((A, B)=> B.step - A.step)
+    const {pitch, duration} = beats[currentBeat]
     return(
       <div>
         <h1>JAM</h1>
@@ -146,12 +172,11 @@ class Jam extends React.Component {
         <MonoSynth
           id="1"
           time={this.state.transport.time}
-          pitch={this.state.owned_synths[0].beats[this.state.transport.beat].pitch}
-          duration={this.state.owned_synths[0].beats[this.state.transport.beat].duration}
+          pitch={pitch}
+          duration={duration}
         />
         {this.state.owned_synths[0].beats.map((note, i) =>
-          {console.log('note',note.pitch.substring(0, note.pitch.length - 1))
-          return <select
+          <select
             key={i}
             id={`select-note-${i}`}
             value={note.pitch.substring(0, note.pitch.length - 1)}
@@ -171,7 +196,7 @@ class Jam extends React.Component {
             <option value='F#'>F#</option>
             <option value='G'>G</option>
             <option value='G#'>G#</option>
-          </select>}
+          </select>
         )}
       </div>
     )
