@@ -17,10 +17,10 @@ class Synth(db.Model, BaseModel):
 
 class SynthSchema(ma.ModelSchema, BaseSchema):
     jam = fields.Nested('JamSchema',
-        only=('jam_name', 'id', 'created_by'))
+        exclude=('created_at', 'updated_at',))
 
-    beats = fields.Nested('BeatSchema',
-        only=('step',))
+    beats = fields.Nested('BeatSchema', many=True,
+        exclude=('created_at', 'updated_at', 'synth'))
 
     class Meta:
         model = Synth

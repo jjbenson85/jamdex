@@ -22,7 +22,7 @@ class JamSchema(ma.ModelSchema, BaseSchema):
 
     owned_synths = fields.Nested('SynthSchema',
         many=True,
-        only=('synth_name', 'id'))
+        exclude=('jam',))
 
     class Meta:
         model = Jam

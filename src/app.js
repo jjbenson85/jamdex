@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Tone from 'tone'
+import Header from './components/Header'
+
 
 import MonoSynth from './components/MonoSynth'
 
