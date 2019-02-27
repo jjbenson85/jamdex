@@ -1,18 +1,45 @@
 from app import app, db
-from models.user import User
+from models.user import User, UserSchema
 from models.jam import Jam
 from models.synth import Synth
 from models.beat import Beat
+
 
 with app.app_context():
     db.drop_all()
     db.create_all()
 
-    james = User(username='Jam_Master_Jim', email='jjbenson85@gmail.com')
-    james.save()
+    user_schema = UserSchema()
 
-    dex = User(username='Funk_Master_Dex', email='contact@dexdeleon.com')
-    dex.save()
+    james, errors = user_schema.load({
+        'username': 'Jam_Master_Jim',
+        'email': 'james@email.com',
+        'password': 'passpass',
+        'password_confirmation': 'passpass'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    db.session.add(james)
+
+    dex, errors = user_schema.load({
+        'username': 'Funk_Master_Dex',
+        'email': 'dex@email.com',
+        'password': 'passpass',
+        'password_confirmation': 'passpass'
+    })
+
+    if errors:
+        raise Exception(errors)
+
+    db.session.add(james)
+
+    # james = User(username='Jam_Master_Jim', email='jjbenson85@gmail.com')
+    # james.save()
+
+    # dex = User(username='Funk_Master_Dex', email='contact@dexdeleon.com')
+    # dex.save()
 
     james_jam_1 = Jam(jam_name='Super Jam', created_by=james)
     # james_jam_1 = Jam(jam_name='Super Jam', tempo='120')
@@ -115,6 +142,13 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            pitch="C3",
+            duration="16n",
+            velocity="100",
+            synth=bassic_1
+        ),
+        Beat(
+            step=13,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -224,6 +258,13 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            pitch="D4",
+            duration="16n",
+            velocity="100",
+            synth=bassic_2
+        ),
+        Beat(
+            step=13,
             pitch="D4",
             duration="16n",
             velocity="100",

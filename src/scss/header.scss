@@ -1,0 +1,19 @@
+header{
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px, 4px, 20px, 4px;
+  .nav-item{
+    padding: 4px;
+    border: 1px solid black;
+    margin: 4px;
+  }
+  .left, .center, .right{
+    display: flex;
+
+    // justify-content: space-between;
+  }
+  h1{
+
+  }
+}

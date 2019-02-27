@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Tone from 'tone'
+import Header from './components/Header'
+
 
 import './scss/style.scss'
 
@@ -11,12 +13,13 @@ class App extends React.Component {
   constructor(){
     super()
 
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount(){
-    axios.get('/api/users')
-      .then(res => this.setState({ users: res.data }))
+    axios.get('/api/users/1')
+      .then(res => this.setState({ user: res.data }))
+      .catch(err=> console.error(err.message))
 
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
@@ -26,14 +29,12 @@ class App extends React.Component {
   }
 
   render(){
-    if (!this.state) return <h1>Calm, the jams are coming...</h1>
+    console.log(this.state)
+    // if (!this.state) return <h1>Calm, the jams are coming...</h1>
     return(
       <div>
-        <h1>The Index of Jams</h1>
-        <h2>Lovingly brought to you by...</h2>
-        {this.state.users.map(user =>
-          <h3 key={user.id}>{user.username}</h3>
-        )}
+        <Header />
+        <h1>The Index of Jams!</h1>
       </div>
     )
   }
