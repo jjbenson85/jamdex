@@ -15,6 +15,10 @@ class UserSchema(ma.ModelSchema, BaseSchema):
         many=True,
         only=('jam_name', 'id'))
 
+    owned_synths = fields.Nested('SynthSchema',
+        many=True,
+        only=('synth_name', 'id'))
+
     class Meta:
         model = User
         exclude = ('password_hash', )

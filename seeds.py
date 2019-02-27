@@ -1,6 +1,7 @@
 from app import app, db
 from models.user import User
 from models.jam import Jam
+from models.synth import Synth
 
 with app.app_context():
     db.drop_all()
@@ -16,5 +17,7 @@ with app.app_context():
     # jam_1 = Jam(jam_name='Super Jam', tempo='120')
     jam_1.save()
 
+    bassic = Synth(synth_name='Bass-ic', jam=jam_1)
+    bassic.save()
 
 print('Seeds sown 🌱')
