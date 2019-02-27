@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import Tone from 'tone'
-import Header from './components/Header'
+import Header from './components/common/Header'
 
 
 import './scss/style.scss'

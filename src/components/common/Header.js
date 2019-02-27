@@ -1,5 +1,7 @@
 import React from 'react'
-import '../scss/header.scss'
+import { Link } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+import '../../scss/header.scss'
 
 
 const Header = (props) => {
@@ -10,12 +12,12 @@ const Header = (props) => {
         <div className="nav-item">Home</div>
       </div>
 
-      
+
 
       {!props.loggedIn &&
           <div className="right">
-            <div className="nav-item">Register</div>
-            <div className="nav-item">Login</div>
+            <Link to="/register" className="nav-item">Register</Link>
+            <Link to="/login" className="nav-item">Login</Link>
           </div>
       }
       {props.loggedIn &&
@@ -27,4 +29,4 @@ const Header = (props) => {
   )
 }
 
-export default Header
+export default withRouter(Header)
