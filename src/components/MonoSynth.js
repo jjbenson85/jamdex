@@ -7,14 +7,13 @@ class MonoSynth extends React.Component {
 
     this.state={
       'oscillator': {
-        'type': 'pwm',
-        'modulationFrequency': 0.2
+        'type': 'sawtooth'
       },
       'envelope': {
-        'attack': 0.52,
-        'decay': 0.1,
-        'sustain': 0.2,
-        'release': 0.9
+        'attack': 0.001,
+        'decay': 0.001,
+        'sustain': 1,
+        'release': 0.001
       },
       'filterEnvelope': {
         'attack': 0.06 ,
@@ -56,7 +55,7 @@ class MonoSynth extends React.Component {
     return (
       <div className='monosynth'>
         <h1>Monosynth</h1>
-        
+
       </div>
     )
   }
