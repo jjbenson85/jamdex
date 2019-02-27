@@ -1,0 +1,34 @@
+{
+  "name": "project-04",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Dextorr/project-04.git",
+  "author": "Dexter De Leon <dexdeleon@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve:react": "webpack-dev-server --mode=development",
+    "serve:flask": "pipenv run flask run -p 4000",
+    "build": "webpack -p",
+    "postinstall": "[ \"$NODE_ENV\" = \"production\" ] && yarn build || exit 0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.2.1"
+  }
+}
