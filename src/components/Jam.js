@@ -199,11 +199,11 @@ class Jam extends React.Component {
           duration={duration}
         />
         <InterfaceBeta
+          handleChange={this.handleChange}
           beats={this.state.owned_synths[0].beats}
           currentBeat={currentBeat}
           currentPitch={this.state.currentPitch}
           playing={this.state.playing}
-          handleChange={this.handleChange}
         />
       </div>
     )
