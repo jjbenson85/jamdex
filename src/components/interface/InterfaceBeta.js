@@ -1,34 +1,21 @@
 import React from 'react'
 
-import noteRangeLookup from '../../lib/noteRangeLookup'
+import RangeInputs from './RangeInputs'
 
-const InterfaceBeta = ({ currentBeat, owned_synths, handleChange, playing }) => {
-
-  return(
-    <div className="column">
-      {owned_synths[0].beats.map((note, i) =>
-        <div key={i} className="bar-container">
-          <div
-            style={
-              { height: `calc((${noteRangeLookup.indexOf(note.pitch)}/36)*100%)`}
-            }
-            className={`inner-bar ${currentBeat===i && playing ? 'current':''}`}
-          >
-          </div>
-          <input
-            type="range"
-            orient="vertical"
-            name="pitch"
-            min="0"
-            max="35"
-            value={noteRangeLookup.indexOf(note.pitch)}
-            onChange={(e) => {
-              handleChange(e, i)
-            }
-            }
-          />
+const InterfaceBeta = ({ currentBeat, currentPitch, playing, handleChange, beats }) => {
+  return (
+    <div className="interfaceBeta">
+      <div className="column">
+        <div className="pitch-display">
+          Pitch <span>{currentPitch}</span>
         </div>
-      )}
+      </div>
+      <RangeInputs
+        currentBeat={currentBeat}
+        beats={beats}
+        playing={playing}
+        handleChange={handleChange}
+      />
     </div>
   )
 }

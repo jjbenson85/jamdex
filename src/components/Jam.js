@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
+
 import InterfaceBeta from './interface/InterfaceBeta'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
