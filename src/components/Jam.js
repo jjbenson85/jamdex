@@ -15,6 +15,7 @@ class Jam extends React.Component {
     super()
 
     this.state={
+      playing: false,
       transport: {
         beat: 0,
         time: 0
@@ -110,7 +111,7 @@ class Jam extends React.Component {
 
     this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.delayedCallback = debounce(this.saveChanges, 250)
+    this.delayedCallback = debounce(this.saveChanges, 2000)
   }
 
   componentDidMount(){
@@ -122,11 +123,13 @@ class Jam extends React.Component {
   }
 
   playSound(){
+    this.setState({ playing: true })
     Tone.Transport.start()
     this.loop.start()
   }
 
   stopSound(){
+    this.setState({ playing: false })
     Tone.Transport.stop()
     this.loop.stop()
   }
@@ -194,7 +197,7 @@ class Jam extends React.Component {
                 style={
                   { height: `calc((${noteRangeLookup.indexOf(note.pitch)}/36)*100%)`}
                 }
-                className={`inner-bar ${currentBeat===i ? 'current':''}`}
+                className={`inner-bar ${currentBeat===i && this.state.playing ? 'current':''}`}
               >
               </div>
               <input
@@ -210,6 +213,7 @@ class Jam extends React.Component {
                 }
                 }
               />
+              <p className="note-val">{note.pitch}</p>
             </div>
           )}
         </div>
