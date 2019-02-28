@@ -10,6 +10,8 @@ const InterfaceAlpha = ({ owned_synths, handleSelect }) => {
         note={note}
         handleSelect={handleSelect}
         i={i}
+        rangeMin="0"
+        rangeMax="35"
       />
     )
   )

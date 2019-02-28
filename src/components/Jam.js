@@ -8,6 +8,7 @@ import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
 
 import InterfaceBeta from './interface/InterfaceBeta'
+import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
 import '../scss/components/InterfaceBeta.scss'
@@ -20,6 +21,7 @@ class Jam extends React.Component {
     this.state={
       playing: false,
       currentPitch: '',
+      currentVelocity: '',
       transport: {
         beat: 0,
         time: 0
@@ -147,16 +149,46 @@ class Jam extends React.Component {
     this.setState({ owned_synths: ownedSynths })
   }
 
-  handleChange(e, i, id){
-    const value = e.target.value
-    const name = e.target.name
-    // const synthToChange = {...this.state.owned_synths[id]}
-    const ownedSynths = [...this.state.owned_synths ]
-    ownedSynths[id].beats[i][name] = noteRangeLookup[value]
-    this.setState({
-      owned_synths: ownedSynths,
-      currentPitch: noteRangeLookup[value]
-    })
+  handleChange(e, i, id, type){
+    function handlePitch(){
+      const value = e.target.value
+      // const name = e.target.name
+      // console.log('name',name)
+
+      // const synthToChange = {...this.state.owned_synths[id]}
+      const ownedSynths = [...this.state.owned_synths ]
+      ownedSynths[id].beats[i][type] = noteRangeLookup[value]
+      this.setState({
+        owned_synths: ownedSynths,
+        currentPitch: noteRangeLookup[value]
+      })
+    }
+    handlePitch = handlePitch.bind(this)
+
+    function handleVelocity(){
+      console.log('handling velocity')
+      const value = e.target.value
+      // const name = e.target.name
+      // console.log('name',name)
+      // const synthToChange = {...this.state.owned_synths[id]}
+      const ownedSynths = [...this.state.owned_synths ]
+      ownedSynths[id].beats[i][type] = value
+      this.setState({
+        owned_synths: ownedSynths,
+        currentVelocity: value
+      })
+    }
+    handleVelocity = handleVelocity.bind(this)
+
+    switch(type){
+      case 'pitch':
+        handlePitch()
+        break
+
+      case 'velocity':
+        handleVelocity()
+        break
+    }
     this.delayedCallback()
   }
 
@@ -177,7 +209,7 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
-  returnInterface(id, name, handleChange, beats, currentBeat, currentPitch, playing){
+  returnInterface(id, name, handleChange, beats, currentBeat, currentPitch, currentVelocity, playing){
     let output
     switch(name){
       case 'MonoSynth':
@@ -189,18 +221,20 @@ class Jam extends React.Component {
           beats={beats}
           currentBeat={currentBeat}
           currentPitch={currentPitch}
+          currentVelocity={currentVelocity}
           playing={playing}
         />
         break
       case 'DrumMachine':
         output =
-        <InterfaceBeta
+        <DrumInterfaceBeta
           key={id}
           id={id}
           handleChange={handleChange}
           beats={beats}
           currentBeat={currentBeat}
           currentPitch={currentPitch}
+          currentVelocity={currentVelocity}
           playing={playing}
         />
         break
@@ -208,7 +242,7 @@ class Jam extends React.Component {
     }
     return output
   }
-  returnInstrument(name, id, time, pitch, duration, beat){
+  returnInstrument(name, id, time, pitch, velocity, duration, beat){
     let output
     switch(name){
       case 'MonoSynth':
@@ -217,6 +251,7 @@ class Jam extends React.Component {
           id={id}
           time={time}
           pitch={pitch}
+          velocity={velocity}
           duration={duration}
           beat={beat}
         />
@@ -228,6 +263,7 @@ class Jam extends React.Component {
           id={id}
           time={time}
           pitch={pitch}
+          velocity={velocity}
           duration={duration}
           beat={beat}
         />
@@ -280,12 +316,13 @@ class Jam extends React.Component {
 
         {synths.map((inst, id) =>{
           const beats = inst.beats.sort((A, B)=> B.step - A.step)
-          const {pitch, duration} = beats[currentBeat]
+          const {pitch, duration, velocity} = beats[currentBeat]
           return this.returnInstrument(
             inst.synth_name,
             id,
             time,
             pitch,
+            velocity,
             duration,
             currentBeat
           )
@@ -299,6 +336,7 @@ class Jam extends React.Component {
             this.state.owned_synths[id].beats,
             currentBeat,
             this.state.currentPitch,
+            this.state.currentVelocity,
             this.state.playing)
         })}
         {/*<InterfaceBeta

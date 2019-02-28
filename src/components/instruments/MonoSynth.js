@@ -35,11 +35,14 @@ class MonoSynth extends React.Component {
   componentDidUpdate(prevProps){
     // console.log('MS', this.props)
     if(prevProps.beat === this.props.beat) return
+    const vel = this.props.velocity/128
     this.synth.triggerAttackRelease(
       this.props.pitch,
       this.props.duration,
-      this.props.time
+      this.props.time,
+      vel
     )
+
   }
 
   componentDidMount(){
