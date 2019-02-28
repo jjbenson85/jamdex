@@ -4,8 +4,8 @@ import debounce from 'lodash/debounce'
 import axios from 'axios'
 
 
-import MonoSynth from './MonoSynth'
-import DrumMachine from './DrumMachine'
+import MonoSynth from './instruments/MonoSynth'
+import DrumMachine from './instruments/DrumMachine'
 import InterfaceBeta from './interface/InterfaceBeta'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
@@ -138,20 +138,20 @@ class Jam extends React.Component {
   }
 
   handleSelect({ target: { value } }, i){
-    const owned_synths = [...this.state.owned_synths]
-    const pitch = owned_synths[0].beats[i].pitch
+    const ownedSynths = [...this.state.owned_synths]
+    const pitch = ownedSynths[0].beats[i].pitch
     if (isNaN(value)) {
-      owned_synths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
-    } else owned_synths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
-    this.setState({ owned_synths })
+      ownedSynths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
+    } else ownedSynths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
+    this.setState({ owned_synths: ownedSynths })
   }
 
   handleChange(e, i){
     const value = e.target.value
     const name = e.target.name
-    const owned_synths = [...this.state.owned_synths]
-    owned_synths[0].beats[i][name] = noteRangeLookup[value]
-    this.setState({ owned_synths, currentPitch: noteRangeLookup[value] })
+    const ownedSynths = [...this.state.owned_synths]
+    ownedSynths[0].beats[i][name] = noteRangeLookup[value]
+    this.setState({ owned_synths: ownedSynths, currentPitch: noteRangeLookup[value] })
     this.delayedCallback()
   }
 
@@ -200,17 +200,8 @@ class Jam extends React.Component {
   }
 
   render(){
-    // console.log('Jam State',this.state.owned_synths[0].beats[0].pitch)
-    // console.log('Jam Beat',this.state.transport.beat)
-    // console.log(this.state.owned_synths[0].beats[this.state.transport.beat].pitch)
-    // console.log('props',this.props)
-    // console.log('state',this.state)
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths
-    // console.log('synths',synths)
-    // const beats = this.state.owned_synths[0].beats
-    // beats.sort((A, B)=> B.step - A.step)
-    // const {pitch, duration} = beats[currentBeat]
     return(
       <div>
         <h1>JAM</h1>
@@ -222,19 +213,6 @@ class Jam extends React.Component {
           return this.returnInstrument( inst.synth_name, i, this.state.transport.time, pitch, duration )
         }
         )}
-        {/*<MonoSynth
-          id="1"
-          time={this.state.transport.time}
-          pitch={pitch}
-          duration={duration}
-        />
-        <DrumMachine
-          id="2"
-          time={this.state.transport.time}
-          pitch={pitch}
-          duration={duration}
-        />*/}
-
         <div className="interfaceBeta">
           <div className="column">
             <div className="pitch-display">
