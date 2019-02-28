@@ -214,19 +214,13 @@ class Jam extends React.Component {
           return this.returnInstrument( inst.synth_name, i, this.state.transport.time, pitch, duration )
         }
         )}
-        <div className="interfaceBeta">
-          <div className="column">
-            <div className="pitch-display">
-              Pitch <span>{this.state.currentPitch}</span>
-            </div>
-          </div>
-          <InterfaceBeta
-            currentBeat={currentBeat}
-            owned_synths={this.state.owned_synths}
-            playing={this.state.playing}
-            handleChange={this.handleChange}
-          />
-        </div>
+        <InterfaceBeta
+          handleChange={this.handleChange}
+          beats={this.state.owned_synths[0].beats}
+          currentBeat={currentBeat}
+          currentPitch={this.state.currentPitch}
+          playing={this.state.playing}
+        />
       </div>
     )
   }
