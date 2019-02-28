@@ -32,7 +32,9 @@ class MonoSynth extends React.Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
+    // console.log('MS', this.props)
+    if(prevProps.beat === this.props.beat) return
     this.synth.triggerAttackRelease(
       this.props.pitch,
       this.props.duration,

@@ -147,12 +147,16 @@ class Jam extends React.Component {
     this.setState({ owned_synths: ownedSynths })
   }
 
-  handleChange(e, i){
+  handleChange(e, i, id){
     const value = e.target.value
     const name = e.target.name
-    const ownedSynths = [...this.state.owned_synths]
-    ownedSynths[0].beats[i][name] = noteRangeLookup[value]
-    this.setState({ owned_synths: ownedSynths, currentPitch: noteRangeLookup[value] })
+    // const synthToChange = {...this.state.owned_synths[id]}
+    const ownedSynths = [...this.state.owned_synths ]
+    ownedSynths[id].beats[i][name] = noteRangeLookup[value]
+    this.setState({
+      owned_synths: ownedSynths,
+      currentPitch: noteRangeLookup[value]
+    })
     this.delayedCallback()
   }
 
@@ -173,7 +177,38 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
-  returnInstrument(name, id, time, pitch, duration){
+  returnInterface(id, name, handleChange, beats, currentBeat, currentPitch, playing){
+    let output
+    switch(name){
+      case 'MonoSynth':
+        output =
+        <InterfaceBeta
+          key={id}
+          id={id}
+          handleChange={handleChange}
+          beats={beats}
+          currentBeat={currentBeat}
+          currentPitch={currentPitch}
+          playing={playing}
+        />
+        break
+      case 'DrumMachine':
+        output =
+        <InterfaceBeta
+          key={id}
+          id={id}
+          handleChange={handleChange}
+          beats={beats}
+          currentBeat={currentBeat}
+          currentPitch={currentPitch}
+          playing={playing}
+        />
+        break
+
+    }
+    return output
+  }
+  returnInstrument(name, id, time, pitch, duration, beat){
     let output
     switch(name){
       case 'MonoSynth':
@@ -183,6 +218,7 @@ class Jam extends React.Component {
           time={time}
           pitch={pitch}
           duration={duration}
+          beat={beat}
         />
         break
 
@@ -193,6 +229,7 @@ class Jam extends React.Component {
           time={time}
           pitch={pitch}
           duration={duration}
+          beat={beat}
         />
         break
 
@@ -203,24 +240,83 @@ class Jam extends React.Component {
   render(){
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths
+    // console.log('STATE',this.state)
+    // console.log('synths',synths)
+
+    const time = this.state.transport.time
+
+    // const beatsA = synths[0].beats.sort((A, B)=> B.step - A.step)
+    // const beatsA = synths[0].beats
+    // const {pitch: pitchA, duration: durationA} = beatsA[currentBeat]
+
+    // const beatsB = synths[1].beats.sort((A, B)=> B.step - A.step)
+    // const beatsB = synths[1].beats
+    // const {pitch: pitchB, duration: durationB} = beatsB[currentBeat]
+
+
+    if(!this.state.owned_synths[1]) return null
     return(
       <div>
         <h1>JAM</h1>
         <button onClick={()=>this.playSound()}>PLAY</button>
         <button onClick={()=>this.stopSound()}>STOP</button>
-        {synths.map((inst, i) =>{
+
+        {/*<MonoSynth
+          id='0'
+          beat={currentBeat}
+          time={time}
+          pitch={pitchA}
+          duration={durationA}
+        />
+
+        <DrumMachine
+          id='1'
+          beat={currentBeat}
+          time={time}
+          pitch={pitchB}
+          duration={durationB}
+        />*/}
+
+
+        {synths.map((inst, id) =>{
           const beats = inst.beats.sort((A, B)=> B.step - A.step)
           const {pitch, duration} = beats[currentBeat]
-          return this.returnInstrument( inst.synth_name, i, this.state.transport.time, pitch, duration )
+          return this.returnInstrument(
+            inst.synth_name,
+            id,
+            time,
+            pitch,
+            duration,
+            currentBeat
+          )
         }
         )}
-        <InterfaceBeta
+        {synths.map((inst, id) => {
+          return this.returnInterface(
+            id,
+            inst.synth_name,
+            this.handleChange,
+            this.state.owned_synths[id].beats,
+            currentBeat,
+            this.state.currentPitch,
+            this.state.playing)
+        })}
+        {/*<InterfaceBeta
+          id="0"
           handleChange={this.handleChange}
           beats={this.state.owned_synths[0].beats}
           currentBeat={currentBeat}
           currentPitch={this.state.currentPitch}
           playing={this.state.playing}
         />
+        <InterfaceBeta
+          id="1"
+          handleChange={this.handleChange}
+          beats={this.state.owned_synths[1].beats}
+          currentBeat={currentBeat}
+          currentPitch={this.state.currentPitch}
+          playing={this.state.playing}
+        />*/}
       </div>
     )
   }
