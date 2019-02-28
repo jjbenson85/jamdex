@@ -6,8 +6,8 @@ import axios from 'axios'
 // import Tone from 'tone'
 import Header from './components/common/Header'
 import Home from './components/Home'
-import Register from './components/Register'
-import Login from './components/Login'
+import Register from './components/auth/Register'
+import Login from './components/auth/Login'
 
 
 import Jam from './components/Jam'
@@ -46,8 +46,6 @@ class App extends React.Component {
         <main>
           <Header />
           <Switch>
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
             <Route path="/jam" component={JamWithProps} />
             <Route path="/" component={Home} />
           </Switch>
