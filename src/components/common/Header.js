@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+
+import Register from '../auth/Register'
+import Login from '../auth/Login'
+
 import '../../scss/header.scss'
 
 
@@ -35,6 +39,9 @@ class Header extends React.Component {
           <div className="nav-item">Log Out</div>
         </div>
         }
+        <Register />
+        <Login />
+
       </header>
     )
   }
