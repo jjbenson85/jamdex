@@ -30,22 +30,24 @@ class DrumMachine extends React.Component {
   componentDidMount(){
     const x = 9
     this.drum = new Tone.Players({
-      'C2': 'wav/sound-'+x+'-1.wav',
-      'C#2': 'wav/sound-'+x+'-2.wav',
-      'D2': 'wav/sound-'+x+'-3.wav',
-      'D#2': 'wav/sound-'+x+'-4.wav',
-      'E2': 'wav/sound-'+x+'-5.wav',
-      'F2': 'wav/sound-'+x+'-6.wav',
-      'F#2': 'wav/sound-'+x+'-7.wav',
-      'G2': 'wav/sound-'+x+'-8.wav',
-      'G#2': 'wav/sound-'+x+'-9.wav',
-      'A2': 'wav/sound-'+x+'-10.wav',
-      'A#2': 'wav/sound-'+x+'-11.wav',
-      'C3': 'wav/sound-'+x+'-12.wav',
-      'C#3': 'wav/sound-'+x+'-13.wav',
-      'D3': 'wav/sound-'+x+'-14.wav',
-      'D#3': 'wav/sound-'+x+'-15.wav',
-      'E3': 'wav/sound-'+x+'-16.wav'
+
+      'C2': 'assets/wav/sound-'+x+'-1.wav',
+      'C#2': 'assets/wav/sound-'+x+'-2.wav',
+      'D2': 'assets/wav/sound-'+x+'-3.wav',
+      'D#2': 'assets/wav/sound-'+x+'-4.wav',
+      'E2': 'assets/wav/sound-'+x+'-5.wav',
+      'F2': 'assets/wav/sound-'+x+'-6.wav',
+      'F#2': 'assets/wav/sound-'+x+'-7.wav',
+      'G2': 'assets/wav/sound-'+x+'-8.wav',
+      'G#2': 'assets/wav/sound-'+x+'-9.wav',
+      'A2': 'assets/wav/sound-'+x+'-10.wav',
+      'A#2': 'assets/wav/sound-'+x+'-11.wav',
+      'C3': 'assets/wav/sound-'+x+'-12.wav',
+      'C#3': 'assets/wav/sound-'+x+'-13.wav',
+      'D3': 'assets/wav/sound-'+x+'-14.wav',
+      'D#3': 'assets/wav/sound-'+x+'-15.wav',
+      'E3': 'assets/wav/sound-'+x+'-16.wav'
+
     }).toMaster()
   }
   render(){
