@@ -45,15 +45,18 @@ with app.app_context():
     # james_jam_1 = Jam(jam_name='Super Jam', tempo='120')
     james_jam_1.save()
 
-    bassic_1 = Synth(synth_name='Bass-ic', jam=james_jam_1)
-    bassic_1.save()
+    MonoSynth = Synth(synth_name='MonoSynth', jam=james_jam_1)
+    MonoSynth.save()
+
+    DrumMachine = Synth(synth_name='DrumMachine', jam=james_jam_1)
+    DrumMachine.save()
 
     dex_jam_1 = Jam(jam_name='Super Dex', created_by=dex)
     # dex_jam_1 = Jam(jam_name='Super Jam', tempo='120')
     dex_jam_1.save()
 
-    bassic_2 = Synth(synth_name='Bass-ic', jam=dex_jam_1)
-    bassic_2.save()
+    # DrumMachine = Synth(synth_name='Bass-ic', jam=dex_jam_1)
+    # DrumMachine.save()
 
     beats = [
         Beat(
@@ -61,112 +64,112 @@ with app.app_context():
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=1,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=2,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=3,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=4,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=5,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=6,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=7,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=8,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=9,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=10,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=11,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=12,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=13,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=14,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         ),
         Beat(
             step=15,
             pitch="C3",
             duration="16n",
             velocity="100",
-            synth=bassic_1
+            synth=MonoSynth
         )
     ]
 
@@ -174,115 +177,115 @@ with app.app_context():
     beats2 = [
         Beat(
             step=0,
-            pitch="D4",
+            pitch="E4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=1,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=2,
-            pitch="D4",
+            pitch="B4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=3,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=4,
-            pitch="D4",
+            pitch="A4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=5,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=6,
-            pitch="D4",
+            pitch="B4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=7,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=8,
-            pitch="D4",
+            pitch="E4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=9,
-            pitch="D4",
+            pitch="E0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=10,
-            pitch="D4",
+            pitch="B4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=11,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=12,
-            pitch="D4",
+            pitch="A4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=13,
-            pitch="D4",
+            pitch="A0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=14,
-            pitch="D4",
+            pitch="B4",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         ),
         Beat(
             step=15,
-            pitch="D4",
+            pitch="B0",
             duration="16n",
             velocity="100",
-            synth=bassic_2
+            synth=DrumMachine
         )
     ]
 

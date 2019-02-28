@@ -5,6 +5,7 @@ import axios from 'axios'
 
 
 import MonoSynth from './MonoSynth'
+import DrumMachine from './DrumMachine'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
 import '../scss/components/InterfaceBeta.scss'
@@ -171,25 +172,69 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
+  returnInstrument(name, id, time, pitch, duration){
+    let output
+    switch(name){
+      case 'MonoSynth':
+        output = <MonoSynth
+          key={id}
+          id={id}
+          time={time}
+          pitch={pitch}
+          duration={duration}
+        />
+        break
+
+      case 'DrumMachine':
+        output =  <DrumMachine
+          key={id}
+          id={id}
+          time={time}
+          pitch={pitch}
+          duration={duration}
+        />
+        break
+
+    }
+    return output
+  }
+
   render(){
     // console.log('Jam State',this.state.owned_synths[0].beats[0].pitch)
     // console.log('Jam Beat',this.state.transport.beat)
     // console.log(this.state.owned_synths[0].beats[this.state.transport.beat].pitch)
+    // console.log('props',this.props)
+    // console.log('state',this.state)
     const currentBeat = this.state.transport.beat
-    const beats = this.state.owned_synths[0].beats
-    beats.sort((A, B)=> B.step - A.step)
-    const {pitch, duration} = beats[currentBeat]
+    const synths = this.props.owned_synths
+    // console.log('synths',synths)
+    // const beats = this.state.owned_synths[0].beats
+    // beats.sort((A, B)=> B.step - A.step)
+    // const {pitch, duration} = beats[currentBeat]
     return(
       <div>
         <h1>JAM</h1>
         <button onClick={()=>this.playSound()}>PLAY</button>
         <button onClick={()=>this.stopSound()}>STOP</button>
-        <MonoSynth
+        {synths.map((inst, i) =>{
+          const beats = inst.beats.sort((A, B)=> B.step - A.step)
+          const {pitch, duration} = beats[currentBeat]
+          return this.returnInstrument( inst.synth_name, i, this.state.transport.time, pitch, duration )
+        }
+        )}
+        {/*<MonoSynth
           id="1"
           time={this.state.transport.time}
           pitch={pitch}
           duration={duration}
         />
+        <DrumMachine
+          id="2"
+          time={this.state.transport.time}
+          pitch={pitch}
+          duration={duration}
+        />*/}
+
         <div className="interfaceBeta">
           {this.state.owned_synths[0].beats.map((note, i) =>
             <div key={i} className="bar-container">
