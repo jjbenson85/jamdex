@@ -5,6 +5,7 @@ import axios from 'axios'
 
 
 import MonoSynth from './MonoSynth'
+import InterfaceBeta from './interface/InterfaceBeta'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
 import '../scss/components/InterfaceBeta.scss'
@@ -16,6 +17,7 @@ class Jam extends React.Component {
 
     this.state={
       playing: false,
+      currentPitch: '',
       transport: {
         beat: 0,
         time: 0
@@ -140,17 +142,15 @@ class Jam extends React.Component {
     if (isNaN(value)) {
       owned_synths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
     } else owned_synths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
-
     this.setState({ owned_synths })
   }
 
   handleChange(e, i){
     const value = e.target.value
     const name = e.target.name
-    console.log('handle hange',value, name)
     const owned_synths = [...this.state.owned_synths]
     owned_synths[0].beats[i][name] = noteRangeLookup[value]
-    this.setState({ owned_synths })
+    this.setState({ owned_synths, currentPitch: noteRangeLookup[value] })
     this.delayedCallback()
   }
 
@@ -191,31 +191,17 @@ class Jam extends React.Component {
           duration={duration}
         />
         <div className="interfaceBeta">
-          {this.state.owned_synths[0].beats.map((note, i) =>
-            <div key={i} className="bar-container">
-              <div
-                style={
-                  { height: `calc((${noteRangeLookup.indexOf(note.pitch)}/36)*100%)`}
-                }
-                className={`inner-bar ${currentBeat===i && this.state.playing ? 'current':''}`}
-              >
-              </div>
-              <input
-                type="range"
-                orient="vertical"
-                name="pitch"
-                min="0"
-                max="35"
-                value={noteRangeLookup.indexOf(note.pitch)}
-                onChange={(e) => {
-                  console.log(e.target.value)
-                  this.handleChange(e, i)
-                }
-                }
-              />
-              <p className="note-val">{note.pitch}</p>
+          <div className="column">
+            <div className="pitch-display">
+              Pitch <span>{this.state.currentPitch}</span>
             </div>
-          )}
+          </div>
+          <InterfaceBeta
+            currentBeat={currentBeat}
+            owned_synths={this.state.owned_synths}
+            playing={this.state.playing}
+            handleChange={this.handleChange}
+          />
         </div>
       </div>
     )
