@@ -2,7 +2,7 @@ import React from 'react'
 
 import RangeInputs from './RangeInputs'
 
-const InterfaceBeta = ({ currentBeat, currentPitch, playing, handleChange, beats }) => {
+const InterfaceBeta = ({ id, currentBeat, currentPitch, playing, handleChange, beats }) => {
   return (
     <div className="interfaceBeta">
       <div className="column">
@@ -14,7 +14,7 @@ const InterfaceBeta = ({ currentBeat, currentPitch, playing, handleChange, beats
         currentBeat={currentBeat}
         beats={beats}
         playing={playing}
-        handleChange={handleChange}
+        handleChange={(e, i) => handleChange(e, i, id)}
       />
     </div>
   )

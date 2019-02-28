@@ -5,13 +5,18 @@ class DrumMachine extends React.Component {
   constructor(){
     super()
   }
-  componentDidUpdate(){
-    console.log('this.props',this.props)
+
+  componentDidUpdate(prevProps){
+    if(prevProps.beat === this.props.beat) return
+
+    // console.log('DM', this.props)
     try{
-      this.drum.get(this.props.pitch).start()
+      this.drum.get(this.props.pitch).start(this.props.time)
     }catch(err){
-      console.log(err)
+      // console.log(err)
     }
+
+
     // this.drum.get(this.props.pitch).start(this.props.time, 0, this.props.duration)
     // this.drum.triggerAttackRelease(
     //   this.props.pitch,
