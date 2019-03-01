@@ -4,7 +4,7 @@ import noteRangeLookup from '../../lib/noteRangeLookup'
 
 import RangeInputs from './RangeInputs'
 
-class InterfaceBeta extends React.Component{
+class DrumInterfaceBeta extends React.Component{
   constructor(){
     super()
     this.state={
@@ -14,6 +14,7 @@ class InterfaceBeta extends React.Component{
   render(){
     const { id, currentBeat, currentPitch, currentVelocity, playing, handleChange, beats } = this.props
     const {display} = this.state
+    // console.log(beats)
     return (
       <div className="interfaceBeta">
         <div className="column">
@@ -29,7 +30,7 @@ class InterfaceBeta extends React.Component{
           playing={playing}
           handleChange={(e, i) => handleChange(e, i, id, 'pitch')}
           rangeMin="0"
-          rangeMax="35"
+          rangeMax="7"
           values={beats.map(note=> noteRangeLookup.indexOf(note.pitch))}
         />}
         {display==='velocity' && <RangeInputs
@@ -41,7 +42,8 @@ class InterfaceBeta extends React.Component{
           values={beats.map(note => note.velocity)}
         />}
       </div>
-    )}
+    )
+  }
 }
 
-export default InterfaceBeta
+export default DrumInterfaceBeta

@@ -7,14 +7,17 @@ class DrumMachine extends React.Component {
   }
 
   componentDidUpdate(prevProps){
+    const level = (this.props.velocity/128)
+    const db = Tone.gainToDb(level)
+    this.drum.volume.value = db
     if(prevProps.beat === this.props.beat) return
 
     // console.log('DM', this.props)
-    try{
-      this.drum.get(this.props.pitch).start(this.props.time)
-    }catch(err){
-      // console.log(err)
-    }
+    this.drum.get(this.props.pitch).start(this.props.time)
+    // try{
+    // }catch(err){
+    //   // console.log(err)
+    // }
 
 
     // this.drum.get(this.props.pitch).start(this.props.time, 0, this.props.duration)
@@ -27,22 +30,24 @@ class DrumMachine extends React.Component {
   componentDidMount(){
     const x = 9
     this.drum = new Tone.Players({
-      'G#4': 'assets/wav/sound-'+x+'-1.wav',
-      'A4': 'assets/wav/sound-'+x+'-2.wav',
-      'B4': 'assets/wav/sound-'+x+'-3.wav',
-      'C5': 'assets/wav/sound-'+x+'-4.wav',
-      'C#4': 'assets/wav/sound-'+x+'-5.wav',
-      'D#4': 'assets/wav/sound-'+x+'-6.wav',
-      'E4': 'assets/wav/sound-'+x+'-7.wav',
-      'F#4': 'assets/wav/sound-'+x+'-8.wav',
-      'G#3': 'assets/wav/sound-'+x+'-9.wav',
-      'A3': 'assets/wav/sound-'+x+'-10.wav',
-      'B3': 'assets/wav/sound-'+x+'-11.wav',
-      'C4': 'assets/wav/sound-'+x+'-12.wav',
+
+      'C2': 'assets/wav/sound-'+x+'-1.wav',
+      'C#2': 'assets/wav/sound-'+x+'-2.wav',
+      'D2': 'assets/wav/sound-'+x+'-3.wav',
+      'D#2': 'assets/wav/sound-'+x+'-4.wav',
+      'E2': 'assets/wav/sound-'+x+'-5.wav',
+      'F2': 'assets/wav/sound-'+x+'-6.wav',
+      'F#2': 'assets/wav/sound-'+x+'-7.wav',
+      'G2': 'assets/wav/sound-'+x+'-8.wav',
+      'G#2': 'assets/wav/sound-'+x+'-9.wav',
+      'A2': 'assets/wav/sound-'+x+'-10.wav',
+      'A#2': 'assets/wav/sound-'+x+'-11.wav',
+      'C3': 'assets/wav/sound-'+x+'-12.wav',
       'C#3': 'assets/wav/sound-'+x+'-13.wav',
-      'D#3': 'assets/wav/sound-'+x+'-14.wav',
-      'E3': 'assets/wav/sound-'+x+'-15.wav',
-      'F#3': 'assets/wav/sound-'+x+'-16.wav'
+      'D3': 'assets/wav/sound-'+x+'-14.wav',
+      'D#3': 'assets/wav/sound-'+x+'-15.wav',
+      'E3': 'assets/wav/sound-'+x+'-16.wav'
+
     }).toMaster()
   }
   render(){
