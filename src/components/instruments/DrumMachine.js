@@ -52,10 +52,7 @@ class DrumMachine extends React.Component {
   }
   render(){
     return (
-      <div className='drummachine'>
-        <h1>DrumMachine</h1>
-
-      </div>
+      null
     )
   }
 }

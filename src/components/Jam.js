@@ -12,6 +12,7 @@ import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
 import '../scss/components/InterfaceBeta.scss'
+import '../scss/components/Jam.scss'
 
 class Jam extends React.Component {
 
@@ -25,98 +26,99 @@ class Jam extends React.Component {
       transport: {
         beat: 0,
         time: 0
-      },
-      owned_synths: [
-        {
-          id: 0,
-          beats: [
-            {
-              beat: 0,
-              pitch: 'F3',
-              duration: '32n'
-            },
-            {
-              beat: 1,
-              pitch: 'A4',
-              duration: '32n'
-            },
-            {
-              beat: 2,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 3,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 4,
-              pitch: 'F3',
-              duration: '32n'
-            },
-            {
-              beat: 5,
-              pitch: 'A4',
-              duration: '32n'
-            },
-            {
-              beat: 6,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 7,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 8,
-              pitch: 'F3',
-              duration: '32n'
-            },
-            {
-              beat: 9,
-              pitch: 'A4',
-              duration: '32n'
-            },
-            {
-              beat: 10,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 11,
-              pitch: 'E4',
-              duration: '32n'
-            },
-            {
-              beat: 12,
-              pitch: 'D4',
-              duration: '32n'
-            },
-            {
-              beat: 13,
-              pitch: 'D4',
-              duration: '32n'
-            },
-            {
-              beat: 14,
-              pitch: 'B4',
-              duration: '32n'
-            },
-            {
-              beat: 15,
-              pitch: 'C4',
-              duration: '32n'
-            }
-          ]
-        }
-      ]
+      }
+      // owned_synths: [
+      //   {
+      //     id: 0,
+      //     beats: [
+      //       {
+      //         beat: 0,
+      //         pitch: 'F3',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 1,
+      //         pitch: 'A4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 2,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 3,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 4,
+      //         pitch: 'F3',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 5,
+      //         pitch: 'A4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 6,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 7,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 8,
+      //         pitch: 'F3',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 9,
+      //         pitch: 'A4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 10,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 11,
+      //         pitch: 'E4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 12,
+      //         pitch: 'D4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 13,
+      //         pitch: 'D4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 14,
+      //         pitch: 'B4',
+      //         duration: '32n'
+      //       },
+      //       {
+      //         beat: 15,
+      //         pitch: 'C4',
+      //         duration: '32n'
+      //       }
+      //     ]
+      //   }
+      // ]
     }
 
     this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.bounce = this.bounce.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
 
@@ -129,6 +131,7 @@ class Jam extends React.Component {
   }
 
   playSound(){
+    console.log('play')
     this.setState({ playing: true })
     Tone.Transport.start()
     this.loop.start()
@@ -191,10 +194,48 @@ class Jam extends React.Component {
     }
     this.delayedCallback()
   }
+  bounce(){
+    // this.setState({exported: true})
+    // console.log('bouncing!', this.state)
+    this.saveChanges(true)
 
-  saveChanges(){
     const state = {...this.state}
-    console.log('About to save', state)
+    delete state.created_at
+    delete state.updated_at
+    delete state.id
+    state.exported = false
+    state.jam_name = 'New Jam'
+    state.owned_synths = state.owned_synths.map((synth)=>{
+      delete synth.created_at
+      delete synth.updated_at
+      delete synth.id
+      return synth
+    })
+    console.log('bounce',state)
+
+    axios({
+      method: 'post',
+      url: 'api/jams',
+      data: {...state},
+      headers: {
+        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTE1Mjc0NDEsImlhdCI6MTU1MTQ0MTA0MSwic3ViIjoxfQ.Y-nCqkWASqJDdpbHnfwZGUHsjT2AonwcKcFEnOYlDX0'
+      }
+    })
+      .then(res => {
+        console.log('RES', res)
+        this.props.updateUser()
+      })
+      .catch(err => console.error(err.message))
+
+
+    // this.props.updateUser()
+  }
+
+
+  saveChanges(exported=false){
+    const state = {...this.state, exported: exported}
+    console.log('About to save')
+
     //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
     delete state.created_at
     delete state.updated_at
@@ -203,8 +244,7 @@ class Jam extends React.Component {
       delete synth.updated_at
       return synth
     })
-    console.log('state',state)
-    axios.put('/api/jams/1',{...state})
+    axios.put(`/api/jams/${this.state.id}`,{...state})
       .then(res => console.log('Saved dat Jam\n', res))
       .catch(err => console.error(err.message))
   }
@@ -274,87 +314,80 @@ class Jam extends React.Component {
   }
 
   render(){
+    if(!this.state.owned_synths) return <h1>Loading...</h1>
+    // console.log('this.state',this.state)
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths
-    // console.log('STATE',this.state)
-    // console.log('synths',synths)
-
     const time = this.state.transport.time
 
-    // const beatsA = synths[0].beats.sort((A, B)=> B.step - A.step)
-    // const beatsA = synths[0].beats
-    // const {pitch: pitchA, duration: durationA} = beatsA[currentBeat]
-
-    // const beatsB = synths[1].beats.sort((A, B)=> B.step - A.step)
-    // const beatsB = synths[1].beats
-    // const {pitch: pitchB, duration: durationB} = beatsB[currentBeat]
-
-
-    if(!this.state.owned_synths[1]) return null
+    const type = this.props.tape ? 'tape': 'jam'
+    console.log('JAM',this.props.id, synths)
     return(
-      <div>
-        <h1>JAM</h1>
-        <button onClick={()=>this.playSound()}>PLAY</button>
-        <button onClick={()=>this.stopSound()}>STOP</button>
-
-        {/*<MonoSynth
-          id='0'
-          beat={currentBeat}
-          time={time}
-          pitch={pitchA}
-          duration={durationA}
-        />
-
-        <DrumMachine
-          id='1'
-          beat={currentBeat}
-          time={time}
-          pitch={pitchB}
-          duration={durationB}
-        />*/}
-
-
-        {synths.map((inst, id) =>{
-          const beats = inst.beats.sort((A, B)=> B.step - A.step)
-          const {pitch, duration, velocity} = beats[currentBeat]
-          return this.returnInstrument(
-            inst.synth_name,
-            id,
-            time,
-            pitch,
-            velocity,
-            duration,
-            currentBeat
-          )
-        }
-        )}
-        {synths.map((inst, id) => {
-          return this.returnInterface(
-            id,
-            inst.synth_name,
-            this.handleChange,
-            this.state.owned_synths[id].beats,
-            currentBeat,
-            this.state.currentPitch,
-            this.state.currentVelocity,
-            this.state.playing)
-        })}
-        {/*<InterfaceBeta
-          id="0"
-          handleChange={this.handleChange}
-          beats={this.state.owned_synths[0].beats}
-          currentBeat={currentBeat}
-          currentPitch={this.state.currentPitch}
-          playing={this.state.playing}
-        />
-        <InterfaceBeta
-          id="1"
-          handleChange={this.handleChange}
-          beats={this.state.owned_synths[1].beats}
-          currentBeat={currentBeat}
-          currentPitch={this.state.currentPitch}
-          playing={this.state.playing}
-        />*/}
+      <div className={type}>
+        {!this.props.tape &&
+        <div className='jam-inner'>
+          {synths.map((inst, id) =>{
+            const beats = inst.beats.sort((A, B)=> B.step - A.step)
+            const {pitch, duration, velocity} = beats[currentBeat]
+            return this.returnInstrument(
+              inst.synth_name,
+              id,
+              time,
+              pitch,
+              velocity,
+              duration,
+              currentBeat
+            )
+          }
+          )}
+          {synths.map((inst, id) => {
+            return this.returnInterface(
+              id,
+              inst.synth_name,
+              this.handleChange,
+              this.state.owned_synths[id].beats,
+              currentBeat,
+              this.state.currentPitch,
+              this.state.currentVelocity,
+              this.state.playing)
+          })}
+          <div className="transport">
+            <div className="left">
+              <div className="">
+                {this.state.jam_name}
+              </div>
+            </div>
+            <div className="center">
+              <button onClick={()=>this.playSound()}>PLAY</button>
+              <button onClick={()=>this.stopSound()}>STOP</button>
+            </div>
+            <div className="right">
+              <button className="Bounce" onClick={this.bounce}>
+                Bounce
+              </button>
+            </div>
+          </div>
+        </div>}
+        {this.props.tape &&
+        <div className='tape-inner'>
+          Tape
+          {synths.map((inst, id) =>{
+            const beats = inst.beats.sort((A, B)=> B.step - A.step)
+            const {pitch, duration, velocity} = beats[currentBeat]
+            return this.returnInstrument(
+              inst.synth_name,
+              id,
+              time,
+              pitch,
+              velocity,
+              duration,
+              currentBeat
+            )
+          }
+          )}
+          <button onClick={()=>this.playSound()}>PLAY</button>
+          <button onClick={()=>this.stopSound()}>STOP</button>
+        </div>}
       </div>
     )
   }

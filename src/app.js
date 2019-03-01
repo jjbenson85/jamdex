@@ -10,6 +10,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 
 
+import Tapes from './components/Tapes'
 import Jam from './components/Jam'
 
 import './scss/style.scss'
@@ -21,23 +22,39 @@ class App extends React.Component {
     this.state= {
 
     }
+    this.updateUser = this.updateUser.bind(this)
   }
-  componentDidMount(){
+  updateUser(){
+    console.log('update user')
     axios.get('/api/users/1')
       .then(res =>{
-        console.log(res.data)
+        console.log('App.js axios res',res.data)
         this.setState({user: res.data})
       } )
+  }
+  componentDidMount(){
+    this.updateUser()
+    // axios.get('/api/users/1')
+    //   .then(res =>{
+    //     console.log(res.data)
+    //     this.setState({user: res.data})
+    //   } )
   }
 
   render(){
     if(!this.state.user) return null
     const jams = this.state.user.created_jams
+    const tapes = jams.slice(0,jams.length-1)
     const currentJam = jams[jams.length-1]
 
     const JamWithProps = () => {
       return (
-        <Jam {...currentJam}/>
+        <Jam {...currentJam} updateUser={this.updateUser}/>
+      )
+    }
+    const TapesWithProps = () => {
+      return (
+        <Tapes tapes={tapes}/>
       )
     }
 
@@ -49,6 +66,7 @@ class App extends React.Component {
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/jam" component={JamWithProps} />
+            <Route path="/tapes" component={TapesWithProps} />
             <Route path="/" component={Home} />
           </Switch>
         </main>

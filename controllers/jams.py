@@ -14,6 +14,22 @@ def index():
     jams = Jam.query.all()
     return jams_schema.jsonify(jams)
 
+@api.route('/jams', methods=['POST'])
+@secure_route
+def create():
+    jam, errors = jam_schema.load(request.get_json())
+    print('request.get_json()', request.get_json())
+
+    if errors:
+        return jsonify(errors), 422
+
+    jam.created_by = g.current_user
+
+    print(jam.owned_synths)
+
+    jam.save()
+    return jam_schema.jsonify(jam), 201
+
 @api.route('/jams/<int:jam_id>', methods=['GET'])
 @secure_route
 def show(jam_id):
