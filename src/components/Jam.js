@@ -199,24 +199,24 @@ class Jam extends React.Component {
     // console.log('bouncing!', this.state)
     this.saveChanges(true)
 
-    const state = {...this.state}
-    delete state.created_at
-    delete state.updated_at
-    delete state.id
-    state.exported = false
-    state.jam_name = 'New Jam'
-    state.owned_synths = state.owned_synths.map((synth)=>{
-      delete synth.created_at
-      delete synth.updated_at
-      delete synth.id
-      return synth
-    })
-    console.log('bounce',state)
+    // const state = {...this.state}
+    // delete state.created_at
+    // delete state.updated_at
+    // delete state.id
+    // state.exported = false
+    // state.jam_name = 'New Jam'
+    // state.owned_synths = state.owned_synths.map((synth)=>{
+    //   delete synth.created_at
+    //   delete synth.updated_at
+    //   delete synth.id
+    //   return synth
+    // })
+    // console.log('bounce',state)
 
     axios({
       method: 'post',
       url: 'api/jams',
-      data: {...state},
+      data: this.state,
       headers: {
         Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTE1Mjc0NDEsImlhdCI6MTU1MTQ0MTA0MSwic3ViIjoxfQ.Y-nCqkWASqJDdpbHnfwZGUHsjT2AonwcKcFEnOYlDX0'
       }

@@ -41,8 +41,9 @@ class App extends React.Component {
   render(){
     if(!this.state.user) return null
     const jams = this.state.user.created_jams
-    const tapes = jams.slice(0,jams.length-1)
-    const currentJam = jams[jams.length-1]
+    jams.sort((A,B)=> B.id - A.id)
+    const tapes = jams.slice(1)
+    const currentJam = jams[0]
 
     const JamWithProps = () => {
       return (
