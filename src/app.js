@@ -6,9 +6,6 @@ import axios from 'axios'
 // import Tone from 'tone'
 import Header from './components/common/Header'
 import Home from './components/Home'
-import Register from './components/auth/Register'
-import Login from './components/auth/Login'
-
 
 import Jam from './components/Jam'
 
