@@ -6,10 +6,14 @@ const Register = ({
   email,
   password,
   password_confirmation,
-  handleChange
+  handleChange,
+  handleSubmit
 }) => {
   return (
-    <form className={`registration ${display ? 'displayed' : ''}`}>
+    <form
+      className={`registration ${display ? 'displayed' : ''}`}
+      onSubmit={(e) => handleSubmit(e, 'register')}
+    >
       <label>Username
         <input
           name="username"
@@ -41,6 +45,7 @@ const Register = ({
           onChange={handleChange}
         />
       </label>
+      <button>Register</button>
     </form>
   )
 }

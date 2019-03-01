@@ -1,8 +1,11 @@
 import React from 'react'
 
-const Login = ({ email, password, handleChange, display }) => {
+const Login = ({ email, password, handleChange, display, handleSubmit }) => {
   return (
-    <form className={`login ${display ? 'displayed' : ''}`}>
+    <form
+      className={`login ${display ? 'displayed' : ''}`}
+      onSubmit={(e) => handleSubmit(e, 'login')}
+    >
       <label>Email
         <input
           name="email"
@@ -19,6 +22,7 @@ const Login = ({ email, password, handleChange, display }) => {
           onChange={handleChange}
         />
       </label>
+      <button>Log In</button>
     </form>
   )
 }

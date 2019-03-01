@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+import axios from 'axios'
 
 import Register from '../auth/Register'
 import Login from '../auth/Login'
+import Auth from '../../lib/Auth'
 
 import '../../scss/header.scss'
 
@@ -28,13 +30,39 @@ class Header extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
-  handleChange({ target: name, value }){
+  logout(){
+    Auth.removeToken()
+    this.setState({ loggedIn: false })
+  }
+
+  handleSubmit(e, form){
+    e.preventDefault()
+    axios.post(`/api/${form}`, this.state.data)
+      .then(res => {
+        if (form === 'login'){
+          Auth.setToken(res.data.token)
+          this.setState({ loggedIn: true, forms: {login: false} })
+        } else console.log(res.data)
+      })
+      .then(() => {
+        if (form === 'register'){
+          this.handleClick('login')
+        }
+      })
+      .catch(err => {
+        console.error(err.message)
+      })
+  }
+
+  handleChange(e){
+    const {name, value} = e.target
     if ((name === 'email' || name === 'username') && value.includes(' ')) return
     const data = { ...this.state.data, [name]: value }
-    const errors = {...this.state.errors, [name]: null}
-    this.setState({ data, errors })
+    this.setState({ data })
   }
 
   handleClick(name){
@@ -53,6 +81,12 @@ class Header extends React.Component {
     this.setState({ forms })
   }
 
+  componentDidMount(){
+    if (Auth.isAuthenticated()) {
+      this.setState({ loggedIn: true })
+    }
+  }
+
   render(){
     return(
       <header>
@@ -62,21 +96,22 @@ class Header extends React.Component {
         </div>
 
         {!this.state.loggedIn &&
-        <div className="right">
-          <a
-            className="nav-item"
-            onClick={() => this.handleClick('register')}
-          >Register</a>
-          <a
-            className="nav-item"
-            onClick={() => this.handleClick('login')}
-          >Login</a>
-        </div>
+          <div className="right">
+            <a
+              className="nav-item"
+              onClick={() => this.handleClick('register')}
+            >Register</a>
+            <a
+              className="nav-item"
+              onClick={() => this.handleClick('login')}
+            >Login</a>
+          </div>
         }
         {this.state.loggedIn &&
-        <div className="right">
-          <div className="nav-item">Log Out</div>
-        </div>
+          <a
+            className="nav-item"
+            onClick={this.logout}
+          >Log Out</a>
         }
         <Register
           display={this.state.forms.register}
@@ -85,12 +120,14 @@ class Header extends React.Component {
           password={this.state.password}
           password_confirmation={this.state.password_confirmation}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
         <Login
           display={this.state.forms.login}
           email={this.state.email}
           password={this.state.password}
           handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
         />
 
       </header>
