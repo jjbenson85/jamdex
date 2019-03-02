@@ -32,12 +32,17 @@ class MonoSynth extends React.Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
+    // console.log('MS', this.props)
+    if(prevProps.beat === this.props.beat) return
+    const vel = this.props.velocity/127
     this.synth.triggerAttackRelease(
       this.props.pitch,
       this.props.duration,
-      this.props.time
+      this.props.time,
+      vel
     )
+
   }
 
   componentDidMount(){
@@ -46,7 +51,7 @@ class MonoSynth extends React.Component {
       envelope: this.state.envelope,
       filterEnvelope: this.state.filterEnvelope
     }).toMaster()
-    console.log('synth settings', this.synth)
+    // console.log('synth settings', this.synth)
   }
 
 
@@ -54,10 +59,7 @@ class MonoSynth extends React.Component {
 
   render(){
     return (
-      <div className='monosynth'>
-        <h1>Monosynth</h1>
-
-      </div>
+      null
     )
   }
 }

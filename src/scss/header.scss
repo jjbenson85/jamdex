@@ -1,8 +1,12 @@
+@import '_vars';
 header{
+  position: fixed;
+  top: 0;
+  height: $header-height;
+  width: 100vw;
+  background: white;
   display: flex;
   justify-content: space-between;
-
-  padding: 20px, 4px, 20px, 4px;
   .nav-item{
     padding: 4px;
     border: 1px solid black;
@@ -10,10 +14,23 @@ header{
   }
   .left, .center, .right{
     display: flex;
-
-    // justify-content: space-between;
   }
-  h1{
 
+  form {
+    position: absolute;
+    width: 100%;
+    background: #ccc;
+    left: 0;
+    top: 3em;
+    height: 4em;
+    display: flex;
+    justify-content: space-around;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+
+    &.displayed {
+      height: 4em;
+    }
   }
 }
