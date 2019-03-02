@@ -27,7 +27,7 @@ def new_jam(user):
         # print(beat['pitch'])
         mono_beat = Beat(
             step=i,
-            pitch="C2",
+            pitch="C3",
             duration="32n",
             velocity="100",
             synth=MonoSynth
@@ -35,7 +35,7 @@ def new_jam(user):
 
         drum_beat = Beat(
             step=i,
-            pitch="C3",
+            pitch="C2",
             duration="32n",
             velocity="100",
             synth=DrumMachine
