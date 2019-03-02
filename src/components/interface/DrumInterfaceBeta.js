@@ -38,7 +38,7 @@ class DrumInterfaceBeta extends React.Component{
           playing={playing}
           handleChange={(e, i) => handleChange(e, i, id, 'velocity')}
           rangeMin="0"
-          rangeMax="128"
+          rangeMax="127"
           values={beats.map(note => note.velocity)}
         />}
       </div>
