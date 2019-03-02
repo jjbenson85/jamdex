@@ -3,6 +3,8 @@ import Tone from 'tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
+import Auth from '../lib/Auth'
+
 
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
@@ -132,15 +134,21 @@ class Jam extends React.Component {
 
   playSound(){
     console.log('play')
-    this.setState({ playing: true })
+    //When played as a tape, tell the tape player we are playing
+    this.props.tape && this.props.playTape()
+
     Tone.Transport.start()
     this.loop.start()
+    this.setState({ playing: true })
   }
 
   stopSound(){
-    this.setState({ playing: false })
+    //When played as a tape, tell the tape player we are not playing
+    this.props.tape && this.props.stopTape()
+
     Tone.Transport.stop()
     this.loop.stop()
+    this.setState({ playing: false })
   }
 
   handleSelect({ target: { value } }, i){
@@ -212,13 +220,13 @@ class Jam extends React.Component {
     //   return synth
     // })
     // console.log('bounce',state)
-
+    const token = Auth.getToken()
     axios({
       method: 'post',
       url: 'api/jams',
       data: this.state,
       headers: {
-        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTE1Mjc0NDEsImlhdCI6MTU1MTQ0MTA0MSwic3ViIjoxfQ.Y-nCqkWASqJDdpbHnfwZGUHsjT2AonwcKcFEnOYlDX0'
+        Authorization: `Bearer ${token}`
       }
     })
       .then(res => {
@@ -385,8 +393,12 @@ class Jam extends React.Component {
             )
           }
           )}
-          <button onClick={()=>this.playSound()}>PLAY</button>
-          <button onClick={()=>this.stopSound()}>STOP</button>
+          {!this.props.disabled &&
+            <div>
+              <button onClick={()=>this.playSound()}>PLAY</button>
+              <button onClick={()=>this.stopSound()}>STOP</button>
+            </div>
+          }
         </div>}
       </div>
     )
