@@ -25,6 +25,7 @@ class Jam extends React.Component {
       playing: false,
       currentPitch: '',
       currentVelocity: '',
+      displaySynth: 0,
       transport: {
         beat: 0,
         time: 0
@@ -233,6 +234,17 @@ class Jam extends React.Component {
       <div className={type}>
         {isJam &&
         <div className='jam-inner'>
+          <div className='tabs'>
+            {synths.map((inst, id) =>
+              <div
+                key={id}
+                className='tab'
+                onClick={()=>this.setState({displaySynth: id})}
+              >
+                {inst.synth_name}
+              </div>
+            )}
+          </div>
           {synths.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> B.step - A.step)
             const {pitch, duration, velocity} = beats[currentBeat]
@@ -248,6 +260,7 @@ class Jam extends React.Component {
           }
           )}
           {synths.map((inst, id) => {
+            if(id!==this.state.displaySynth) return null
             return this.returnInterface(
               id,
               inst.synth_name,
