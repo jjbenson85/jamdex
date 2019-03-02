@@ -3,6 +3,8 @@ import Tone from 'tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
+import Auth from '../lib/Auth'
+
 
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
@@ -27,93 +29,6 @@ class Jam extends React.Component {
         beat: 0,
         time: 0
       }
-      // owned_synths: [
-      //   {
-      //     id: 0,
-      //     beats: [
-      //       {
-      //         beat: 0,
-      //         pitch: 'F3',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 1,
-      //         pitch: 'A4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 2,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 3,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 4,
-      //         pitch: 'F3',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 5,
-      //         pitch: 'A4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 6,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 7,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 8,
-      //         pitch: 'F3',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 9,
-      //         pitch: 'A4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 10,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 11,
-      //         pitch: 'E4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 12,
-      //         pitch: 'D4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 13,
-      //         pitch: 'D4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 14,
-      //         pitch: 'B4',
-      //         duration: '32n'
-      //       },
-      //       {
-      //         beat: 15,
-      //         pitch: 'C4',
-      //         duration: '32n'
-      //       }
-      //     ]
-      //   }
-      // ]
     }
 
     this.handleSelect = this.handleSelect.bind(this)
@@ -132,15 +47,21 @@ class Jam extends React.Component {
 
   playSound(){
     console.log('play')
-    this.setState({ playing: true })
+    //When played as a tape, tell the tape player we are playing
+    this.props.tape && this.props.playTape()
+
     Tone.Transport.start()
     this.loop.start()
+    this.setState({ playing: true })
   }
 
   stopSound(){
-    this.setState({ playing: false })
+    //When played as a tape, tell the tape player we are not playing
+    this.props.tape && this.props.stopTape()
+
     Tone.Transport.stop()
     this.loop.stop()
+    this.setState({ playing: false })
   }
 
   handleSelect({ target: { value } }, i){
@@ -153,7 +74,7 @@ class Jam extends React.Component {
   }
 
   handleChange(e, i, id, type){
-    function handlePitch(){
+    function handlePitchFunc(){
       const value = e.target.value
       // const name = e.target.name
       // console.log('name',name)
@@ -166,9 +87,9 @@ class Jam extends React.Component {
         currentPitch: noteRangeLookup[value]
       })
     }
-    handlePitch = handlePitch.bind(this)
+    const handlePitch = handlePitchFunc.bind(this)
 
-    function handleVelocity(){
+    function handleVelocityFunc(){
       console.log('handling velocity')
       const value = e.target.value
       // const name = e.target.name
@@ -181,7 +102,7 @@ class Jam extends React.Component {
         currentVelocity: value
       })
     }
-    handleVelocity = handleVelocity.bind(this)
+    const handleVelocity = handleVelocityFunc.bind(this)
 
     switch(type){
       case 'pitch':
@@ -194,31 +115,18 @@ class Jam extends React.Component {
     }
     this.delayedCallback()
   }
+
+
   bounce(){
-    // this.setState({exported: true})
-    // console.log('bouncing!', this.state)
     this.saveChanges(true)
 
-    // const state = {...this.state}
-    // delete state.created_at
-    // delete state.updated_at
-    // delete state.id
-    // state.exported = false
-    // state.jam_name = 'New Jam'
-    // state.owned_synths = state.owned_synths.map((synth)=>{
-    //   delete synth.created_at
-    //   delete synth.updated_at
-    //   delete synth.id
-    //   return synth
-    // })
-    // console.log('bounce',state)
-
+    const token = Auth.getToken()
     axios({
       method: 'post',
       url: 'api/jams',
       data: this.state,
       headers: {
-        Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTE1Mjc0NDEsImlhdCI6MTU1MTQ0MTA0MSwic3ViIjoxfQ.Y-nCqkWASqJDdpbHnfwZGUHsjT2AonwcKcFEnOYlDX0'
+        Authorization: `Bearer ${token}`
       }
     })
       .then(res => {
@@ -226,9 +134,6 @@ class Jam extends React.Component {
         this.props.updateUser()
       })
       .catch(err => console.error(err.message))
-
-
-    // this.props.updateUser()
   }
 
 
@@ -320,11 +225,13 @@ class Jam extends React.Component {
     const synths = this.props.owned_synths
     const time = this.state.transport.time
 
-    const type = this.props.tape ? 'tape': 'jam'
+    const isTape = this.props.tape
+    const isJam = !this.props.tape
+    const type = isTape ? 'tape': 'jam'
     // console.log('JAM',this.props.id, synths)
     return(
       <div className={type}>
-        {!this.props.tape &&
+        {isJam &&
         <div className='jam-inner'>
           {synths.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> B.step - A.step)
@@ -368,7 +275,7 @@ class Jam extends React.Component {
             </div>
           </div>
         </div>}
-        {this.props.tape &&
+        {isTape &&
         <div className='tape-inner'>
           Tape
           {synths.map((inst, id) =>{
@@ -385,8 +292,18 @@ class Jam extends React.Component {
             )
           }
           )}
-          <button onClick={()=>this.playSound()}>PLAY</button>
-          <button onClick={()=>this.stopSound()}>STOP</button>
+          {!this.props.disabled &&
+            <div>
+              <button onClick={()=>this.playSound()}>PLAY</button>
+              <button onClick={()=>this.stopSound()}>STOP</button>
+            </div>
+          }
+          {this.props.disabled &&
+            <div>
+              <button disabled>PLAY</button>
+              <button disabled>STOP</button>
+            </div>
+          }
         </div>}
       </div>
     )
