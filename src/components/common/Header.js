@@ -37,6 +37,7 @@ class Header extends React.Component {
   logout(){
     Auth.removeToken()
     this.setState({ loggedIn: false })
+    this.props.updateUser()
   }
 
   handleSubmit(e, form){
@@ -46,6 +47,7 @@ class Header extends React.Component {
         if (form === 'login'){
           Auth.setToken(res.data.token)
           this.setState({ loggedIn: true, forms: {login: false} })
+          this.props.updateUser()
         } else console.log(res.data)
       })
       .then(() => {
@@ -93,6 +95,7 @@ class Header extends React.Component {
         <div className="left">
           <Link to="/" className="nav-item">JamDex</Link>
           <Link to="/jam" className="nav-item">My Jam</Link>
+          <Link to="/tapes" className="nav-item">My Tapes</Link>
         </div>
 
         {!this.state.loggedIn &&

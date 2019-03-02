@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 // import { Redirect } from 'react-router'
 import axios from 'axios'
+import Auth from './lib/Auth'
 // import Tone from 'tone'
 import Header from './components/common/Header'
 import Home from './components/Home'
@@ -22,12 +23,15 @@ class App extends React.Component {
     this.updateUser = this.updateUser.bind(this)
   }
   updateUser(){
-    console.log('update user')
-    axios.get('/api/users/1')
-      .then(res =>{
-        console.log('App.js axios res',res.data)
-        this.setState({user: res.data})
-      } )
+    console.log('update user', Auth.getPayload())
+    const user = Auth.getPayload()
+    if(user){
+      axios.get(`/api/users/${user.sub}`)
+        .then(res =>{
+          console.log('App.js axios res',res.data)
+          this.setState({user: res.data})
+        } )
+    }
   }
   componentDidMount(){
     this.updateUser()
@@ -39,31 +43,46 @@ class App extends React.Component {
   }
 
   render(){
-    if(!this.state.user) return null
-    const jams = this.state.user.created_jams
-    jams.sort((A,B)=> B.id - A.id)
-    const tapes = jams.slice(1)
-    const currentJam = jams[0]
+    const loggedIn = Auth.getPayload().sub
+    const loaded = !!this.state.user
+    const loggedAndLoaded = loggedIn && loaded
 
-    const JamWithProps = () => {
-      return (
-        <Jam {...currentJam} updateUser={this.updateUser}/>
-      )
-    }
-    const TapesWithProps = () => {
-      return (
-        <Tapes tapes={tapes}/>
-      )
+    // if(!this.state.user) return null
+    // console.log('APPA',this.state, loggedIn, loaded, loggedAndLoaded)
+    let JamWithProps
+    let TapesWithProps
+    if(loggedAndLoaded){
+      // console.log('making jam with props')
+      const jams = this.state.user.created_jams
+      jams.sort((A,B)=> B.id - A.id)
+      const tapes = jams.slice(1)
+      const currentJam = jams[0]
+
+      JamWithProps = () => {
+        return (
+          <Jam {...currentJam} updateUser={this.updateUser}/>
+        )
+      }
+      TapesWithProps = () => {
+        return (
+          <Tapes tapes={tapes}/>
+        )
+      }
     }
 
     return(
       <BrowserRouter>
         <main>
-          <Header />
+          <Header updateUser={this.updateUser} />
           <Switch>
-            <Route path="/jam" component={JamWithProps} />
-            <Route path="/tapes" component={TapesWithProps} />
+            {loggedIn &&
+              <Route path="/jam" component={JamWithProps} />
+            }
+            {loggedIn &&
+              <Route path="/tapes" component={TapesWithProps} />
+            }
             <Route path="/" component={Home} />
+
           </Switch>
         </main>
       </BrowserRouter>

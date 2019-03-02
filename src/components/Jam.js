@@ -321,7 +321,7 @@ class Jam extends React.Component {
     const time = this.state.transport.time
 
     const type = this.props.tape ? 'tape': 'jam'
-    console.log('JAM',this.props.id, synths)
+    // console.log('JAM',this.props.id, synths)
     return(
       <div className={type}>
         {!this.props.tape &&
