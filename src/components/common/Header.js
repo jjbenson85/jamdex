@@ -42,6 +42,12 @@ class Header extends React.Component {
 
   handleSubmit(e, form){
     e.preventDefault()
+    const data = {
+      username: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
+    }
     axios.post(`/api/${form}`, this.state.data)
       .then(res => {
         if (form === 'login'){
@@ -54,6 +60,9 @@ class Header extends React.Component {
         if (form === 'register'){
           this.handleClick('login')
         }
+      })
+      .then(() => {
+        this.setState({ data })
       })
       .catch(err => {
         console.error(err.message)
@@ -90,6 +99,7 @@ class Header extends React.Component {
   }
 
   render(){
+    console.table(this.state.data)
     return(
       <header>
         <div className="left">
