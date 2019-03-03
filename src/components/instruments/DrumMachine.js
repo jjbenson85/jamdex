@@ -6,9 +6,11 @@ class DrumMachine extends React.Component {
     super()
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
+    console.log('DRUM UPDATE', this.props, prevProps, this.props===prevProps)
+    if(this.props.time === prevProps.time) return
     this.props.poly.forEach((beat)=>{
-      if(!beat) return
+      // if(!beat) return
       const level = (beat.velocity/127)
       this.sampler.triggerAttack(beat.pitch, this.props.time, level )
       // try{

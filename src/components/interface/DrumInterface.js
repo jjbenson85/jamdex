@@ -16,6 +16,12 @@ class DrumInterface extends React.Component{
   }
 
   matrix(currentBeat, poly){
+    // console.log('poly', poly)
+    poly.sort((A,B)=>A.step-B.step)
+    poly.forEach((step)=>{
+      step.poly_beats.sort((A,B)=>A.voice-B.voice)
+    })
+    // console.log('poly', poly)
     const row = []
     const col = []
     for(let i=0; i<16; i++){

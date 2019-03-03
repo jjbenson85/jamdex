@@ -77,7 +77,22 @@ def update(jam_id):
     jam = Jam.query.get(jam_id)
     if not jam:
         return jsonify({'message': 'Not found'}), 404
+
+
+    json_data = request.get_json()
+
+    class Dictify(object):
+        def __init__(self, data):
+            self.__dict__ = data
+
+
+    jam_state = Dictify(json_data)
+
+    print('jam_state', jam_state.owned_drums[0]['beats'][0]['poly_beats'][0]['voice'])
+
     jam, errors = jam_schema.load(request.get_json(), instance=jam)
+
+
     if errors:
         print(errors)
         return jsonify(errors), 422

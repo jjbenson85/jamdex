@@ -32,9 +32,10 @@ class MonoSynth extends React.Component {
     }
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps){
     // console.log('MS', this.props)
     // if(prevProps.id === this.props.id) return
+    if(this.props.time === prevProps.time) return
     const {pitch, duration, velocity} = this.props.noteInfo
     const vel = velocity/127
     this.synth.triggerAttackRelease(

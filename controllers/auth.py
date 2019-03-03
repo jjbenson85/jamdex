@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from models.user import User, UserSchema
 from models.jam import Jam, JamSchema
 from models.synth import Synth
+from models.drum import Drum
 from models.beat import Beat
 
 api = Blueprint('auth', __name__)
@@ -32,16 +33,26 @@ def new_jam(user):
             velocity="100",
             synth=MonoSynth
         )
-
-        drum_beat = Beat(
-            step=i,
-            pitch="C2",
-            duration="32n",
-            velocity="100",
-            synth=DrumMachine
-        )
         mono_beat.save()
-        drum_beat.save()
+
+    poly_list = []
+    poly_beat_list = []
+    for i in range(16):
+        poly = Poly(step=i, drum=DrumMachine)
+        poly_list.append(poly)
+        for j in range(4):
+            poly_beat = PolyBeat(
+                step=i,
+                voice=j,
+                pitch="C3",
+                duration="16n",
+                velocity="0",
+                poly=poly
+            )
+            poly_beat_list.append(poly_beat)
+
+    db.session.bulk_save_objects(poly_list)
+    db.session.bulk_save_objects(poly_beat_list)
 
 
 @api.route('/register', methods=['POST'])
