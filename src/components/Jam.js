@@ -143,7 +143,7 @@ class Jam extends React.Component {
 
     const toChange = ownedDrums[instId].beats[beat].poly_beats[voice]
     if(toChange[type]=== value){
-      toChange[type] = 0
+      toChange[type] = '0'
     }else{
       toChange[type] = value
     }
