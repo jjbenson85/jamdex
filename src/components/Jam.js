@@ -25,6 +25,7 @@ class Jam extends React.Component {
 
     this.state={
       playing: false,
+      bouncing: false,
       currentPitch: '',
       currentVelocity: '',
       displaySynth: 0,
@@ -201,7 +202,7 @@ class Jam extends React.Component {
 
   bounce(){
     this.saveChanges(true)
-
+    const that = this
     const token = Auth.getToken()
     axios({
       method: 'post',
@@ -213,9 +214,15 @@ class Jam extends React.Component {
     })
       .then(res => {
         console.log('RES', res)
-        this.props.updateUser()
+        console.log(that)
+        Tone.Transport.start()
+        that.loop.start()
+        that.setState({bouncing: true})
+        // this.props.updateUser()
       })
       .catch(err => console.error(err.message))
+
+
   }
 
 
@@ -324,8 +331,14 @@ class Jam extends React.Component {
     const isJam = !this.props.tape
     const type = isTape ? 'tape': 'jam'
     console.log('swing',this.state.swing)
+    const {bouncing} = this.state
+    if(this.state.bouncing && currentBeat===15){
+      Tone.Transport.stop()
+      this.loop.stop()
+      this.props.updateUser()
+    }
     return(
-      <div className={type}>
+      <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
         <div className='jam-inner'>
           <div className='tabs'>
@@ -386,16 +399,19 @@ class Jam extends React.Component {
                 <div className="display">{`${this.state.tempo} BPM`}</div>
                 <button onClick={()=>this.incTempo()}>+</button>
               </div>
-              <div className="item number-control">
+              <div className="ç number-control">
                 <button onClick={()=>this.decSwing()}>-</button>
                 <div className="display">{`${this.state.swing} swing`}</div>
                 <button onClick={()=>this.incSwing()}>+</button>
               </div>
             </div>
             <div className="right">
-              <button className="Bounce" onClick={this.bounce}>
+              {!this.state.playing && <button className="item bounce" onClick={this.bounce}>
                 Bounce
-              </button>
+              </button>}
+              {this.state.playing && <button disabled className="item bounce">
+                Bounce
+              </button>}
             </div>
           </div>
         </div>}

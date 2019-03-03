@@ -2,6 +2,10 @@
 .jam{
   height: 100%;
   background-color: blue;
+  &.bouncing{
+    background-color: grey;
+    pointer-events: none;
+  }
   .tabs{
     background-color: #333;
 
@@ -46,7 +50,7 @@
         margin-left: 4px;
         margin-right: 4px;
       }
-      .center{
+      .center, .left, .right{
         flex-grow: 1;
         border: 1px solid red;
         display: flex;
@@ -55,6 +59,9 @@
           display: flex;
           flex-direction: row;
         }
+      }
+      .left, .right{
+        flex-grow: 1
       }
     }
   }
