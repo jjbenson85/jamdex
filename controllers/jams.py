@@ -38,7 +38,7 @@ def create():
     MonoSynth = Synth(synth_name='MonoSynth', jam=new_jam)
     MonoSynth.save()
 
-    DrumMachine = Synth(synth_name='DrumMachine', jam=new_jam)
+    DrumMachine = Drum(drum_name='DrumMachine', jam=new_jam)
     DrumMachine.save()
 
     for beat in res_mono_beats:

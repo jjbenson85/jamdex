@@ -26,5 +26,9 @@ class JamSchema(ma.ModelSchema, BaseSchema):
         many=True,
         exclude=('jam',))
 
+    owned_drums = fields.Nested('DrumSchema',
+        many=True,
+        exclude=('jam',))
+
     class Meta:
         model = Jam
