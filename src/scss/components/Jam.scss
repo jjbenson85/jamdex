@@ -37,6 +37,25 @@
       display: flex;
       justify-content: space-between;
       padding: 0 2rem;
+      .display{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .item{
+        margin-left: 4px;
+        margin-right: 4px;
+      }
+      .center{
+        flex-grow: 1;
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        .number-control{
+          display: flex;
+          flex-direction: row;
+        }
+      }
     }
   }
 }

@@ -49,7 +49,10 @@ class Jam extends React.Component {
     // this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bounce = this.bounce.bind(this)
-    // this.handlePolyChange = this.handlePolyChange.bind(this)
+    this.incTempo = this.incTempo.bind(this)
+    this.decTempo = this.decTempo.bind(this)
+    this.incSwing = this.incSwing.bind(this)
+    this.decSwing = this.decSwing.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
   isEmpty(obj) {
@@ -64,6 +67,7 @@ class Jam extends React.Component {
     this.setState({...this.props})
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
+      Tone.Transport.bpm.value = this.state.tempo
       that.setState({transport: {beat, time}})
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n')
 
@@ -77,6 +81,33 @@ class Jam extends React.Component {
       })
     })
     this.setState({synths})
+  }
+
+  incTempo(){
+    let tempo = this.state.tempo
+    tempo++
+    Tone.Transport.bpm.value = parseInt(tempo)
+    this.setState({tempo})
+  }
+  decTempo(){
+    let tempo = this.state.tempo
+    tempo--
+    Tone.Transport.bpm.value = parseInt(tempo)
+    this.setState({tempo})
+  }
+  incSwing(){
+    let swing = this.state.swing
+    swing++
+    if(swing>100) swing=100
+    Tone.Transport.swing = parseInt(swing)/100
+    this.setState({swing})
+  }
+  decSwing(){
+    let swing = this.state.swing
+    swing--
+    if(swing<0) swing=0
+    Tone.Transport.swing = parseInt(swing)/100
+    this.setState({swing})
   }
 
   playSound(){
@@ -264,7 +295,7 @@ class Jam extends React.Component {
         break
 
       case 'DrumMachine':
-        console.log('switch',poly)
+        // console.log('switch',poly)
         // poly.sort((A,B)=>A.step-B.step)
         // poly.forEach((step)=>{
         //   step.poly_beats.sort((A,B)=>A.voice-B.voice)
@@ -292,7 +323,7 @@ class Jam extends React.Component {
     const isTape = !!this.props.tape
     const isJam = !this.props.tape
     const type = isTape ? 'tape': 'jam'
-
+    console.log('swing',this.state.swing)
     return(
       <div className={type}>
         {isJam &&
@@ -343,8 +374,23 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="center">
-              <button onClick={()=>this.playSound()}>PLAY</button>
-              <button onClick={()=>this.stopSound()}>STOP</button>
+              <button
+                className="item"
+                onClick={()=>this.playSound()}
+              >PLAY</button>
+              <button
+                className="item"
+                onClick={()=>this.stopSound()}>STOP</button>
+              <div className="item number-control">
+                <button onClick={()=>this.decTempo()}>-</button>
+                <div className="display">{`${this.state.tempo} BPM`}</div>
+                <button onClick={()=>this.incTempo()}>+</button>
+              </div>
+              <div className="item number-control">
+                <button onClick={()=>this.decSwing()}>-</button>
+                <div className="display">{`${this.state.swing} swing`}</div>
+                <button onClick={()=>this.incSwing()}>+</button>
+              </div>
             </div>
             <div className="right">
               <button className="Bounce" onClick={this.bounce}>

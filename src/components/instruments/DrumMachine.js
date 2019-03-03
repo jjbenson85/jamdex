@@ -7,7 +7,7 @@ class DrumMachine extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log('DRUM UPDATE', this.props, prevProps, this.props===prevProps)
+    // console.log('DRUM UPDATE', this.props, prevProps, this.props===prevProps)
     if(this.props.time === prevProps.time) return
     this.props.poly.forEach((beat)=>{
       // if(!beat) return

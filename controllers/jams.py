@@ -35,7 +35,13 @@ def create():
 
     res_mono_beats = jam_state.owned_synths[0]['beats']
 
-    new_jam = Jam(jam_name='New Jam', created_by=g.current_user, exported=False)
+    new_jam = Jam(
+    jam_name='New Jam',
+    created_by=g.current_user,
+    exported=False,
+    tempo=json_data['tempo'],
+    swing=json_data['swing'])
+
     new_jam.save()
 
     MonoSynth = Synth(synth_name='MonoSynth', jam=new_jam)
