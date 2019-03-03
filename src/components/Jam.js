@@ -356,18 +356,15 @@ class Jam extends React.Component {
         {isTape &&
         <div className='tape-inner'>
           Tape
-          {synths.map((inst, id) =>{
-            const beats = inst.beats.sort((A, B)=> B.step - A.step)
+          {instruments.map((inst, id) =>{
+            const beats = inst.beats.sort((A, B)=> A.step - B.step)
+            const noteInfo = beats[currentBeat]
 
-            const {pitch, duration, velocity} = beats[currentBeat]
             return this.returnInstrument(
               inst.synth_name,
               id,
-              time,
-              pitch,
-              velocity,
-              duration,
-              currentBeat
+              noteInfo,
+              time
             )
           }
           )}
