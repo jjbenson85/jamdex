@@ -3,7 +3,7 @@ from models.jam import Jam, JamSchema
 from models.synth import Synth
 from models.beat import Beat
 from lib.secure_route import secure_route
-import json
+# import json
 
 
 jam_schema = JamSchema()
@@ -30,7 +30,7 @@ def create():
     jam_state = Dictify(json_data)
 
     res_mono_beats = jam_state.owned_synths[0]['beats']
-    res_drum_beats = jam_state.owned_synths[1]['beats']
+    # res_drum_beats = jam_state.owned_synths[1]['beats']
 
     new_jam = Jam(jam_name='New Jam', created_by=g.current_user, exported=False)
     new_jam.save()
@@ -38,8 +38,8 @@ def create():
     MonoSynth = Synth(synth_name='MonoSynth', jam=new_jam)
     MonoSynth.save()
 
-    DrumMachine = Drum(drum_name='DrumMachine', jam=new_jam)
-    DrumMachine.save()
+    # DrumMachine = Drum(drum_name='DrumMachine', jam=new_jam)
+    # DrumMachine.save()
 
     for beat in res_mono_beats:
         # print(beat['pitch'])
@@ -52,16 +52,16 @@ def create():
         )
         new_beat.save()
 
-    for beat in res_drum_beats:
-        # print(beat['pitch'])
-        new_beat = Beat(
-            step=beat['step'],
-            pitch=beat['pitch'],
-            duration=beat['duration'],
-            velocity=beat['velocity'],
-            synth=DrumMachine
-        )
-        new_beat.save()
+    # for beat in res_drum_beats:
+    #     # print(beat['pitch'])
+    #     new_beat = Beat(
+    #         step=beat['step'],
+    #         pitch=beat['pitch'],
+    #         duration=beat['duration'],
+    #         velocity=beat['velocity'],
+    #         synth=DrumMachine
+    #     )
+    #     new_beat.save()
 
     return jam_schema.jsonify(new_jam), 201
 
