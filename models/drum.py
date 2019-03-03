@@ -6,7 +6,7 @@ class Drum(db.Model, BaseModel):
 
     __tablename__ = 'drums'
 
-    drum_name = db.Column(db.String(32), nullable=False)
+    synth_name = db.Column(db.String(32), nullable=False)
     # test = db.Column(db.String(32), default="TEST")
 
     # Create owner_id columns from owners id
@@ -20,7 +20,7 @@ class DrumSchema(ma.ModelSchema, BaseSchema):
     jam = fields.Nested('JamSchema',
         exclude=('created_at', 'updated_at',))
 
-    polys = fields.Nested('PolySchema', many=True,
+    beats = fields.Nested('PolySchema', many=True,
         exclude=('created_at', 'updated_at', 'drum'))
         # exclude=('created_at', 'updated_at', 'drum'))
 

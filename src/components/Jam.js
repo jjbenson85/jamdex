@@ -17,6 +17,7 @@ import noteRangeLookup from '../lib/noteRangeLookup'
 import '../scss/components/InterfaceBeta.scss'
 import '../scss/components/Jam.scss'
 
+
 class Jam extends React.Component {
 
   constructor(){
@@ -32,6 +33,7 @@ class Jam extends React.Component {
         time: 0
       },
       poly: []
+
     }
     const poly=[]
     for(let i=0;i<16;i++){
@@ -47,7 +49,7 @@ class Jam extends React.Component {
     // this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bounce = this.bounce.bind(this)
-    this.handlePolyChange = this.handlePolyChange.bind(this)
+    // this.handlePolyChange = this.handlePolyChange.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
   isEmpty(obj) {
@@ -105,81 +107,63 @@ class Jam extends React.Component {
   //   this.setState({ owned_synths: ownedSynths })
   // }
 
-  handleChange(e, i, id, type){
-    function handlePitchFunc(){
-      const value = e.target.value
-      // const name = e.target.name
-      // console.log('name',name)
-
-      // const synthToChange = {...this.state.owned_synths[id]}
-      const ownedSynths = [...this.state.owned_synths ]
-      ownedSynths[id].beats[i][type] = noteRangeLookup[value]
-      this.setState({
-        owned_synths: ownedSynths,
-        currentPitch: noteRangeLookup[value]
-      })
-    }
-    const handlePitch = handlePitchFunc.bind(this)
-
-    function handleVelocityFunc(){
-      console.log('handling velocity')
-      const value = e.target.value
-      // const name = e.target.name
-      // console.log('name',name)
-      // const synthToChange = {...this.state.owned_synths[id]}
-      const ownedSynths = [...this.state.owned_synths ]
-      ownedSynths[id].beats[i][type] = value
-      this.setState({
-        owned_synths: ownedSynths,
-        currentVelocity: value
-      })
-    }
-    const handleVelocity = handleVelocityFunc.bind(this)
+  handleMonoSynthChange(instId, beat, voice, type, value){
+    const ownedSynths = [...this.state.owned_synths ]
+    let changedValue, currentPitch, currentVelocity
 
     switch(type){
       case 'pitch':
-        handlePitch()
+        changedValue = noteRangeLookup[value]
+        currentPitch = changedValue
+        currentVelocity = this.state.currentVelocity
         break
 
       case 'velocity':
-        handleVelocity()
+        changedValue = value
+        currentVelocity = changedValue
+        currentPitch = this.state.currentPitch
         break
+
     }
-    this.delayedCallback()
+
+    ownedSynths[instId].beats[beat][type] = changedValue
+
+    this.setState({
+      owned_synths: ownedSynths,
+      currentPitch,
+      currentVelocity
+    })
+
   }
+  handleDrumMachineChange(instId, beat, voice, type, value){
+    // console.log('instId',instId, 'beat', beat, 'type', 'voice', voice, 'type', type, 'value', value)
 
-  handlePolyChange(e, name, drum, step, pitchNum, velocity, id ){
-    // const {name, drum, step} = e.target
-    const pitch = noteRangeLookup[pitchNum]
-    // console.log(name, drum, step, id)
-    const beat = {
-      pitch,
-      velocity,
-      duration: '16n'
-    }
-    const offBeat = {
-      pitch,
-      velocity:0,
-      duration: '16n'
-    }
-    const synths = [...this.state.synths]
-    const owned_syths = [...this.state.owned_synths]
-    console.log(owned_syths[id].beats)
-    // const synth = [...this.state.synths[id]]
+    //THIS NEEDS TO BE DEEP CLONED
+    const ownedDrums = [...this.state.owned_drums ]
 
-    if(synths[id][step][drum].velocity === 0){
-      synths[id][step][drum] = beat
+    const toChange = ownedDrums[instId].beats[beat].poly_beats[voice]
+    if(toChange[type]=== value){
+      toChange[type] = 0
     }else{
-      synths[id][step][drum] = offBeat
+      toChange[type] = value
+    }
+    toChange['pitch'] = noteRangeLookup[voice]
+
+  }
+  handleChange(instType, instId, beat, voice, type, value){
+    switch(instType){
+      case 'DrumMachine':
+        this.handleDrumMachineChange(instId, beat, voice, type, value)
+        break
+
+      case 'MonoSynth':
+        this.handleMonoSynthChange(instId, beat, voice, type, value)
+        break
+
     }
 
-    this.setState({synths: [...synths]})
     // function handlePitchFunc(){
     //   const value = e.target.value
-    //   // const name = e.target.name
-    //   // console.log('name',name)
-    //
-    //   // const synthToChange = {...this.state.owned_synths[id]}
     //   const ownedSynths = [...this.state.owned_synths ]
     //   ownedSynths[id].beats[i][type] = noteRangeLookup[value]
     //   this.setState({
@@ -192,9 +176,6 @@ class Jam extends React.Component {
     // function handleVelocityFunc(){
     //   console.log('handling velocity')
     //   const value = e.target.value
-    //   // const name = e.target.name
-    //   // console.log('name',name)
-    //   // const synthToChange = {...this.state.owned_synths[id]}
     //   const ownedSynths = [...this.state.owned_synths ]
     //   ownedSynths[id].beats[i][type] = value
     //   this.setState({
@@ -213,8 +194,76 @@ class Jam extends React.Component {
     //     handleVelocity()
     //     break
     // }
-    // this.delayedCallback()
+    this.delayedCallback()
   }
+
+  // handlePolyChange(e, name, drum, step, pitchNum, velocity, id ){
+  //   // const {name, drum, step} = e.target
+  //   const pitch = noteRangeLookup[pitchNum]
+  //   // console.log(name, drum, step, id)
+  //   const beat = {
+  //     pitch,
+  //     velocity,
+  //     duration: '16n'
+  //   }
+  //   const offBeat = {
+  //     pitch,
+  //     velocity:0,
+  //     duration: '16n'
+  //   }
+  //   const synths = [...this.state.synths]
+  //   const owned_syths = [...this.state.owned_synths]
+  //   console.log(owned_syths[id].beats)
+  //   // const synth = [...this.state.synths[id]]
+  //
+  //   if(synths[id][step][drum].velocity === 0){
+  //     synths[id][step][drum] = beat
+  //   }else{
+  //     synths[id][step][drum] = offBeat
+  //   }
+  //
+  //   this.setState({synths: [...synths]})
+  //   // function handlePitchFunc(){
+  //   //   const value = e.target.value
+  //   //   // const name = e.target.name
+  //   //   // console.log('name',name)
+  //   //
+  //   //   // const synthToChange = {...this.state.owned_synths[id]}
+  //   //   const ownedSynths = [...this.state.owned_synths ]
+  //   //   ownedSynths[id].beats[i][type] = noteRangeLookup[value]
+  //   //   this.setState({
+  //   //     owned_synths: ownedSynths,
+  //   //     currentPitch: noteRangeLookup[value]
+  //   //   })
+  //   // }
+  //   // const handlePitch = handlePitchFunc.bind(this)
+  //   //
+  //   // function handleVelocityFunc(){
+  //   //   console.log('handling velocity')
+  //   //   const value = e.target.value
+  //   //   // const name = e.target.name
+  //   //   // console.log('name',name)
+  //   //   // const synthToChange = {...this.state.owned_synths[id]}
+  //   //   const ownedSynths = [...this.state.owned_synths ]
+  //   //   ownedSynths[id].beats[i][type] = value
+  //   //   this.setState({
+  //   //     owned_synths: ownedSynths,
+  //   //     currentVelocity: value
+  //   //   })
+  //   // }
+  //   // const handleVelocity = handleVelocityFunc.bind(this)
+  //   //
+  //   // switch(type){
+  //   //   case 'pitch':
+  //   //     handlePitch()
+  //   //     break
+  //   //
+  //   //   case 'velocity':
+  //   //     handleVelocity()
+  //   //     break
+  //   // }
+  //   // this.delayedCallback()
+  // }
 
 
   bounce(){
@@ -254,14 +303,16 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
+
   returnInterface(id, name, handleChange, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
+
     let output
     switch(name){
       case 'MonoSynth':
         output =
         <InterfaceBeta
           key={id}
-          id={id}
+          id={0}
           handleChange={handleChange}
           beats={beats}
           currentBeat={currentBeat}
@@ -269,12 +320,13 @@ class Jam extends React.Component {
           currentVelocity={currentVelocity}
           playing={playing}
         />
+
         break
       case 'DrumMachine':
         output =
         <DrumInterface
           key={id}
-          id={id}
+          id={0}
           handleChange={(_e, _name, _drum, _step, _pitch, _velocity)=>
             handleChange(_e, _name, _drum, _step, _pitch, _velocity, id )}
           beats={beats}
@@ -284,6 +336,9 @@ class Jam extends React.Component {
           playing={playing}
           poly={poly}
         />
+
+
+        // this.setState({ instrCount })
         // <DrumInterfaceBeta
         //   key={id}
         //   id={id}
@@ -299,18 +354,51 @@ class Jam extends React.Component {
     }
     return output
   }
-  returnInstrument(name, id, time, pitch, velocity, duration, beat, poly){
+  // returnInstrument(name, id, time, pitch, velocity, duration, beat, poly){
+  //   let output
+  //   switch(name){
+  //     case 'MonoSynth':
+  //       output = <MonoSynth
+  //         key={id}
+  //         id={id}
+  //         time={time}
+  //         pitch={pitch}
+  //         velocity={velocity}
+  //         duration={duration}
+  //         beat={beat}
+  //       />
+  //       break
+  //
+  //     case 'DrumMachine':
+  //       output =  <DrumMachine
+  //         key={id}
+  //         id={id}
+  //         // time={time}
+  //         // pitch={pitch}
+  //         // velocity={velocity}
+  //         // duration={duration}
+  //         // beat={beat}
+  //         poly={poly}
+  //       />
+  //       break
+  //
+  //   }
+  //   return output
+  // }
+
+
+  returnInstrument(name, id, noteInfo, time){
+
     let output
     switch(name){
       case 'MonoSynth':
+        output = `${name}, ${id}, ${noteInfo}, ${time}, `
         output = <MonoSynth
           key={id}
           id={id}
           time={time}
-          pitch={pitch}
-          velocity={velocity}
-          duration={duration}
-          beat={beat}
+          noteInfo={noteInfo}
+
         />
         break
 
@@ -318,12 +406,8 @@ class Jam extends React.Component {
         output =  <DrumMachine
           key={id}
           id={id}
-          // time={time}
-          // pitch={pitch}
-          // velocity={velocity}
-          // duration={duration}
-          // beat={beat}
-          poly={poly}
+          time={time}
+          poly={noteInfo.poly_beats}
         />
         break
 
@@ -336,6 +420,8 @@ class Jam extends React.Component {
     // console.log('this.state',this.state)
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths
+    const drums = this.props.owned_drums
+    const instruments = [...synths,...drums]
     const time = this.state.transport.time
 
     const isTape = this.props.tape
@@ -347,7 +433,7 @@ class Jam extends React.Component {
         {isJam &&
         <div className='jam-inner'>
           <div className='tabs'>
-            {synths.map((inst, id) =>
+            {instruments.map((inst, id) =>
               <div
                 key={id}
                 className='tab'
@@ -357,40 +443,43 @@ class Jam extends React.Component {
               </div>
             )}
           </div>
-          {synths.map((inst, id) =>{
+          {instruments.map((inst, id) =>{
             // const poly = []
             // inst.beats.forEach((beat)=> poly[beat.step].push(beat))
             // console.log('poly', poly)
 
-            const poly = this.state.synths[id][currentBeat]
+            // const poly = this.state.synths[id][currentBeat]
+            // const poly =[]
+            // console.log(inst)
             const beats = inst.beats.sort((A, B)=> B.step - A.step)
-            const {pitch, duration, velocity} = beats[currentBeat]
+            // const {pitch, duration, velocity} = beats[currentBeat]
+            const noteInfo = beats[currentBeat]
             return this.returnInstrument(
               inst.synth_name,
               id,
-              time,
-              pitch,
-              velocity,
-              duration,
-              currentBeat,
-              poly
+              noteInfo,
+              time
             )
           }
           )}
           <div className='interface-holder'>
-            {synths.map((inst, id) => {
+            {instruments.map((inst, id) => {
               if(id!==this.state.displaySynth) return null
-              const poly = this.state.synths[id]
+              // const instrId = inst.id
+
+              // console.log('instrId', instrId)
+              // const poly = this.state.synths[id]
               return this.returnInterface(
                 id,
                 inst.synth_name,
-                this.handlePolyChange,
-                this.state.owned_synths[id].beats,
+                this.handleChange,
+                instruments[id].beats,
                 currentBeat,
                 this.state.currentPitch,
                 this.state.currentVelocity,
                 this.state.playing,
-                poly)
+                inst.beats
+              )
             })}
           </div>
           <div className="transport">

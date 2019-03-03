@@ -1,6 +1,6 @@
 import React from 'react'
 
-import noteRangeLookup from '../../lib/noteRangeLookup'
+// import noteRangeLookup from '../../lib/noteRangeLookup'
 import '../../scss/components/DrumInterface.scss'
 
 
@@ -34,17 +34,18 @@ class DrumInterface extends React.Component{
           {col.map((j)=>
             <div
               key={j}
-              className={`pad ${poly[i][j].velocity?'selected':''}`}
-              onClick={(e)=> this.props.handleChange(e, 'DrumMachine', j, i, j, '100')}
+              className={`pad ${poly[i].poly_beats[j].velocity>0?'selected':''}`}
+              onClick={()=>
+                this.props.handleChange('DrumMachine', this.props.id ,i, j, 'velocity', '100')}
             >
             </div>)}
         </div>)}
     </div>
   }
   render(){
-    const { id, currentBeat, currentPitch, currentVelocity, playing, handleChange, beats, poly } = this.props
+    const {currentBeat, poly } = this.props
     // console.log(poly)
-    const {display} = this.state
+    // const {display} = this.state
     return (
       <div className='drum-interface'>
         <div className="synthSkin">

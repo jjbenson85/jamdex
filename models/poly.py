@@ -13,11 +13,11 @@ class Poly(db.Model, BaseModel):
 
     # Make owned_by Creator owned_gifs field?
     # owned_by = db.relationship('Creator', backref='owned_gifs')
-    drum = db.relationship('Drum', backref='polys')
+    drum = db.relationship('Drum', backref='beats')
 
 class PolySchema(ma.ModelSchema, BaseSchema):
     drum = fields.Nested('DrumSchema',
-        only=('drum_name', 'id', 'jam_id'))
+        only=('synth_name', 'id', 'jam_id'))
 
     poly_beats = fields.Nested('PolyBeatSchema', many=True,
         exclude=('created_at', 'updated_at',))

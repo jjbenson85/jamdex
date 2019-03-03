@@ -31,7 +31,9 @@ class InterfaceBeta extends React.Component{
           {display==='pitch' && <RangeInputs
             currentBeat={currentBeat}
             playing={playing}
-            handleChange={(e, i) => handleChange(e, i, id, 'pitch')}
+            // handleChange={(e, i) => handleChange(e, i, id, 'pitch')}
+            handleChange={(e, i) =>
+              handleChange('MonoSynth', id, i, 0, 'pitch', e.target.value)}
             rangeMin="0"
             rangeMax="35"
             values={beats.map(note=> noteRangeLookup.indexOf(note.pitch))}
@@ -39,7 +41,8 @@ class InterfaceBeta extends React.Component{
           {display==='velocity' && <RangeInputs
             currentBeat={currentBeat}
             playing={playing}
-            handleChange={(e, i) => handleChange(e, i, id, 'velocity')}
+            handleChange={(e, i) =>
+              handleChange('MonoSynth', id, i, 0, 'velocity', e.target.value)}
             rangeMin="0"
             rangeMax="127"
             values={beats.map(note => note.velocity)}

@@ -48,7 +48,7 @@ with app.app_context():
     MonoSynth = Synth(synth_name='MonoSynth', jam=james_jam_1)
     MonoSynth.save()
 
-    DrumMachine = Drum(drum_name='DrumMachine', jam=james_jam_1)
+    DrumMachine = Drum(synth_name='DrumMachine', jam=james_jam_1)
     DrumMachine.save()
 
     # MonoSynth2 = Synth(synth_name='MonoSynth', jam=james_jam_2)
@@ -354,7 +354,7 @@ with app.app_context():
                 voice=j,
                 pitch="C3",
                 duration="16n",
-                velocity="100",
+                velocity="0",
                 poly=poly
             )
             poly_beat_list.append(poly_beat)

@@ -6,22 +6,15 @@ class DrumMachine extends React.Component {
     super()
   }
 
-  componentDidUpdate(prevProps){
+  componentDidUpdate(){
     this.props.poly.forEach((beat)=>{
       if(!beat) return
-      const level = (beat.velocity/128)
-      // const db = Tone.gainToDb(level)
-      // this.drum.volume.value = db
-      // if(this.isEmpty(beat)) return
-      // if(!prevProps.poly[i]) return
-      // if(!prevProps.poly[i].beat) return
-      // if(prevProps.poly[i].beat.id === beat.id) return
-      try{
-        // this.drum.get(beat.pitch).start(beat.time)
-        this.sampler.triggerAttack(beat.pitch, beat.time, level )
-      }catch(err){
-        null
-      }
+      const level = (beat.velocity/127)
+      this.sampler.triggerAttack(beat.pitch, this.props.time, level )
+      // try{
+      // }catch(err){
+      //   null
+      // }
     })
     // const level = (this.props.velocity/128)
     // const db = Tone.gainToDb(level)

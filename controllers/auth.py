@@ -19,7 +19,7 @@ def new_jam(user):
     MonoSynth.save()
 
     print('DrumMachine')
-    DrumMachine = Drum(drum_name='DrumMachine', jam=jam)
+    DrumMachine = Drum(synth_name='DrumMachine', jam=jam)
     DrumMachine.save()
 
     print('Beats')
