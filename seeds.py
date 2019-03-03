@@ -60,6 +60,7 @@ with app.app_context():
     mono_beats = [
         Beat(
             step=0,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -67,6 +68,7 @@ with app.app_context():
         ),
         Beat(
             step=1,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -74,6 +76,7 @@ with app.app_context():
         ),
         Beat(
             step=2,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -81,6 +84,7 @@ with app.app_context():
         ),
         Beat(
             step=3,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -88,6 +92,7 @@ with app.app_context():
         ),
         Beat(
             step=4,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -95,6 +100,7 @@ with app.app_context():
         ),
         Beat(
             step=5,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -102,6 +108,7 @@ with app.app_context():
         ),
         Beat(
             step=6,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -109,6 +116,7 @@ with app.app_context():
         ),
         Beat(
             step=7,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -116,6 +124,7 @@ with app.app_context():
         ),
         Beat(
             step=8,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -123,6 +132,7 @@ with app.app_context():
         ),
         Beat(
             step=9,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -130,6 +140,7 @@ with app.app_context():
         ),
         Beat(
             step=10,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -137,6 +148,7 @@ with app.app_context():
         ),
         Beat(
             step=11,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -144,6 +156,7 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -151,6 +164,7 @@ with app.app_context():
         ),
         Beat(
             step=13,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -158,6 +172,7 @@ with app.app_context():
         ),
         Beat(
             step=14,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -165,6 +180,7 @@ with app.app_context():
         ),
         Beat(
             step=15,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -174,6 +190,7 @@ with app.app_context():
     drum_beats = [
         Beat(
             step=0,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -181,6 +198,7 @@ with app.app_context():
         ),
         Beat(
             step=1,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -188,6 +206,7 @@ with app.app_context():
         ),
         Beat(
             step=2,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -195,6 +214,7 @@ with app.app_context():
         ),
         Beat(
             step=3,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -202,6 +222,7 @@ with app.app_context():
         ),
         Beat(
             step=4,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -209,6 +230,7 @@ with app.app_context():
         ),
         Beat(
             step=5,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -216,6 +238,7 @@ with app.app_context():
         ),
         Beat(
             step=6,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -223,6 +246,7 @@ with app.app_context():
         ),
         Beat(
             step=7,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -230,6 +254,7 @@ with app.app_context():
         ),
         Beat(
             step=8,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -237,6 +262,7 @@ with app.app_context():
         ),
         Beat(
             step=9,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -244,6 +270,7 @@ with app.app_context():
         ),
         Beat(
             step=10,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -251,6 +278,7 @@ with app.app_context():
         ),
         Beat(
             step=11,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -258,6 +286,7 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -265,6 +294,7 @@ with app.app_context():
         ),
         Beat(
             step=13,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -272,6 +302,7 @@ with app.app_context():
         ),
         Beat(
             step=14,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -279,9 +310,394 @@ with app.app_context():
         ),
         Beat(
             step=15,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=0,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=1,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=2,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=3,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=4,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=5,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=6,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=7,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=8,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=9,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=10,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=11,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=12,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=13,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=14,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=15,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=0,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=1,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=2,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=3,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=4,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=5,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=6,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=7,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=8,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=9,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=10,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=11,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=12,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=13,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=14,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=15,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=0,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=1,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=2,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=3,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=4,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=5,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=6,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=7,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=8,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=9,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=10,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=11,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=12,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=13,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=14,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine
+        ),
+        Beat(
+            step=15,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
             synth=DrumMachine
         )
     ]
@@ -292,6 +708,7 @@ with app.app_context():
     mono_beats2 = [
         Beat(
             step=0,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -299,6 +716,7 @@ with app.app_context():
         ),
         Beat(
             step=1,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -306,6 +724,7 @@ with app.app_context():
         ),
         Beat(
             step=2,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -313,6 +732,7 @@ with app.app_context():
         ),
         Beat(
             step=3,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -320,6 +740,7 @@ with app.app_context():
         ),
         Beat(
             step=4,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -327,6 +748,7 @@ with app.app_context():
         ),
         Beat(
             step=5,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -334,6 +756,7 @@ with app.app_context():
         ),
         Beat(
             step=6,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -341,6 +764,7 @@ with app.app_context():
         ),
         Beat(
             step=7,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -348,6 +772,7 @@ with app.app_context():
         ),
         Beat(
             step=8,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -355,6 +780,7 @@ with app.app_context():
         ),
         Beat(
             step=9,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -362,6 +788,7 @@ with app.app_context():
         ),
         Beat(
             step=10,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -369,6 +796,7 @@ with app.app_context():
         ),
         Beat(
             step=11,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -376,6 +804,7 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -383,6 +812,7 @@ with app.app_context():
         ),
         Beat(
             step=13,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -390,6 +820,7 @@ with app.app_context():
         ),
         Beat(
             step=14,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -397,6 +828,7 @@ with app.app_context():
         ),
         Beat(
             step=15,
+            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -404,9 +836,140 @@ with app.app_context():
         )
     ]
 
+    # drum_beats2 = [
+    #     Beat(
+    #         step=0,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=1,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=2,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=3,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=4,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=5,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=6,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=7,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=8,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=9,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=10,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=11,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=12,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=13,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=14,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     ),
+    #     Beat(
+    #         step=15,
+    #         poly_id=0,
+    #         pitch="C2",
+    #         duration="16n",
+    #         velocity="100",
+    #         synth=DrumMachine2
+    #     )
+    # ]
     drum_beats2 = [
         Beat(
             step=0,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -414,6 +977,7 @@ with app.app_context():
         ),
         Beat(
             step=1,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -421,6 +985,7 @@ with app.app_context():
         ),
         Beat(
             step=2,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -428,6 +993,7 @@ with app.app_context():
         ),
         Beat(
             step=3,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -435,6 +1001,7 @@ with app.app_context():
         ),
         Beat(
             step=4,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -442,6 +1009,7 @@ with app.app_context():
         ),
         Beat(
             step=5,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -449,6 +1017,7 @@ with app.app_context():
         ),
         Beat(
             step=6,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -456,6 +1025,7 @@ with app.app_context():
         ),
         Beat(
             step=7,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -463,6 +1033,7 @@ with app.app_context():
         ),
         Beat(
             step=8,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -470,6 +1041,7 @@ with app.app_context():
         ),
         Beat(
             step=9,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -477,6 +1049,7 @@ with app.app_context():
         ),
         Beat(
             step=10,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -484,6 +1057,7 @@ with app.app_context():
         ),
         Beat(
             step=11,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -491,6 +1065,7 @@ with app.app_context():
         ),
         Beat(
             step=12,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -498,6 +1073,7 @@ with app.app_context():
         ),
         Beat(
             step=13,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -505,6 +1081,7 @@ with app.app_context():
         ),
         Beat(
             step=14,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
@@ -512,9 +1089,394 @@ with app.app_context():
         ),
         Beat(
             step=15,
+            poly_id=0,
             pitch="C2",
             duration="16n",
             velocity="100",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=0,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=1,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=2,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=3,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=4,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=5,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=6,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=7,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=8,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=9,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=10,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=11,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=12,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=13,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=14,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=15,
+            poly_id=1,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=0,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=1,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=2,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=3,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=4,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=5,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=6,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=7,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=8,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=9,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=10,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=11,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=12,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=13,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=14,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=15,
+            poly_id=2,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=0,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=1,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=2,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=3,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=4,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=5,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=6,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=7,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=8,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=9,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=10,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=11,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=12,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=13,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=14,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
+            synth=DrumMachine2
+        ),
+        Beat(
+            step=15,
+            poly_id=3,
+            pitch="C2",
+            duration="16n",
+            velocity="0",
             synth=DrumMachine2
         )
     ]

@@ -20,11 +20,17 @@
   .jam-inner{
     // margin-top: -$header-height;
     height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    // width: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    .interface-holder{
+      height: 100%;
+      display: flex;
+    }
     .transport{
+      position: absolute;
+      bottom: 0;
       width: 100%;
       height: 40px;
       border: 1px solid black;

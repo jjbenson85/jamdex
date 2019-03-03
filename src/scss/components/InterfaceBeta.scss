@@ -1,5 +1,17 @@
-
-div.interfaceBeta {
+.interfaceBeta{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.synthSkin{
+  border: 1px solid black;
+  width: 50%;
+  height: 25%;
+}
+div.controller {
   cursor: pointer;
   display: flex;
   justify-content: space-around;
