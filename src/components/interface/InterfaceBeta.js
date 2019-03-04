@@ -46,39 +46,50 @@ class InterfaceBeta extends React.Component{
     const {display} = this.state
     return (
       <div className="interfaceBeta">
-        <div className="synthSkin">
-          <button onClick={this.incPreset}>Next</button>
-          <div>{this.state.settings.preset}</div>
-          <button onClick={this.decPreset}>Prev</button>
-        </div>
-        <div className="controller">
-          <div className="column">
-            <div className="pitch-display" onClick={()=>this.setState({display: 'pitch'})} >
-              Pitch <span>{currentPitch}</span>
-            </div>
-            <div className="pitch-display" onClick={()=>this.setState({display: 'velocity'})} >
-              Velocity <span>{currentVelocity}</span>
+        <div className="synth-case">
+          <div className="synth-preset">
+            <h3>PRESET</h3>
+            <div className="synthSkin">
+              <button onClick={this.incPreset}><span>{'>'}</span></button>
+              <div>{this.state.settings.preset}</div>
+              <button onClick={this.decPreset}><span>{'<'}</span></button>
             </div>
           </div>
-          {display==='pitch' && <RangeInputs
-            currentBeat={currentBeat}
-            playing={playing}
-            // handleChange={(e, i) => handleChange(e, i, id, 'pitch')}
-            handleChange={(e, i) =>
-              handleChange('MonoSynth', id, i, 0, 'pitch', e.target.value)}
-            rangeMin="0"
-            rangeMax="35"
-            values={beats.map(note=> noteRangeLookup.indexOf(note.pitch))}
-          />}
-          {display==='velocity' && <RangeInputs
-            currentBeat={currentBeat}
-            playing={playing}
-            handleChange={(e, i) =>
-              handleChange('MonoSynth', id, i, 0, 'velocity', e.target.value)}
-            rangeMin="0"
-            rangeMax="127"
-            values={beats.map(note => note.velocity)}
-          />}
+          <div className="controller">
+            <div className="column">
+              <div
+                className={`pitch-display ${this.state.display === 'pitch' ? 'selected':''}`}
+                onClick={()=>this.setState({display: 'pitch'})}
+              >
+                <h3>Pitch</h3> <span>{currentPitch}</span>
+              </div>
+              <div
+                className={`pitch-display ${this.state.display === 'velocity' ? 'selected':''}`}
+                onClick={()=>this.setState({display: 'velocity'})}
+              >
+                <h3>Velocity</h3> <span>{currentVelocity}</span>
+              </div>
+            </div>
+            {display==='pitch' && <RangeInputs
+              currentBeat={currentBeat}
+              playing={playing}
+              // handleChange={(e, i) => handleChange(e, i, id, 'pitch')}
+              handleChange={(e, i) =>
+                handleChange('MonoSynth', id, i, 0, 'pitch', e.target.value)}
+              rangeMin="0"
+              rangeMax="35"
+              values={beats.map(note=> noteRangeLookup.indexOf(note.pitch))}
+            />}
+            {display==='velocity' && <RangeInputs
+              currentBeat={currentBeat}
+              playing={playing}
+              handleChange={(e, i) =>
+                handleChange('MonoSynth', id, i, 0, 'velocity', e.target.value)}
+              rangeMin="0"
+              rangeMax="127"
+              values={beats.map(note => note.velocity)}
+            />}
+          </div>
         </div>
       </div>
     )

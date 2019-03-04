@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
 
-$label-center: #EA5455;
-$tape-wrap: #2D4059;
-$case-color: rgba(99,169,199,0.6);
-$label-outer: #fff;
+$label-center: purple;
+$tape-wrap: peachpuff;
+$case-color: rgba(0, 169, 5,0.6);
+$label-outer: #ccc;
+$tape-detail: darken($case-color, 20%);
 
 * {
     margin: 0;
@@ -84,7 +85,7 @@ $label-outer: #fff;
     position: absolute;
     width: 28px;
     height: 15px;
-    border: 2px solid #808080;
+    border: 2px solid $tape-detail;
 }
 
 .cassette-locker.L {
@@ -101,7 +102,7 @@ $label-outer: #fff;
     width: 29px;
     height: 29px;
     border-radius: 50%;
-    border: 1px solid #7b7b7b;
+    border: 1px solid $tape-detail;
 }
 
 .filament-stiffner:before {
@@ -140,7 +141,7 @@ $label-outer: #fff;
 .filament-process-wrap:before {
     content: '';
     position: absolute;
-    box-shadow: 0 -4px 0 4px #7b7b7b;
+    box-shadow: 0 -4px 0 4px $tape-detail;
     width: 100%;
     height: 100%;
     transform: perspective(250px) rotateX(20deg);
@@ -151,7 +152,7 @@ $label-outer: #fff;
     top: 48px;
     width: 15px;
     height: 15px;
-    border: 2px solid #7b7b7b;
+    border: 2px solid $tape-detail;
     border-radius: 5px;
     background: white;
 }
@@ -169,7 +170,7 @@ $label-outer: #fff;
     top: 55px;
     width: 15px;
     height: 15px;
-    border: 2px solid #7b7b7b;
+    border: 2px solid $tape-detail;
     background: white;
     border-radius: 50%;
 }
@@ -186,7 +187,7 @@ $label-outer: #fff;
     position: absolute;
     width: 90px;
     height: 23px;
-    box-shadow: 0 -6px 0 2px #7b7b7b;
+    box-shadow: 0 -6px 0 2px $tape-detail;
     background: transparent;
     bottom: -4px;
     left: 8px;
