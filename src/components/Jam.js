@@ -379,7 +379,7 @@ class Jam extends React.Component {
                 <div className="display">{`${this.state.tempo} BPM`}</div>
                 <button onClick={()=>this.incTempo()}>+</button>
               </div>
-              <div className="ç number-control">
+              <div className="number-control">
                 <button onClick={()=>this.decSwing()}>-</button>
                 <div className="display">{`${this.state.swing} swing`}</div>
                 <button onClick={()=>this.incSwing()}>+</button>

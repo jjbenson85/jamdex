@@ -23,6 +23,29 @@
   height: 30%;
   margin: 1rem auto;
   align-items: center;
+
+  button {
+    background: #ccc;
+    outline: none;
+    transition: box-shadow 0.09s ease;
+    width: 2rem;
+
+    &:first-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &:last-child {
+      border-radius: 4px 0 0 4px;
+    }
+
+    &:active {
+      box-shadow: inset 0px 1px 10px 1px #333;
+    }
+
+    span {
+      font-size: 2em;
+    }
+  }
 }
 
 .synthSkin{
@@ -81,6 +104,7 @@ div.controller {
           align-items: center;
           justify-content: center;
           background: #000;
+          border-radius: 0 0 4px 4px;
           font-size: 2em;
           font-family: VT323, monospace;
           color: #f00;

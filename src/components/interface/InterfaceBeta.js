@@ -50,9 +50,9 @@ class InterfaceBeta extends React.Component{
           <div className="synth-preset">
             <h3>PRESET</h3>
             <div className="synthSkin">
-              <button onClick={this.incPreset}>Next</button>
+              <button onClick={this.incPreset}><span>{'>'}</span></button>
               <div>{this.state.settings.preset}</div>
-              <button onClick={this.decPreset}>Prev</button>
+              <button onClick={this.decPreset}><span>{'<'}</span></button>
             </div>
           </div>
           <div className="controller">
