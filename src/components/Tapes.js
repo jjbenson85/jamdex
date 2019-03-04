@@ -1,6 +1,8 @@
 import React from 'react'
 
 import Jam from '../components/Jam'
+import Cassette from './Cassette'
+
 import '../scss/components/Tapes.scss'
 
 
@@ -8,7 +10,8 @@ class Tapes extends React.Component{
   constructor(){
     super()
     this.state = {
-      playing: false
+      playing: false,
+      tapeId: ''
     }
     this.playTape = this.playTape.bind(this)
     this.stopTape = this.stopTape.bind(this)
@@ -23,13 +26,13 @@ class Tapes extends React.Component{
     const disabled = this.props.tapes.map(()=> true)
     disabled[tapeId] = false
     console.log('disabled all tapes except ', tapeId)
-    this.setState({disabled})
+    this.setState({disabled, tapeId, playing: true})
   }
 
   stopTape(){
     const disabled = this.props.tapes.map(()=> false)
     console.log('enabled all tapes')
-    this.setState({disabled})
+    this.setState({disabled, tapeId: '', playing: false})
   }
 
 
@@ -41,18 +44,26 @@ class Tapes extends React.Component{
     return(
       <section className='tapes'>
         <h1>Tapes</h1>
-        {this.props.tapes.map((tape, i)=>{
-          return(
-            <Jam
-              key={i}
-              {...tape}
-              tape={true}
-              disabled={this.state.disabled[i]}
-              playTape={()=>this.playTape(i)}
-              stopTape={this.stopTape}
-            />
-          )
-        })}
+        <div className="tape-container">
+          {this.props.tapes.map((tape, i)=>{
+            return(
+              <div key={i} className="tape-div">
+                <Cassette
+                  playing={this.state.playing}
+                  current={this.state.tapeId}
+                  tapeId={i}
+                />
+                <Jam
+                  {...tape}
+                  tape={true}
+                  disabled={this.state.disabled[i]}
+                  playTape={()=>this.playTape(i)}
+                  stopTape={this.stopTape}
+                />
+              </div>
+            )
+          })}
+        </div>
       </section>
     )
   }

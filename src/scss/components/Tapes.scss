@@ -1,4 +1,13 @@
 @import '../_vars';
+
+.tape-container{
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+}
+
 .tapes{
   padding: 20px;
 }

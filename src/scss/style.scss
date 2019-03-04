@@ -1,5 +1,6 @@
 @import '_vars';
 @import '_inputrange';
+@import url('https://fonts.googleapis.com/css?family=VT323');
 
 $red: #f00;
 
@@ -12,8 +13,13 @@ body {
   padding-top: $header-height;
 }
 
+a {
+  text-decoration: none;
+}
+
 h1 {
   color: $red;
+  font-family: VT323, monospace;
 }
 
 main {
