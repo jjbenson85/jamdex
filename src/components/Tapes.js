@@ -47,20 +47,14 @@ class Tapes extends React.Component{
         <div className="tape-container">
           {this.props.tapes.map((tape, i)=>{
             return(
-              <div key={i} className="tape-div">
-                <Cassette
-                  playing={this.state.playing}
-                  current={this.state.tapeId}
-                  tapeId={i}
-                />
-                <Jam
-                  {...tape}
-                  tape={true}
-                  disabled={this.state.disabled[i]}
-                  playTape={()=>this.playTape(i)}
-                  stopTape={this.stopTape}
-                />
-              </div>
+              <Jam
+                key={i}
+                {...tape}
+                tape={true}
+                disabled={this.state.disabled[i]}
+                playTape={()=>this.playTape(i)}
+                stopTape={this.stopTape}
+              />
             )
           })}
         </div>

@@ -5,7 +5,7 @@ import '../scss/components/Cassette.scss'
 class Cassette extends React.Component {
 
   render(){
-    const playing = this.props.playing && this.props.tapeId === this.props.current
+    const playing = this.props.playing
     return (
       <div className="cassette-wrap">
         <span className="screw"></span>
@@ -29,7 +29,11 @@ class Cassette extends React.Component {
           <div className="circular-container R"></div>
 
           <div className="cassette-cover-sticker">
-            <input className="cassette-name" value={this.props.tape} />
+            <input
+              className="cassette-name"
+              value={this.props.label}
+              onChange={this.props.onChange}
+            />
             <div className="tape-level-wrap">
               <div className={`filament L ${playing ? 'playing':''}`}>
                 <div className={`hub ${playing ? 'playing':''}`}>
