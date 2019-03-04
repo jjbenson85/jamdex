@@ -4,18 +4,19 @@ import Tapes from './Tapes'
 
 import axios from 'axios'
 
-class Home extends React.Component{
+class Jamdex extends React.Component{
   componentDidMount(){
     console.log('mounted')
     axios.get('/api/jams')
       .then(res =>{
+        // console.log('res',res.data)
         this.setState({jams: res.data})
       } )
   }
   render(){
     if(!this.state) return null
     const jams = this.state.jams
-    console.log('JAM DEX jams',jams)
+    // console.log('JAM DEX jams',jams)
     jams.sort((A,B)=> B.id - A.id)
     // const tapes = jams.slice(1)
     return(
@@ -24,4 +25,4 @@ class Home extends React.Component{
   }
 }
 
-export default Home
+export default Jamdex
