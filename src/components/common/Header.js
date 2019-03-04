@@ -105,8 +105,9 @@ class Header extends React.Component {
       <header>
         <div className="left">
           <Link to="/jamdex" className="nav-item"><h1>JamDex</h1></Link>
-          <Link to="/jam" className="nav-item">My Jam</Link>
-          <Link to="/tapes" className="nav-item">My Tapes</Link>
+          {this.state.loggedIn &&<Link to="/jam" className="nav-item">My Jam</Link>}
+          {this.state.loggedIn &&<Link to="/tapes" className="nav-item">My Tapes</Link>}
+          {!this.state.loggedIn &&<Link to="/" className="nav-item">Demo Jam</Link>}
         </div>
 
         {!this.state.loggedIn &&

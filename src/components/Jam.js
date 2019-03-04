@@ -51,7 +51,8 @@ class Jam extends React.Component {
 
 
   componentDidMount(){
-    this.setState({...this.props})
+    const loggedIn = Auth.isAuthenticated()
+    this.setState({...this.props, loggedIn})
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
       Tone.Transport.bpm.value = this.state.tempo
@@ -315,6 +316,7 @@ class Jam extends React.Component {
       this.loop.stop()
       this.props.updateUser()
     }
+    const loggedIn = this.state.loggedIn
     return(
       <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
@@ -386,12 +388,14 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-              {!this.state.playing && <button className="item bounce" onClick={this.bounce}>
+
+              {loggedIn && !this.state.playing && <button className="item bounce" onClick={this.bounce}>
                 Bounce
               </button>}
-              {this.state.playing && <button disabled className="item bounce">
+              {loggedIn && this.state.playing && <button disabled className="item bounce">
                 Bounce
               </button>}
+              {!loggedIn && <div>Login To Save!</div>}
             </div>
           </div>
         </div>}
