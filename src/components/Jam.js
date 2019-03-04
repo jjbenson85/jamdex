@@ -10,11 +10,11 @@ import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
 
 import InterfaceBeta from './interface/InterfaceBeta'
-import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
+// import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
 import DrumInterface from './interface/DrumInterface'
 import noteRangeLookup from '../lib/noteRangeLookup'
 
-import '../scss/components/InterfaceBeta.scss'
+// import '../scss/components/InterfaceBeta.scss'
 import '../scss/components/Jam.scss'
 
 
@@ -36,16 +36,16 @@ class Jam extends React.Component {
       poly: []
 
     }
-    const poly=[]
-    for(let i=0;i<16;i++){
-      const arr = []
-      for(let j=0;j<4;j++){
-        arr.push(j)
-      }
-      poly.push(arr)
-    }
-
-    this.state.poly = poly
+    // const poly=[]
+    // for(let i=0;i<16;i++){
+    //   const arr = []
+    //   for(let j=0;j<4;j++){
+    //     arr.push(j)
+    //   }
+    //   poly.push(arr)
+    // }
+    //
+    // this.state.poly = poly
 
     // this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -54,15 +54,16 @@ class Jam extends React.Component {
     this.decTempo = this.decTempo.bind(this)
     this.incSwing = this.incSwing.bind(this)
     this.decSwing = this.decSwing.bind(this)
+    this.updateSynthSettings = this.updateSynthSettings.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
-  isEmpty(obj) {
-    for(var key in obj) {
-      if(obj.hasOwnProperty(key))
-        return false
-    }
-    return true
-  }
+  // isEmpty(obj) {
+  //   for(var key in obj) {
+  //     if(obj.hasOwnProperty(key))
+  //       return false
+  //   }
+  //   return true
+  // }
 
   componentDidMount(){
     this.setState({...this.props})
@@ -73,15 +74,15 @@ class Jam extends React.Component {
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n')
 
 
-    const synths = []
-    this.props.owned_synths.forEach((synth,i) =>{
-      const poly = this.state.poly.map((step)=> step.map(()=> null))
-      synths.push(poly)
-      synth.beats.forEach((beat)=> {
-        synths[i][beat.step][beat.poly_id] = beat
-      })
-    })
-    this.setState({synths})
+    // const synths = []
+    // this.props.owned_synths.forEach((synth,i) =>{
+    //   const poly = this.state.poly.map((step)=> step.map(()=> null))
+    //   synths.push(poly)
+    //   synth.beats.forEach((beat)=> {
+    //     synths[i][beat.step][beat.poly_id] = beat
+    //   })
+    // })
+    // this.setState({synths})
   }
 
   incTempo(){
@@ -170,6 +171,15 @@ class Jam extends React.Component {
   handleDrumMachineChange(instId, beat, voice, type, value){
     // console.log('instId',instId, 'beat', beat, 'type', 'voice', voice, 'type', type, 'value', value)
 
+    // const synths = []
+    // this.props.owned_synths.forEach((synth,i) =>{
+    //   const poly = this.state.poly.map((step)=> step.map(()=> null))
+    //   synths.push(poly)
+    //   synth.beats.forEach((beat)=> {
+    //     synths[i][beat.step][beat.poly_id] = beat
+    //   })
+    // })
+    // this.setState({synths})
     //THIS NEEDS TO BE DEEP CLONED?
     const ownedDrums = [...this.state.owned_drums ]
 
@@ -214,7 +224,6 @@ class Jam extends React.Component {
     })
       .then(res => {
         console.log('RES', res)
-        console.log(that)
         Tone.Transport.start()
         that.loop.start()
         that.setState({bouncing: true})
@@ -249,8 +258,13 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
-
-  returnInterface(id, name, handleChange, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
+  updateSynthSettings(id, obj){
+    console.log('updateSynthSettings',id, obj)
+    const owned_synths = [...this.state.owned_synths]
+    owned_synths[id].settings = {...obj}
+    this.setState({owned_synths})
+  }
+  returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
 
     let output
     switch(name){
@@ -260,6 +274,7 @@ class Jam extends React.Component {
           key={id}
           id={0}
           handleChange={handleChange}
+          updateSettings={(obj)=>updateSettings(id, obj)}
           beats={beats}
           currentBeat={currentBeat}
           currentPitch={currentPitch}
@@ -287,7 +302,7 @@ class Jam extends React.Component {
     return output
   }
 
-  returnInstrument(name, id, noteInfo, time){
+  returnInstrument(name, id, noteInfo, time, settings){
     let output
     const poly = noteInfo
     switch(name){
@@ -298,6 +313,7 @@ class Jam extends React.Component {
           id={id}
           time={time}
           noteInfo={noteInfo}
+          settings={settings}
         />
         break
 
@@ -330,7 +346,6 @@ class Jam extends React.Component {
     const isTape = !!this.props.tape
     const isJam = !this.props.tape
     const type = isTape ? 'tape': 'jam'
-    console.log('swing',this.state.swing)
     const {bouncing} = this.state
     if(this.state.bouncing && currentBeat===15){
       Tone.Transport.stop()
@@ -360,7 +375,8 @@ class Jam extends React.Component {
               inst.synth_name,
               id,
               noteInfo,
-              time
+              time,
+              inst.settings
             )
           }
           )}
@@ -371,6 +387,7 @@ class Jam extends React.Component {
                 id,
                 inst.synth_name,
                 this.handleChange,
+                this.updateSynthSettings,
                 instruments[id].beats,
                 currentBeat,
                 this.state.currentPitch,

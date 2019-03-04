@@ -4,6 +4,7 @@ from models.jam import Jam
 from models.synth import Synth
 from models.drum import Drum
 from models.beat import Beat
+from models.synth_setting import SynthSetting
 from models.poly import Poly
 from models.poly_beat import PolyBeat
 
@@ -59,11 +60,12 @@ with app.app_context():
     #
     # dex_jam_1 = Jam(jam_name='Super Dex', created_by=dex)
     # dex_jam_1.save()
-
+    synth_setting = SynthSetting(preset=0, synth=MonoSynth)
+    synth_setting.save()
+    
     mono_beats = [
         Beat(
             step=0,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -71,7 +73,6 @@ with app.app_context():
         ),
         Beat(
             step=1,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -79,7 +80,6 @@ with app.app_context():
         ),
         Beat(
             step=2,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -87,7 +87,6 @@ with app.app_context():
         ),
         Beat(
             step=3,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -95,7 +94,6 @@ with app.app_context():
         ),
         Beat(
             step=4,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -103,7 +101,6 @@ with app.app_context():
         ),
         Beat(
             step=5,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -111,7 +108,6 @@ with app.app_context():
         ),
         Beat(
             step=6,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -119,7 +115,6 @@ with app.app_context():
         ),
         Beat(
             step=7,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -127,7 +122,6 @@ with app.app_context():
         ),
         Beat(
             step=8,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -135,7 +129,6 @@ with app.app_context():
         ),
         Beat(
             step=9,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -143,7 +136,6 @@ with app.app_context():
         ),
         Beat(
             step=10,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -151,7 +143,6 @@ with app.app_context():
         ),
         Beat(
             step=11,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -159,7 +150,6 @@ with app.app_context():
         ),
         Beat(
             step=12,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -167,7 +157,6 @@ with app.app_context():
         ),
         Beat(
             step=13,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -175,7 +164,6 @@ with app.app_context():
         ),
         Beat(
             step=14,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
@@ -183,7 +171,6 @@ with app.app_context():
         ),
         Beat(
             step=15,
-            poly_id=0,
             pitch="C3",
             duration="16n",
             velocity="100",
