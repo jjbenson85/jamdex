@@ -7,7 +7,7 @@ import Register from '../auth/Register'
 import Login from '../auth/Login'
 import Auth from '../../lib/Auth'
 
-import '../../scss/header.scss'
+import '../../scss/components/header.scss'
 
 
 class Header extends React.Component {
@@ -52,7 +52,8 @@ class Header extends React.Component {
       .then(res => {
         if (form === 'login'){
           Auth.setToken(res.data.token)
-          this.setState({ loggedIn: true, forms: {login: false} })
+          const forms = { login: false, register: false }
+          this.setState({ loggedIn: true, forms })
           this.props.updateUser()
         } else console.log(res.data)
       })
@@ -103,7 +104,7 @@ class Header extends React.Component {
     return(
       <header>
         <div className="left">
-          <Link to="/" className="nav-item">JamDex</Link>
+          <Link to="/" className="nav-item"><h1>JamDex</h1></Link>
           <Link to="/jam" className="nav-item">My Jam</Link>
           <Link to="/tapes" className="nav-item">My Tapes</Link>
         </div>
@@ -121,10 +122,12 @@ class Header extends React.Component {
           </div>
         }
         {this.state.loggedIn &&
-          <a
-            className="nav-item"
-            onClick={this.logout}
-          >Log Out</a>
+          <div className="right">
+            <a
+              className="nav-item"
+              onClick={this.logout}
+            >Log Out</a>
+          </div>
         }
         <Register
           display={this.state.forms.register}

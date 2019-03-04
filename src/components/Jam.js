@@ -13,6 +13,7 @@ import InterfaceBeta from './interface/InterfaceBeta'
 // import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
 import DrumInterface from './interface/DrumInterface'
 import noteRangeLookup from '../lib/noteRangeLookup'
+import Cassette from './Cassette'
 
 // import '../scss/components/InterfaceBeta.scss'
 import '../scss/components/Jam.scss'
@@ -55,15 +56,15 @@ class Jam extends React.Component {
     this.incSwing = this.incSwing.bind(this)
     this.decSwing = this.decSwing.bind(this)
     this.updateSynthSettings = this.updateSynthSettings.bind(this)
+    this.handleLabel = this.handleLabel.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
-  // isEmpty(obj) {
-  //   for(var key in obj) {
-  //     if(obj.hasOwnProperty(key))
-  //       return false
-  //   }
-  //   return true
-  // }
+
+  handleLabel(e){
+    this.setState({ jam_name: e.target.value })
+    this.delayedCallback()
+  }
+
 
   componentDidMount(){
     this.setState({...this.props})
@@ -435,6 +436,11 @@ class Jam extends React.Component {
         {isTape &&
         <div className='tape-inner'>
           Tape
+          <Cassette
+            label={this.state.jam_name}
+            onChange={this.handleLabel}
+            playing={this.state.playing}
+          />
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]

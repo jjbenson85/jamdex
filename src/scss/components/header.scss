@@ -1,4 +1,4 @@
-@import '_vars';
+@import '../_vars';
 header{
   position: fixed;
   top: 0;
@@ -8,12 +8,17 @@ header{
   display: flex;
   justify-content: space-between;
   .nav-item{
-    padding: 4px;
+    padding: 1% 3%;
     border: 1px solid black;
-    margin: 4px;
+    margin: 1%;
+
+    h1{
+      margin: 0;
+    }
   }
   .left, .center, .right{
     display: flex;
+    margin: 0 2%;
   }
 
   form {
