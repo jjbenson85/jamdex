@@ -1,27 +1,35 @@
 import React from 'react'
 
-// import noteRangeLookup from '../../lib/noteRangeLookup'
+import Pad from '../controls/Pad'
 import '../../scss/components/DrumInterface.scss'
-
-
-
-// import RangeInputs from './RangeInputs'
 
 class DrumInterface extends React.Component{
   constructor(){
     super()
     this.state={
-      display: 'pitch'
+      display: 'pitch',
+      selectedVelocity: '100'
     }
+    this.handleHard = this.handleHard.bind(this)
+    this.handleMedium = this.handleMedium.bind(this)
+    this.handleSoft = this.handleSoft.bind(this)
+  }
+
+  handleHard(){
+    this.setState({selectedVelocity: '100'})
+  }
+  handleMedium(){
+    this.setState({selectedVelocity: '70'})
+  }
+  handleSoft(){
+    this.setState({selectedVelocity: '30'})
   }
 
   matrix(currentBeat, poly){
-    // console.log('poly', poly)
     poly.sort((A,B)=>A.step-B.step)
     poly.forEach((step)=>{
       step.poly_beats.sort((A,B)=>A.voice-B.voice)
     })
-    // console.log('poly', poly)
     const row = []
     const col = []
     for(let i=0; i<16; i++){
@@ -32,33 +40,48 @@ class DrumInterface extends React.Component{
     }
 
     return <div className='matrix'>
-      {row.map((i)=>
-        <div
+      {row.map((i)=>{
+        const current = (i===currentBeat) && this.props.playing
+        return <div
           key={i}
-          className={`col ${i===currentBeat?'current':''}`}
+          // className={`col ${i===currentBeat?'current':''}`}
         >
-          {col.map((j)=>
-            <div
+          {col.map((j)=>{
+            const velocity = poly[i].poly_beats[j].velocity
+            const selected = velocity>0
+            return <Pad
               key={j}
-              className={`pad ${poly[i].poly_beats[j].velocity>0?'selected':''}`}
+              selected={selected}
+              current={current}
+              velocity={velocity}
               onClick={()=>
-                this.props.handleChange('DrumMachine', this.props.id ,i, j, 'velocity', '100')}
-            >
-            </div>)}
-        </div>)}
+                this.props.handleChange(
+                  'DrumMachine',
+                  this.props.id,
+                  i,
+                  j,
+                  'velocity',
+                  this.state.selectedVelocity
+                )}
+            />
+          }
+          )}
+        </div>
+      }
+      )}
     </div>
   }
   render(){
     const {currentBeat, poly } = this.props
-    // console.log(poly)
-    // const {display} = this.state
     return (
       <div className='drum-interface'>
-        <div className="synthSkin">
+        <div className='synth-skin'>
+          <Pad current={this.state.selectedVelocity==='100'} velocity='100' onClick={this.handleHard}/>
+          <Pad current={this.state.selectedVelocity==='70'} velocity='70' onClick={this.handleMedium}/>
+          <Pad current={this.state.selectedVelocity==='30'} velocity='30' onClick={this.handleSoft}/>
         </div>
-        <div className="controller">
+        <div className='controller'>
           {this.matrix(currentBeat, poly)}
-
         </div>
       </div>
     )

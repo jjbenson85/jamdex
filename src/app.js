@@ -85,13 +85,13 @@ class App extends React.Component {
         <main>
           <Header updateUser={this.updateUser} />
           <Switch>
+            <Route path="/jamdex" component={Jamdex} />
             {loggedIn &&
               <Route path="/jam" component={JamWithProps} />
             }
             {loggedIn &&
               <Route path="/tapes" component={TapesWithProps} />
             }
-            <Route path="/jamdex" component={Jamdex} />
             <Route path="/" component={TopJam} />
 
           </Switch>

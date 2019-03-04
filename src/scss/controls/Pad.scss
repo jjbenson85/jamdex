@@ -1,0 +1,50 @@
+$drum-color: #777;
+$drum-current-color: #F70;
+$drum-selected-color: #999;
+$drum-selected-current-color: #F00;
+$drum-hard-color: #F00;
+$drum-medium-color: #FF0;
+$drum-soft-color: #0F0;
+
+
+.pad{
+  margin: 1px;
+  border-radius: 5px;
+  height:40px;
+  width:40px;
+  border: 1px  solid black;
+  background-color: $drum-color;
+  &.current{
+    // box-shadow: inset 0 0 20px 2px lighten($drum-selected-color,30%);
+    background-color: $drum-selected-color;
+  }
+  &.selected{
+    background-color: $drum-current-color;
+  }
+  &.selected.currentBeat{
+    // box-shadow: inset 0 0 20px 2px lighten($drum-current-color,30%);
+    background-color: $drum-current-color;
+  }
+  &.hard{
+    background-color: darken($drum-hard-color, 10%);
+    &.current{
+      background-color: $drum-hard-color;
+      box-shadow: 0 0 4px 1px lighten($drum-hard-color,30%)
+    }
+
+  }
+  &.medium{
+    background-color: darken($drum-medium-color, 10%);
+    &.current{
+      background-color: $drum-medium-color;
+      box-shadow: 0 0 4px 1px lighten($drum-medium-color,30%)
+    }
+  }
+  &.soft{
+    background-color: darken($drum-soft-color, 10%);
+    &.current{
+      background-color: $drum-soft-color;
+      box-shadow: 0 0 4px 1px lighten($drum-soft-color,30%)
+    }
+  }
+}

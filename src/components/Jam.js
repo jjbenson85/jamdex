@@ -141,7 +141,7 @@ class Jam extends React.Component {
 
   }
   handleDrumMachineChange(instId, beat, voice, type, value){
-    // console.log('instId',instId, 'beat', beat, 'type', 'voice', voice, 'type', type, 'value', value)
+    console.log('instId',instId, 'beat', beat, 'type', 'voice', voice, 'type', type, 'value', value)
 
     // const synths = []
     // this.props.owned_synths.forEach((synth,i) =>{
@@ -222,14 +222,12 @@ class Jam extends React.Component {
       delete instr.updated_at
       return instr
     })
-    console.log('state to save', state)
     axios.put(`/api/jams/${this.state.id}`,{...state})
       .then(res => console.log('Saved dat Jam\n', res))
       .catch(err => console.error(err.message))
   }
 
   updateSynthSettings(id, obj){
-    console.log('updateSynthSettings',id, obj)
     const owned_synths = [...this.state.owned_synths]
     owned_synths[id].settings = {...obj}
     this.setState({owned_synths})
@@ -258,12 +256,11 @@ class Jam extends React.Component {
         <DrumInterface
           key={id}
           id={0}
-          handleChange={(_e, _name, _drum, _step, _pitch, _velocity)=>
-            handleChange(_e, _name, _drum, _step, _pitch, _velocity, id )}
-          beats={beats}
+          handleChange={handleChange}
+          // beats={beats}
           currentBeat={currentBeat}
-          currentPitch={currentPitch}
-          currentVelocity={currentVelocity}
+          // currentPitch={currentPitch}
+          // currentVelocity={currentVelocity}
           playing={playing}
           poly={poly}
         />
@@ -300,9 +297,7 @@ class Jam extends React.Component {
   }
 
   render(){
-    console.log('this.props.disableSave',this.props.disableSave)
 
-    console.log('JAM',this.state)
     if(!this.state.owned_synths) return <h1>Loading...</h1>
 
     const currentBeat = this.state.transport.beat

@@ -2,26 +2,34 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px solid black;
+  height: 50%;
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  background-color: grey;
   .synth-skin{
-
+    display: flex;
   }
   .controller{
     .matrix{
       display: flex;
       align-items: center;
-      .col{
-        &.current{
-          background-color: yellow;
-        }
-        .pad{
-          height:40px;
-          width:40px;
-          border: 1px  solid black;
-          &.selected{
-            background-color: orange;
-          }
-        }
-      }
+      background-color: black;
+      padding: 20px;
+      // .col{
+        // &.current{
+        //   background-color: yellow;
+        // }
+        // .pad{
+        //   height:40px;
+        //   width:40px;
+        //   border: 1px  solid black;
+        //   &.selected{
+        //     background-color: orange;
+        //   }
+        // }
+      // }
     }
   }
 }

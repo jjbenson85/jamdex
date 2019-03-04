@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "seed": "pipenv run python seeds.py",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --require test/spec_helper --require ignore-styles test/**/*_spec.js --recursive --exit",
     "serve:react": "webpack-dev-server --mode=development",
     "serve:flask": "pipenv run flask run -p 4000",
     "build": "webpack -p",
@@ -36,6 +36,14 @@
     "webpack-cli": "^3.2.3"
   },
   "devDependencies": {
+    "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^13.2.0",
+    "mocha": "^6.0.2",
+    "sinon": "^7.2.7",
     "webpack-dev-server": "^3.2.1"
   }
 }
