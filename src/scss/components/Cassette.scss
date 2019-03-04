@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
 
+$label-center: #EA5455;
+$tape-wrap: #2D4059;
+$case-color: rgba(99,169,199,0.6);
+$label-outer: #fff;
+
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +27,7 @@
     padding: 3px 10px;
     width: 495px;
     height: 316px;
-    background: #222831;
+    background: $case-color;
 		margin: auto;
 }
 
@@ -147,8 +152,8 @@
     width: 15px;
     height: 15px;
     border: 2px solid #7b7b7b;
-    background: white;
     border-radius: 5px;
+    background: white;
 }
 
 .square-filament-stiffner.L {
@@ -259,9 +264,9 @@
     left: 0px;
     right: 0;
     margin: auto;
-    width: 445px;
-    height: 180px;
-    background: #FDE9C9;
+    width: 444px;
+    height: 178px;
+    background: transparent;
     z-index: 94;
 }
 
@@ -274,7 +279,7 @@
     margin: auto;
     width: 420px;
     height: 47px;
-    background: #FDE9C9;
+    background: $label-outer;
     transform: perspective(350px) rotateX(60deg);
     z-index: 6;
 }
@@ -288,13 +293,14 @@
     margin: auto;
     width: 445px;
     height: 20px;
-    background: #FDE9C9;
-    box-shadow: 0 -157px 0 0 #FDE9C9;
+    background: $label-outer;
+    box-shadow: 0 -157px 0 0 $label-outer;
     z-index: 2;
 }
 
 .cassette-name {
     font-family: 'Gochi Hand', sans-serif;
+    outline: none;
     font-size: 2rem;
     height: 2.5rem;
     border-bottom: 4px solid #000;
@@ -306,26 +312,12 @@
     color: #222831;
     display: block;
     margin: -23px auto;
-    background: #FDE9C9;
-}
+    background: $label-outer;
 
-// .cassette-name:before, .cassette-name:after {
-//     content: '';
-//     position: absolute;
-//     top: 5px;
-//     width: 12px;
-//     height: 1px;
-//     box-shadow: 20px 0 0 0 #2D4059, 43px 0 0 0 #2D4059, 0px 17px 0 0 #2D4059, 20px 17px 0 0 #2D4059, 43px 17px 0 0 #2D4059, 0px 35px 0 0 #2D4059, 20px 35px 0 0 #2D4059, 43px 35px 0 0 #2D4059;
-//     background: #2D4059;
-// }
-//
-// .cassette-name:before {
-//     left: 15px;
-// }
-//
-// .cassette-name:after {
-//     right: 60px;
-// }
+    &.disabled {
+      pointer-events: none;
+    }
+}
 
 .tape-level-wrap {
     position: absolute;
@@ -341,9 +333,9 @@
     position: absolute;
     width: 158px;
     height: 35px;
-    box-shadow: 158px 0 0 0 #2D4059, 287px 0 0 0 #2D4059, 287px 34px 0 0 #2D4059, 287px 68px 0 0 #2D4059, 287px 102px 0 0 #2D4059, 129px 102px 0 0 #2D4059, 0px 102px 0 0 #2D4059, 0px 68px 0 0 #2D4059, 0px 34px 0 0 #2D4059;
+    box-shadow: 158px 0 0 0 $tape-wrap, 287px 0 0 0 $tape-wrap, 287px 34px 0 0 $tape-wrap, 287px 68px 0 0 $tape-wrap, 287px 102px 0 0 $tape-wrap, 129px 102px 0 0 $tape-wrap, 0px 102px 0 0 $tape-wrap, 0px 68px 0 0 $tape-wrap, 0px 34px 0 0 $tape-wrap;
     z-index: 5;
-    background: #2D4059;
+    background: $tape-wrap;
 }
 
 .tape-level-wrap:after {
@@ -353,9 +345,9 @@
     left: 47px;
     width: 111px;
     height: 13px;
-    box-shadow: 110px 0 0 0 #EA5455, 220px 0 0 0 #EA5455, 240px 0 0 0 #EA5455, 0 80px 0 0 #EA5455, 110px 80px 0 0 #EA5455, 220px 80px 0 0 #EA5455, 240px 80px 0 0 #EA5455, 0 10px 0 0 #EA5455, 240px 10px 0 0 #EA5455, 0px 22px 0 0 #EA5455, 240px 22px 0 0 #EA5455, 0px 34px 0 0 #EA5455, 240px 34px 0 0 #EA5455, 0px 46px 0 0 #EA5455, 240px 46px 0 0 #EA5455, 0px 58px 0 0 #EA5455, 240px 58px 0 0 #EA5455, 0px 70px 0 0 #EA5455, 240px 70px 0 0 #EA5455;
+    box-shadow: 110px 0 0 0 $label-center, 220px 0 0 0 $label-center, 240px 0 0 0 $label-center, 0 80px 0 0 $label-center, 110px 80px 0 0 $label-center, 220px 80px 0 0 $label-center, 240px 80px 0 0 $label-center, 0 10px 0 0 $label-center, 240px 10px 0 0 $label-center, 0px 22px 0 0 $label-center, 240px 22px 0 0 $label-center, 0px 34px 0 0 $label-center, 240px 34px 0 0 $label-center, 0px 46px 0 0 $label-center, 240px 46px 0 0 $label-center, 0px 58px 0 0 $label-center, 240px 58px 0 0 $label-center, 0px 70px 0 0 $label-center, 240px 70px 0 0 $label-center;
     z-index: 5;
-    background: #EA5455;
+    background: $label-center;
 }
 
 .filament {
