@@ -5,6 +5,7 @@ import '../scss/components/Cassette.scss'
 class Cassette extends React.Component {
 
   render(){
+    console.log('this.props.disableSave',this.props.disableSave)
     const playing = this.props.playing
     return (
       <div className="cassette-wrap">
@@ -30,7 +31,7 @@ class Cassette extends React.Component {
 
           <div className="cassette-cover-sticker">
             <input
-              className={`cassette-name ${false? 'disabled':''}`}
+              className={`cassette-name ${this.props.disableSave?'disabled':''}`}
               value={this.props.label}
               onChange={this.props.onChange}
             />

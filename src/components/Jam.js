@@ -4,18 +4,13 @@ import debounce from 'lodash/debounce'
 import axios from 'axios'
 
 import Auth from '../lib/Auth'
-
-
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
-
 import InterfaceBeta from './interface/InterfaceBeta'
-// import DrumInterfaceBeta from './interface/DrumInterfaceBeta'
 import DrumInterface from './interface/DrumInterface'
 import noteRangeLookup from '../lib/noteRangeLookup'
 import Cassette from './Cassette'
 
-// import '../scss/components/InterfaceBeta.scss'
 import '../scss/components/Jam.scss'
 
 
@@ -33,22 +28,11 @@ class Jam extends React.Component {
       transport: {
         beat: 0,
         time: 0
-      },
-      poly: []
+      }
+      // poly: []
 
     }
-    // const poly=[]
-    // for(let i=0;i<16;i++){
-    //   const arr = []
-    //   for(let j=0;j<4;j++){
-    //     arr.push(j)
-    //   }
-    //   poly.push(arr)
-    // }
-    //
-    // this.state.poly = poly
 
-    // this.handleSelect = this.handleSelect.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bounce = this.bounce.bind(this)
     this.incTempo = this.incTempo.bind(this)
@@ -73,17 +57,6 @@ class Jam extends React.Component {
       Tone.Transport.bpm.value = this.state.tempo
       that.setState({transport: {beat, time}})
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n')
-
-
-    // const synths = []
-    // this.props.owned_synths.forEach((synth,i) =>{
-    //   const poly = this.state.poly.map((step)=> step.map(()=> null))
-    //   synths.push(poly)
-    //   synth.beats.forEach((beat)=> {
-    //     synths[i][beat.step][beat.poly_id] = beat
-    //   })
-    // })
-    // this.setState({synths})
   }
 
   incTempo(){
@@ -136,15 +109,6 @@ class Jam extends React.Component {
     this.loop.stop()
     this.setState({ playing: false })
   }
-
-  // handleSelect({ target: { value } }, i){
-  //   const ownedSynths = [...this.state.owned_synths]
-  //   const pitch = ownedSynths[0].beats[i].pitch
-  //   if (isNaN(value)) {
-  //     ownedSynths[0].beats[i].pitch = `${value}${pitch.substring(pitch.length-1)}`
-  //   } else ownedSynths[0].beats[i].pitch = `${pitch.substring(0, pitch.length-1)}${value}`
-  //   this.setState({ owned_synths: ownedSynths })
-  // }
 
   handleMonoSynthChange(instId, beat, voice, type, value){
     const ownedSynths = [...this.state.owned_synths ]
@@ -213,7 +177,6 @@ class Jam extends React.Component {
       case 'MonoSynth':
         this.handleMonoSynthChange(instId, beat, voice, type, value)
         break
-
     }
     this.delayedCallback()
   }
@@ -236,11 +199,8 @@ class Jam extends React.Component {
         Tone.Transport.start()
         that.loop.start()
         that.setState({bouncing: true})
-        // this.props.updateUser()
       })
       .catch(err => console.error(err.message))
-
-
   }
 
 
@@ -328,11 +288,6 @@ class Jam extends React.Component {
         break
 
       case 'DrumMachine':
-        // console.log('switch',poly)
-        // poly.sort((A,B)=>A.step-B.step)
-        // poly.forEach((step)=>{
-        //   step.poly_beats.sort((A,B)=>A.voice-B.voice)
-        // })
         output =  <DrumMachine
           key={id}
           id={id}
@@ -345,6 +300,8 @@ class Jam extends React.Component {
   }
 
   render(){
+    console.log('this.props.disableSave',this.props.disableSave)
+
     console.log('JAM',this.state)
     if(!this.state.owned_synths) return <h1>Loading...</h1>
 
@@ -450,6 +407,7 @@ class Jam extends React.Component {
             label={this.state.jam_name}
             onChange={this.handleLabel}
             playing={this.state.playing}
+            disableSave={this.props.disableSave}
           />
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)

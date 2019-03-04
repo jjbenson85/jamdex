@@ -4,6 +4,8 @@ from models.jam import Jam, JamSchema
 from models.synth import Synth
 from models.drum import Drum
 from models.beat import Beat
+from models.poly import Poly
+from models.poly_beat import PolyBeat
 
 api = Blueprint('auth', __name__)
 user_schema = UserSchema()
@@ -39,7 +41,8 @@ def new_jam(user):
     poly_beat_list = []
     for i in range(16):
         poly = Poly(step=i, drum=DrumMachine)
-        poly_list.append(poly)
+        poly.save()
+        # poly_list.append(poly)
         for j in range(4):
             poly_beat = PolyBeat(
                 step=i,
@@ -49,10 +52,11 @@ def new_jam(user):
                 velocity="0",
                 poly=poly
             )
-            poly_beat_list.append(poly_beat)
+            poly_beat.save()
+            # poly_beat_list.append(poly_beat)
 
-    db.session.bulk_save_objects(poly_list)
-    db.session.bulk_save_objects(poly_beat_list)
+    # db.session.bulk_save_objects(poly_list)
+    # db.session.bulk_save_objects(poly_beat_list)
 
 
 @api.route('/register', methods=['POST'])
