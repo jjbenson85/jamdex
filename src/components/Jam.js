@@ -173,7 +173,7 @@ class Jam extends React.Component {
       currentVelocity
     })
     this.delayedCallback()
-    
+
 
   }
   handleDrumMachineChange(instId, beat, voice, type, value){
@@ -219,6 +219,7 @@ class Jam extends React.Component {
   }
 
   bounce(){
+    if(this.props.disableSave) return
     this.saveChanges(true)
     const that = this
     const token = Auth.getToken()
@@ -244,6 +245,7 @@ class Jam extends React.Component {
 
 
   saveChanges(exported=false){
+    if(this.props.disableSave) return
     const state = {...this.state, exported: exported}
     console.log('About to save')
 
@@ -343,6 +345,7 @@ class Jam extends React.Component {
   }
 
   render(){
+    console.log('JAM',this.state)
     if(!this.state.owned_synths) return <h1>Loading...</h1>
 
     const currentBeat = this.state.transport.beat

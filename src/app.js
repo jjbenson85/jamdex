@@ -35,17 +35,26 @@ class App extends React.Component {
   }
   componentDidMount(){
     this.updateUser()
-    // axios.get('/api/users/1')
-    //   .then(res =>{
-    //     console.log(res.data)
-    //     this.setState({user: res.data})
-    //   } )
+    axios.get('/api/jams/top_jam')
+      .then(res =>{
+        console.log('top_jam',res.data)
+        this.setState({top_jam: res.data})
+      } )
   }
 
   render(){
     const loggedIn = Auth.getPayload().sub
     const loaded = !!this.state.user
     const loggedAndLoaded = loggedIn && loaded
+
+
+    const TopJam = () => {
+      console.log('topjam',this.state.top_jam)
+      if(!this.state.top_jam) return <div>Loooooading</div>
+      return (
+        <Jam {...this.state.top_jam[0]} updateUser={this.updateUser} disableSave={true}/>
+      )
+    }
 
     // if(!this.state.user) return null
     // console.log('APPA',this.state, loggedIn, loaded, loggedAndLoaded)
@@ -81,7 +90,7 @@ class App extends React.Component {
             {loggedIn &&
               <Route path="/tapes" component={TapesWithProps} />
             }
-            <Route path="/" component={Home} />
+            <Route path="/" component={TopJam} />
 
           </Switch>
         </main>
