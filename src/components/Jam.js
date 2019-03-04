@@ -110,7 +110,12 @@ class Jam extends React.Component {
     Tone.Transport.swing = parseInt(swing)/100
     this.setState({swing})
   }
-
+  clap(){
+    let applause = this.state.applause
+    applause++
+    this.setState({applause})
+    this.delayedCallback()
+  }
   playSound(){
     console.log('play')
     //When played as a tape, tell the tape player we are playing
@@ -165,6 +170,8 @@ class Jam extends React.Component {
       currentPitch,
       currentVelocity
     })
+    this.delayedCallback()
+    
 
   }
   handleDrumMachineChange(instId, beat, voice, type, value){
@@ -432,8 +439,10 @@ class Jam extends React.Component {
           )}
           {!this.props.disabled &&
             <div>
-              <button onClick={()=>this.playSound()}>PLAY</button>
-              <button onClick={()=>this.stopSound()}>STOP</button>
+              <button onClick={()=>this.playSound()}>▶️</button>
+              <button onClick={()=>this.stopSound()}>⏹</button>
+              <div className="applause">{this.state.applause}</div>
+              <button onClick={()=>this.clap()}>👏</button>
             </div>
           }
           {this.props.disabled &&
