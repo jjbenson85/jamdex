@@ -42,7 +42,6 @@ describe('Jamdex tests', () => {
       poly.push({poly_beats, id: 0, step: i})
     }
 
-    console.log('poly',poly)
     wrapper = shallow( <DrumInterface
       key={id}
       id={0}
@@ -51,6 +50,7 @@ describe('Jamdex tests', () => {
       playing={playing}
       poly={poly}
     /> )
+    // console.log(wrapper)
     done()
   })
 

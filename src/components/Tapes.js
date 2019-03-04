@@ -40,8 +40,8 @@ class Tapes extends React.Component{
   render(){
     // const { playing } = this.state
     if(!this.state.disabled) return null
-    console.log('tapes', this.state.disabled)
-    console.log('this.props.disableSave',this.props.disableSave)
+    // console.log('tapes', this.state.disabled)
+    // console.log('this.props.disableSave',this.props.disableSave)
 
     return(
       <section className='tapes'>
