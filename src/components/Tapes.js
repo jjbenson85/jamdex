@@ -41,6 +41,8 @@ class Tapes extends React.Component{
     // const { playing } = this.state
     if(!this.state.disabled) return null
     console.log('tapes', this.state.disabled)
+    console.log('this.props.disableSave',this.props.disableSave)
+    
     return(
       <section className='tapes'>
         <h1>Tapes</h1>
@@ -54,6 +56,7 @@ class Tapes extends React.Component{
                 disabled={this.state.disabled[i]}
                 playTape={()=>this.playTape(i)}
                 stopTape={this.stopTape}
+                disableSave={this.props.disableSave}
               />
             )
           })}

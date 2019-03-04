@@ -104,7 +104,7 @@ class Header extends React.Component {
     return(
       <header>
         <div className="left">
-          <Link to="/" className="nav-item"><h1>JamDex</h1></Link>
+          <Link to="/jamdex" className="nav-item"><h1>JamDex</h1></Link>
           <Link to="/jam" className="nav-item">My Jam</Link>
           <Link to="/tapes" className="nav-item">My Tapes</Link>
         </div>

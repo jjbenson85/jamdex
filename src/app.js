@@ -7,6 +7,7 @@ import Auth from './lib/Auth'
 // import Tone from 'tone'
 import Header from './components/common/Header'
 import Home from './components/Home'
+import Jamdex from './components/Jamdex'
 
 import Tapes from './components/Tapes'
 import Jam from './components/Jam'
@@ -90,6 +91,7 @@ class App extends React.Component {
             {loggedIn &&
               <Route path="/tapes" component={TapesWithProps} />
             }
+            <Route path="/jamdex" component={Jamdex} />
             <Route path="/" component={TopJam} />
 
           </Switch>

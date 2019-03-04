@@ -16,7 +16,6 @@ jams_schema = JamSchema(many=True)
 api = Blueprint('jams', __name__)
 
 @api.route('/jams', methods=['GET'])
-@secure_route
 def index():
     jams = Jam.query.all()
     return jams_schema.jsonify(jams)
