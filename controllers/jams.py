@@ -21,6 +21,11 @@ def index():
     jams = Jam.query.all()
     return jams_schema.jsonify(jams)
 
+@api.route('/jams/top_jam', methods=['GET'])
+def top_jam():
+    jams = Jam.query.order_by(Jam.applause.desc()).limit(1).all()
+    return jams_schema.jsonify(jams)
+
 @api.route('/jams', methods=['POST'])
 @secure_route
 def create():
