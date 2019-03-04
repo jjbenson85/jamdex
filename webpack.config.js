@@ -2,6 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const sassVars = require('/src/theme.js')
+const sass = require('node-sass')
+const sassUtils = require('node-sass-utils')(sass)
 
 module.exports = {
   entry: './src/app.js',
@@ -14,7 +17,27 @@ module.exports = {
     rules: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.css$/, loader: ['style-loader', 'css-loader'] },
-      { test: /\.s(a|c)ss$/, loader: ['style-loader', 'css-loader', 'sass-loader'] }
+      { test: /\.s(a|c)ss$/, use: [
+        {loader: 'style-loader'},
+        {loader: 'css-loader'},
+        {
+          loader: 'sass-loader',
+          options: {
+            functions: {
+              'get($keys)': function(keys) {
+                keys = keys.getValue().split('.')
+                let result = sassVars
+                let i
+                for (i = 0; i < keys.length; i++) {
+                  result = result[keys[i]]
+                }
+                result = sassUtils.castToSass(result)
+                return result
+              }
+            }
+          }
+        }
+      ]}
     ]
   },
   devServer: {
