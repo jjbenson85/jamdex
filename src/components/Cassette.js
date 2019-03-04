@@ -5,6 +5,7 @@ import '../scss/components/Cassette.scss'
 class Cassette extends React.Component {
 
   render(){
+    console.log('this.props.disableSave',this.props.disableSave)
     const playing = this.props.playing
     return (
       <div className="cassette-wrap">
