@@ -1,0 +1,27 @@
+.drum-interface{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .synth-skin{
+
+  }
+  .controller{
+    .matrix{
+      display: flex;
+      align-items: center;
+      .col{
+        &.current{
+          background-color: yellow;
+        }
+        .pad{
+          height:40px;
+          width:40px;
+          border: 1px  solid black;
+          &.selected{
+            background-color: orange;
+          }
+        }
+      }
+    }
+  }
+}

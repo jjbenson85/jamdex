@@ -8,6 +8,7 @@ class Jam(db.Model, BaseModel):
 
     jam_name = db.Column(db.String(32), nullable=False)
     tempo = db.Column(db.Integer, nullable=False, default=120)
+    swing = db.Column(db.Integer, nullable=False, default=0)
     exported = db.Column(db.Boolean, nullable=False, default=False)
 
     # Create creator_id columns from creators id
@@ -23,6 +24,10 @@ class JamSchema(ma.ModelSchema, BaseSchema):
         only=('username', 'id'))
 
     owned_synths = fields.Nested('SynthSchema',
+        many=True,
+        exclude=('jam',))
+
+    owned_drums = fields.Nested('DrumSchema',
         many=True,
         exclude=('jam',))
 
