@@ -1,12 +1,17 @@
 @import '../_vars';
+
+.tape-container{
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+}
+
 .tapes{
   padding: 20px;
 }
 .tape{
-  height: 100px;
-  width: 250px;
   padding: 8px;
   margin-bottom: 8px;
-  border:1px solid black;
-  border-radius: 10px;
 }

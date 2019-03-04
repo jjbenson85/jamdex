@@ -1,11 +1,12 @@
 import os
 from app import app
-from controllers import users, jams, synths, beats, drums, polys, poly_beats, auth
+from controllers import users, jams, synths, beats, synth_settings, drums, polys, poly_beats, auth
 
 app.register_blueprint(users.api, url_prefix='/api')
 app.register_blueprint(jams.api, url_prefix='/api')
 app.register_blueprint(synths.api, url_prefix='/api')
 app.register_blueprint(beats.api, url_prefix='/api')
+app.register_blueprint(synth_settings.api, url_prefix='/api')
 app.register_blueprint(drums.api, url_prefix='/api')
 app.register_blueprint(polys.api, url_prefix='/api')
 app.register_blueprint(poly_beats.api, url_prefix='/api')
