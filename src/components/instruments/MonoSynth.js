@@ -129,7 +129,6 @@ class MonoSynth extends React.Component {
     if(this.props.time === prevProps.time) return
     const {pitch, duration, velocity} = this.props.noteInfo
     if(velocity==='0') {
-      console.log('skip')
       return
     }
     const vel = velocity/127

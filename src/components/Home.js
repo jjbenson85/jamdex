@@ -5,6 +5,7 @@ class Home extends React.Component{
     return(
       <section>
         <h1>Home</h1>
+        <Jam />
       </section>
     )
   }

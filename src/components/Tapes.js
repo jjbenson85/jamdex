@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Jam from '../components/Jam'
-import Cassette from './Cassette'
+// import Cassette from './Cassette'
 
 import '../scss/components/Tapes.scss'
 
@@ -42,7 +42,7 @@ class Tapes extends React.Component{
     if(!this.state.disabled) return null
     console.log('tapes', this.state.disabled)
     console.log('this.props.disableSave',this.props.disableSave)
-    
+
     return(
       <section className='tapes'>
         <h1>Tapes</h1>

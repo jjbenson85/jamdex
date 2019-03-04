@@ -7,7 +7,6 @@ class Beat(db.Model, BaseModel):
     __tablename__ = 'beats'
 
     step = db.Column(db.Integer, nullable=False)
-    poly_id = db.Column(db.Integer, nullable=False, default=0)
     pitch = db.Column(db.String(4), nullable=False, default="C3")
     duration = db.Column(db.String(4), nullable=False, default="16n")
     velocity = db.Column(db.String(4), nullable=False, default="16n")
