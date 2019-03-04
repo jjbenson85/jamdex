@@ -28,8 +28,8 @@ class Jam extends React.Component {
       transport: {
         beat: 0,
         time: 0
-      },
-      poly: []
+      }
+      // poly: []
 
     }
 
@@ -300,6 +300,8 @@ class Jam extends React.Component {
   }
 
   render(){
+    console.log('this.props.disableSave',this.props.disableSave)
+
     console.log('JAM',this.state)
     if(!this.state.owned_synths) return <h1>Loading...</h1>
 
