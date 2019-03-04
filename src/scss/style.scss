@@ -1,8 +1,12 @@
 @import '_vars';
 @import '_inputrange';
-@import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Monoton');
 
 $red: #f00;
+
+::-webkit-scrollbar {
+  display: none;
+}
 
 * {
   box-sizing: border-box;
@@ -10,7 +14,9 @@ $red: #f00;
 
 body {
   margin: 0;
+  overflow-x: hidden;
   padding-top: $header-height;
+  background: #CEBB9E;
 }
 
 a {
@@ -19,7 +25,7 @@ a {
 
 h1 {
   color: $red;
-  font-family: VT323, monospace;
+  font-family: Monoton, monospace;
 }
 
 main {

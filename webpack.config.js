@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const sassVars = require('/src/theme.js')
+// const sassVars = require('/src/theme.js')
 const sass = require('node-sass')
 const sassUtils = require('node-sass-utils')(sass)
 

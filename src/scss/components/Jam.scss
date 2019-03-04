@@ -1,9 +1,8 @@
 @import '../_vars';
 .jam{
   height: 100%;
-  background-color: blue;
+  
   &.bouncing{
-    background-color: grey;
     pointer-events: none;
   }
   .tabs{
