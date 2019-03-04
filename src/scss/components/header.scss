@@ -7,6 +7,8 @@ header{
   background: white;
   display: flex;
   justify-content: space-between;
+  z-index: 5;
+
   .nav-item{
     padding: 1% 3%;
     border: 1px solid black;
