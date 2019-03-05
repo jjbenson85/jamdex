@@ -31,7 +31,7 @@ class Register extends React.Component{
     e.preventDefault()
     console.log('loginFunction', this.state.loginData)
     axios
-      .post('api/login', this.state.loginData)
+      .post('/api/login', this.state.loginData)
       .then(res => {
         console.log(res)
         // Flash.setMessage('success', res.data.message)

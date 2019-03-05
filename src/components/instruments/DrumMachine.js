@@ -1,5 +1,5 @@
 import React from 'react'
-import Tone from 'tone'
+import Tone from '../../lib/tone'
 
 class DrumMachine extends React.Component {
   constructor(){

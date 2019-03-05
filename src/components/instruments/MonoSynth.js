@@ -1,5 +1,5 @@
 import React from 'react'
-import Tone from 'tone'
+import Tone from '../../lib/tone'
 
 const presets = [
   {
@@ -113,18 +113,8 @@ class MonoSynth extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    // console.log('MS', this.props, prevProps)
-    // if(prevProps.id === this.props.id) return
-
     if(this.props.settings && prevProps.settings){
-      // console.log('here')
       this.updateSynth()
-      // if(this.props.settings.preset !== prevProps.settings.preset){
-      //   console.log('change settings', this.props.settings.preset)
-      //   const obj = presets[this.props.settings.preset]
-      //   console.log(obj)
-      //   this.setState({...obj})
-      // }
     }
     if(this.props.time === prevProps.time) return
     const {pitch, duration, velocity} = this.props.noteInfo
@@ -132,78 +122,61 @@ class MonoSynth extends React.Component {
       return
     }
     const vel = velocity/127
-
     this.synth.triggerAttackRelease(
       pitch,
       duration,
       this.props.time,
       vel
     )
-
   }
 
   updateSynth(){
-    // console.log('update synth')
-    // console.log(this.synth)
-    // console.log(this.props)
-    // console.log('OSC',this.state.oscillator.type)
-
-
-    let preset = this.props.settings.preset
-    if(preset>presets.length-1) preset = presets.length-1
-    if(preset<0) preset = 0
-
-    const obj = presets[preset]
-    // console.log(obj, presets, preset )
-
-    // if(this.state.oscillator){
-    this.synth.set({
-      oscillator: {
-        type: obj.oscillator.type
-      },
-      envelope: {
-        attack: obj.envelope.attack,
-        decay: obj.envelope.decay,
-        sustain: obj.envelope.sustain,
-        release: obj.envelope.release
-      },
-      filterEnvelope: {
-        attack: obj.filterEnvelope.attack,
-        decay: obj.filterEnvelope.decay,
-        sustain: obj.filterEnvelope.sustain,
-        release: obj.filterEnvelope.release,
-        baseFrequency: obj.filterEnvelope.baseFrequency,
-        octaves: obj.filterEnvelope.octaves,
-        exponent: obj.filterEnvelope.exponent
-      },
-      filter: {
-        Q: obj.filter.Q,
-        type: obj.filter.type,
-        rolloff: obj.filter.rolloff
+    const obj = this.props.settings
+    console.log(obj)
+    for( const mod in obj){
+      for (const set in obj[mod]){
+        const settings = {
+          [mod]: {
+            [set]: obj[mod][set]
+          }
+        }
+        this.synth.set(settings)
       }
-    })
-    // }
-    // this.synth.dispose()
-    // this.synth = new Tone.MonoSynth({
-    //   oscillator: this.state.oscillator,
-    //   envelope: this.state.envelope,
-    //   filterEnvelope: this.state.filterEnvelope
-    // }).toMaster()
+    }
 
+    // this.synth.set({
+    //   oscillator: {
+    //     type: obj.oscillator.type
+    //   },
+    //   envelope: {
+    //     attack: obj.envelope.attack,
+    //     decay: obj.envelope.decay,
+    //     sustain: obj.envelope.sustain,
+    //     release: obj.envelope.release
+    //   },
+    //   filterEnvelope: {
+    //     attack: obj.filterEnvelope.attack,
+    //     decay: obj.filterEnvelope.decay,
+    //     sustain: obj.filterEnvelope.sustain,
+    //     release: obj.filterEnvelope.release,
+    //     baseFrequency: obj.filterEnvelope.baseFrequency,
+    //     octaves: obj.filterEnvelope.octaves,
+    //     exponent: obj.filterEnvelope.exponent
+    //   },
+    //   filter: {
+    //     Q: obj.filter.Q,
+    //     type: obj.filter.type,
+    //     rolloff: obj.filter.rolloff
+    //   }
+    // })
   }
   componentDidMount(){
-
-    // this.updateSynth()
     this.synth = new Tone.MonoSynth({
       oscillator: this.state.oscillator,
       envelope: this.state.envelope,
       filterEnvelope: this.state.filterEnvelope
     }).toMaster()
-    // console.log('synth settings', this.synth)
   }
-
-
-
 
   render(){
     return (

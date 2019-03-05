@@ -1,5 +1,5 @@
 import React from 'react'
-import Tone from 'tone'
+import Tone from '../lib/tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
@@ -51,7 +51,8 @@ class Jam extends React.Component {
 
 
   componentDidMount(){
-    this.setState({...this.props})
+    const loggedIn = Auth.isAuthenticated()
+    this.setState({...this.props, loggedIn})
     const that = this
     this.loop = new Tone.Sequence((time, beat) => {
       Tone.Transport.bpm.value = this.state.tempo
@@ -190,7 +191,7 @@ class Jam extends React.Component {
     that.loop.start()
     axios({
       method: 'post',
-      url: 'api/jams',
+      url: '/api/jams',
       data: this.state,
       headers: {
         Authorization: `Bearer ${token}`
@@ -314,6 +315,7 @@ class Jam extends React.Component {
       this.loop.stop()
       this.props.updateUser()
     }
+    const loggedIn = this.state.loggedIn
     return(
       <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
@@ -390,12 +392,13 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-              {!this.state.playing && <button className="item bounce" onClick={this.bounce}>
+              {loggedIn && !this.state.playing && <button className="item bounce" onClick={this.bounce}>
                 <img src="/assets/img/rec.png" style={{ width: '100%' }} />
               </button>}
               {this.state.playing && <button disabled className="item bounce">
                 <img src="/assets/img/rec.png" style={{ width: '100%' }} />
               </button>}
+              {!loggedIn && <div>Login To Save!</div>}
             </div>
           </div>
         </div>}
