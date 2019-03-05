@@ -6,9 +6,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
-  padding-top: 40px;
+  // padding-top: 40px;
+  margin-top: -2.5rem;
 
   .synth-controls{
     border: 3px solid grey;

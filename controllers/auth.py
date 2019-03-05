@@ -5,6 +5,7 @@ from models.synth import Synth
 from models.drum import Drum
 from models.beat import Beat
 from models.poly import Poly
+from models.synth_setting import SynthSetting
 from models.poly_beat import PolyBeat
 
 api = Blueprint('auth', __name__)
@@ -13,13 +14,16 @@ user_schema = UserSchema()
 def new_jam(user):
     print('new_jam')
 
-    jam = Jam(jam_name='New Jam', created_by=user, exported=False)
+    jam = Jam(jam_name='New Jam', created_by=user)
     jam.save()
 
     print('MonoSynth')
 
     MonoSynth = Synth(synth_name='MonoSynth', jam=jam)
     MonoSynth.save()
+
+    synth_setting = SynthSetting(synth=MonoSynth)
+    synth_setting.save()
 
     print('DrumMachine')
     DrumMachine = Drum(synth_name='DrumMachine', jam=jam)
