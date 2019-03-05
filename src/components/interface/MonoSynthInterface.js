@@ -109,7 +109,6 @@ class MonoSynthInterface extends React.Component{
                     <div>square</div>
                   </div>
                   <div className='row'>
-                    {console.log('radio', this.props.settings.oscillator_type)}
                     <input
                       type="radio"
                       name="oscillator_type"
