@@ -212,7 +212,7 @@ class Jam extends React.Component {
         this.props.history.push('/jam')
       })
       .catch(err => console.error(err.message))
-    
+
   }
   saveChanges(){
     if(this.props.disableSave) return
@@ -238,11 +238,6 @@ class Jam extends React.Component {
   }
 
   updateSynthSettings(id, obj){
-<<<<<<< HEAD
-    const ownedSynths = [...this.state.owned_synths]
-    ownedSynths[id].settings = {...obj}
-    this.setState({ owned_synths: ownedSynths })
-=======
     const owned_synths = [...this.state.owned_synths]
     owned_synths[id].settings[0] = {...obj}
 
@@ -258,7 +253,6 @@ class Jam extends React.Component {
     }
     this.setState({owned_synths})
     this.delayedCallback()
->>>>>>> development
   }
   returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly, settings){
 
@@ -388,11 +382,11 @@ class Jam extends React.Component {
               <div className='tabs'>
                 {instruments.map((inst, id) =>
                   <div
-                  key={id}
-                  className={`tab ${this.state.displaySynth === id ? 'selected':''}`}
-                  onClick={()=>this.setState({displaySynth: id})}
+                    key={id}
+                    className={`tab ${this.state.displaySynth === id ? 'selected':''}`}
+                    onClick={()=>this.setState({displaySynth: id})}
                   >
-                  {inst.synth_name}
+                    {inst.synth_name}
                   </div>
                 )}
               </div>

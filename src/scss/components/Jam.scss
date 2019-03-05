@@ -1,11 +1,8 @@
 @import '../_vars';
 @import url('https://fonts.googleapis.com/css?family=VT323');
-<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
 @import url('https://fonts.googleapis.com/css?family=Candal');
-=======
 @import url('https://fonts.googleapis.com/css?family=Rubik');
->>>>>>> development
 
 .jam{
   height: 100%;
@@ -16,7 +13,7 @@
     &.top-jam{
       background-color: grey;
       .demo{
-        font-family: Rubik, sans-serif; 
+        font-family: Rubik, sans-serif;
         position: absolute;
         top:0px;
         left:-100px;
