@@ -1,5 +1,5 @@
 import React from 'react'
-import Tone from 'tone'
+import Tone from '../lib/tone'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
@@ -189,7 +189,7 @@ class Jam extends React.Component {
     const token = Auth.getToken()
     axios({
       method: 'post',
-      url: 'api/jams',
+      url: '/api/jams',
       data: this.state,
       headers: {
         Authorization: `Bearer ${token}`

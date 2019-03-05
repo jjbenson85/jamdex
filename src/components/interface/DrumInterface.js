@@ -75,13 +75,18 @@ class DrumInterface extends React.Component{
     const {currentBeat, poly } = this.props
     return (
       <div className='drum-interface'>
-        <div className='synth-skin'>
-          <Pad current={this.state.selectedVelocity==='100'} velocity='100' onClick={this.handleHard}/>
-          <Pad current={this.state.selectedVelocity==='70'} velocity='70' onClick={this.handleMedium}/>
-          <Pad current={this.state.selectedVelocity==='30'} velocity='30' onClick={this.handleSoft}/>
-        </div>
-        <div className='controller'>
-          {this.matrix(currentBeat, poly)}
+        <div className='synth-case'>
+          <div className='top-strip'>
+            <div className='velocity-buttons'>
+              <Pad current={this.state.selectedVelocity==='100'} velocity='100' onClick={this.handleHard}/>
+              <Pad current={this.state.selectedVelocity==='70'} velocity='70' onClick={this.handleMedium}/>
+              <Pad current={this.state.selectedVelocity==='30'} velocity='30' onClick={this.handleSoft}/>
+            </div>
+            <div className="drum-machine-logo">DrumMachine</div>
+          </div>
+          <div className='controller'>
+            {this.matrix(currentBeat, poly)}
+          </div>
         </div>
       </div>
     )

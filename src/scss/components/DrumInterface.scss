@@ -1,35 +1,56 @@
 .drum-interface{
-  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  height: 50%;
-  width: 90%;
-  margin: auto;
-  padding: 10px;
-  background-color: grey;
-  .synth-skin{
+  width: 100%;
+  justify-content: center;
+  padding: 40px;
+  .synth-case{
+    height: 75%;
     display: flex;
-  }
-  .controller{
-    .matrix{
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 3px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: grey;
+    .top-strip{
       display: flex;
-      align-items: center;
-      background-color: black;
-      padding: 20px;
-      // .col{
-        // &.current{
-        //   background-color: yellow;
+      margin-bottom: 2rem;
+      justify-content: space-between;
+      .velocity-buttons{
+        display: flex;
+      }
+      .drum-machine-logo{
+        color: black;
+        font-size: 2rem;
+        // transform: rotate(45deg);
+        font-weight: bolder;
+        font-family: fantasy;
+      }
+    }
+    .controller{
+      .matrix{
+        display: flex;
+        align-items: center;
+        background-color: black;
+        padding: 20px;
+        justify-content: center;
+        border-radius: 5px;
+        // .col{
+          // &.current{
+          //   background-color: yellow;
+          // }
+          // .pad{
+          //   height:40px;
+          //   width:40px;
+          //   border: 1px  solid black;
+          //   &.selected{
+          //     background-color: orange;
+          //   }
+          // }
         // }
-        // .pad{
-        //   height:40px;
-        //   width:40px;
-        //   border: 1px  solid black;
-        //   &.selected{
-        //     background-color: orange;
-        //   }
-        // }
-      // }
+      }
     }
   }
 }
