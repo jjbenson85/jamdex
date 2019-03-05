@@ -28,7 +28,7 @@ header{
     cursor: pointer;
     justify-content: center;
 
-    &:hover {
+    &:hover, &.selected {
       text-shadow: 1px 1px #000;
       transform: scale(1.2);
       color: #ccc;
