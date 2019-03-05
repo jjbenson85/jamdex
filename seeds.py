@@ -40,10 +40,10 @@ with app.app_context():
     db.session.add(james)
 
 
-    james_jam_1 = Jam(jam_name='Jam 1', created_by=james, exported=True)
+    james_jam_1 = Jam(jam_name='Jam 1', created_by=james)
     james_jam_1.save()
 
-    # james_jam_2 = Jam(jam_name='Jam 2', created_by=james, exported=False)
+    # james_jam_2 = Jam(jam_name='Jam 2', created_by=james)
     # james_jam_2.save()
 
     MonoSynth = Synth(synth_name='MonoSynth', jam=james_jam_1)
@@ -60,9 +60,9 @@ with app.app_context():
     #
     # dex_jam_1 = Jam(jam_name='Super Dex', created_by=dex)
     # dex_jam_1.save()
-    synth_setting = SynthSetting(preset=0, synth=MonoSynth)
+    synth_setting = SynthSetting(synth=MonoSynth)
     synth_setting.save()
-    
+
     mono_beats = [
         Beat(
             step=0,

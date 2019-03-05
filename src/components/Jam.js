@@ -205,9 +205,10 @@ class Jam extends React.Component {
   }
 
 
-  saveChanges(exported=false){
+  saveChanges(){
+    console.log('save changes', this.props.disableSave, this.state)
     if(this.props.disableSave) return
-    const state = {...this.state, exported: exported}
+    const state = {...this.state}
     console.log('About to save')
 
     //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
@@ -230,10 +231,22 @@ class Jam extends React.Component {
 
   updateSynthSettings(id, obj){
     const owned_synths = [...this.state.owned_synths]
-    owned_synths[id].settings = {...obj}
+    owned_synths[id].settings[0] = {...obj}
+
+    for(const mod in obj){
+      for(const cntrl in obj[mod]){
+        const python = `${mod}_${cntrl}`
+        const value = obj[mod][cntrl]
+        owned_synths[id].settings[0][python] = value
+        // console.log(`${mod}_${cntrl}`)
+        // console.log(obj[mod][cntrl])
+      }
+
+    }
     this.setState({owned_synths})
+    this.delayedCallback()
   }
-  returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
+  returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly, settings){
 
     let output
     switch(name){
@@ -249,6 +262,7 @@ class Jam extends React.Component {
           currentPitch={currentPitch}
           currentVelocity={currentVelocity}
           playing={playing}
+          settings={settings}
         />
         break
 
@@ -335,19 +349,21 @@ class Jam extends React.Component {
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
-
+            if(!inst.settings) inst.settings = []
+            // console.log('inst.settings[0]',inst.settings[0])
             return this.returnInstrument(
               inst.synth_name,
               id,
               noteInfo,
               time,
-              inst.settings
+              inst.settings[0]
             )
           }
           )}
           <div className='interface-holder'>
             {instruments.map((inst, id) => {
               if(id!==this.state.displaySynth) return null
+              if(!inst.settings) inst.settings = []
               return this.returnInterface(
                 id,
                 inst.synth_name,
@@ -358,7 +374,8 @@ class Jam extends React.Component {
                 this.state.currentPitch,
                 this.state.currentVelocity,
                 this.state.playing,
-                inst.beats
+                inst.beats,
+                inst.settings[0]
               )
             })}
           </div>
@@ -411,12 +428,14 @@ class Jam extends React.Component {
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
-
+            if(!inst.settings) inst.settings = []
+            console.log('inst.settings[0]',inst.settings[0])
             return this.returnInstrument(
               inst.synth_name,
               id,
               noteInfo,
-              time
+              time,
+              inst.settings[0]
             )
           }
           )}

@@ -5,6 +5,7 @@ from models.synth import Synth
 from models.drum import Drum
 from models.beat import Beat
 from models.poly import Poly
+from models.synth_setting import SynthSetting
 from models.poly_beat import PolyBeat
 from lib.secure_route import secure_route
 # import json
@@ -36,13 +37,13 @@ def create():
 
 
     jam_state = Dictify(json_data)
+    print('jam_state',jam_state)
 
     res_mono_beats = jam_state.owned_synths[0]['beats']
 
     new_jam = Jam(
     jam_name='New Jam',
     created_by=g.current_user,
-    exported=False,
     tempo=json_data['tempo'],
     swing=json_data['swing'])
 
@@ -50,6 +51,25 @@ def create():
 
     MonoSynth = Synth(synth_name='MonoSynth', jam=new_jam)
     MonoSynth.save()
+
+
+    settings = jam_state.owned_synths[0]['settings'][0]
+    print('settings',settings)
+    synth_setting = SynthSetting(
+    envelope_attack = settings['envelope_attack'],
+    envelope_decay = settings['envelope_decay'],
+    envelope_sustain = settings['envelope_sustain'],
+    envelope_release = settings['envelope_release'],
+    filterEnvelope_attack = settings['filterEnvelope_attack'],
+    filterEnvelope_decay = settings['filterEnvelope_decay'],
+    filterEnvelope_sustain = settings['filterEnvelope_sustain'],
+    filterEnvelope_release = settings['filterEnvelope_release'],
+    filterEnvelope_baseFrequency = settings['filterEnvelope_baseFrequency'],
+    filter_Q = settings['filter_Q'],
+    synth=MonoSynth,
+    )
+    synth_setting.save()
+
 
     DrumMachine = Drum(synth_name='DrumMachine', jam=new_jam)
     DrumMachine.save()
@@ -117,14 +137,19 @@ def update(jam_id):
 
     jam_state = Dictify(json_data)
 
-    #   print('jam_state', jam_state.owned_drums[0]['beats'][0]['poly_beats'][0]['voice'])
+    # settings = jam_state.owned_synths[0]['settings'][0]['envelope']
+    # print(settings)
+    # json_data = request.get_json()
 
-    jam, errors = jam_schema.load(request.get_json(), instance=jam)
+    # print('request.get_json()', )
 
+    jam, errors = jam_schema.load(json_data, instance=jam)
+    print(jam)
 
     if errors:
         print(errors)
         return jsonify(errors), 422
     jam.save()
 
+    print(jam_schema.jsonify(jam))
     return jam_schema.jsonify(jam), 200
