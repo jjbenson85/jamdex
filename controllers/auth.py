@@ -57,26 +57,32 @@ def new_jam(user):
                 poly=poly
             )
             poly_beat.save()
-            # poly_beat_list.append(poly_beat)
 
-    # db.session.bulk_save_objects(poly_list)
-    # db.session.bulk_save_objects(poly_beat_list)
 
 
 @api.route('/register', methods=['POST'])
 def register():
+
+
+
+    # print('about to make jam')
+    # new_jam(user)
+
     user, errors = user_schema.load(request.get_json())
+    print('user', user)
 
     if errors:
+        print('errors', errors)
         return jsonify(errors), 422
 
     user.save()
+    return jsonify(msg='User successfully created', user_id=user.id), 200
+    # except ValidationError as exception_message:
+    #     print('Error: {}. '.format(exception_message))
+    #     return jsonify({'message':'Error: {}. '.format(exception_message)}), 400
 
-    print('about to make jam')
-    new_jam(user)
 
-
-    return jsonify({'message': 'Registration successful'}), 201
+    # return jsonify({'message': 'Registration successful'}), 201
 
 
 @api.route('/login', methods=['POST'])
@@ -84,6 +90,8 @@ def login():
 
     data = request.get_json()
     user = User.query.filter_by(email=data.get('email')).first()
+
+    print('user', user)
 
     if not user or not user.validate_password(data.get('password', '')):
         return jsonify({'message': 'Unauthorized'}), 401

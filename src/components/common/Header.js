@@ -45,7 +45,12 @@ class Header extends React.Component {
 
   handleSubmit(e){
     e.preventDefault()
-    axios.post(`/api/${this.state.form}`, this.state.data)
+    const sendData = this.state.data
+    // for (const key in sendData){
+    //   if (!sendData[key]) delete sendData[key]
+    // }
+    console.log('sendData',sendData)
+    axios.post(`/api/${this.state.form}`, sendData)
       .then(res => {
         if(this.state.form === 'register') {
           return this.setState({ form: 'login', data: this.getInitialData() })
@@ -56,7 +61,8 @@ class Header extends React.Component {
       })
       .then(()=>this.props.history.push('/jam'))
       .catch(err => {
-        console.error(err.message)
+        console.log(err)
+        console.error(err.error)
       })
   }
 
