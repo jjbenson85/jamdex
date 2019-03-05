@@ -16,16 +16,8 @@ class Header extends React.Component {
 
     this.state = {
       loggedIn: false,
-      forms: {
-        register: false,
-        login: false
-      },
-      data: {
-        username: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
-      }
+      form: null,
+      data: this.getInitialData()
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -40,30 +32,25 @@ class Header extends React.Component {
     this.props.updateUser()
   }
 
-  handleSubmit(e, form){
-    e.preventDefault()
-    const data = {
+  getInitialData() {
+    return {
       username: '',
       email: '',
       password: '',
       password_confirmation: ''
     }
-    axios.post(`/api/${form}`, this.state.data)
+  }
+
+  handleSubmit(e){
+    e.preventDefault()
+    axios.post(`/api/${this.state.form}`, this.state.data)
       .then(res => {
-        if (form === 'login'){
-          Auth.setToken(res.data.token)
-          const forms = { login: false, register: false }
-          this.setState({ loggedIn: true, forms })
-          this.props.updateUser()
-        } else console.log(res.data)
-      })
-      .then(() => {
-        if (form === 'register'){
-          this.handleClick('login')
+        if(this.state.form === 'register') {
+          return this.setState({ form: 'login', data: this.getInitialData() })
         }
-      })
-      .then(() => {
-        this.setState({ data })
+        Auth.setToken(res.data.token)
+        this.setState({ loggedIn: true, form: '', data: this.getInitialData() })
+        this.props.updateUser()
       })
       .catch(err => {
         console.error(err.message)
@@ -72,31 +59,18 @@ class Header extends React.Component {
 
   handleChange(e){
     const {name, value} = e.target
-    if ((name === 'email' || name === 'username') && value.includes(' ')) return
+    if (['email', 'username'].includes(name) && value.includes(' ')) return false
     const data = { ...this.state.data, [name]: value }
     this.setState({ data })
   }
 
-  handleClick(name){
-    let forms = {...this.state.forms}
-    if (name === 'login') {
-      forms = {
-        register: false,
-        login: !this.state.forms.login
-      }
-    } else if (name === 'register'){
-      forms = {
-        register: !this.state.forms.register,
-        login: false
-      }
-    }
-    this.setState({ forms })
+  handleClick({ target: { name } }){
+    name = this.state.form === name ? '':name
+    this.setState({ form: name })
   }
 
   componentDidMount(){
-    if (Auth.isAuthenticated()) {
-      this.setState({ loggedIn: true })
-    }
+    if (Auth.isAuthenticated()) this.setState({ loggedIn: true })
   }
 
   render(){
@@ -113,11 +87,13 @@ class Header extends React.Component {
           <div className="right">
             <a
               className="nav-item"
-              onClick={() => this.handleClick('register')}
+              name="register"
+              onClick={this.handleClick}
             >Register</a>
             <a
               className="nav-item"
-              onClick={() => this.handleClick('login')}
+              name="login"
+              onClick={this.handleClick}
             >Login</a>
           </div>
         }
@@ -130,22 +106,17 @@ class Header extends React.Component {
           </div>
         }
         <Register
-          display={this.state.forms.register}
-          username={this.state.username}
-          email={this.state.email}
-          password={this.state.password}
-          password_confirmation={this.state.password_confirmation}
+          form={this.state.form}
+          data={this.state.data}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
         <Login
-          display={this.state.forms.login}
-          email={this.state.email}
-          password={this.state.password}
+          form={this.state.form}
+          data={this.state.data}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-
       </header>
     )
   }

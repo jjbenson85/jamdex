@@ -1,50 +1,44 @@
 import React from 'react'
 
 const Register = ({
-  display,
-  username,
-  email,
-  password,
-  password_confirmation,
+  data,
+  form,
   handleChange,
   handleSubmit
 }) => {
   return (
     <form
-      className={`registration ${display ? 'displayed' : ''}`}
-      onSubmit={(e) => handleSubmit(e, 'register')}
+      name="register"
+      onSubmit={handleSubmit}
+      className={`${form === 'register' ? 'displayed':''}`}
     >
-      <label>Username
-        <input
-          name="username"
-          value={username}
-          onChange={handleChange}
-        />
-      </label>
-      <label>Email
-        <input
-          name="email"
-          type="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </label>
-      <label>Password
-        <input
-          name="password"
-          type="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </label>
-      <label>Password Confirmation
-        <input
-          name="password_confirmation"
-          type="password"
-          value={password_confirmation}
-          onChange={handleChange}
-        />
-      </label>
+      <input
+        name="username"
+        value={data.username}
+        onChange={handleChange}
+        placeholder={'Username'}
+      />
+      <input
+        name="email"
+        type="email"
+        value={data.email}
+        onChange={handleChange}
+        placeholder={'Email'}
+      />
+      <input
+        name="password"
+        type="password"
+        value={data.password}
+        onChange={handleChange}
+        placeholder={'Password'}
+      />
+      <input
+        name="password_confirmation"
+        type="password"
+        value={data.password_confirmation}
+        onChange={handleChange}
+        placeholder={'Password Confirmation'}
+      />
       <button>Register</button>
     </form>
   )

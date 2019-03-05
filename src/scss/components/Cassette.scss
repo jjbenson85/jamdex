@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
 
-$label-center: purple;
+$label-center: #333;
 $tape-wrap: peachpuff;
-$case-color: rgba(0, 169, 5,0.6);
+$case-color: rgba(170, 23, 5,0.6);
 $label-outer: #ccc;
 $tape-detail: darken($case-color, 20%);
 
@@ -13,7 +13,6 @@ $tape-detail: darken($case-color, 20%);
 }
 
 *, *:before, *:after {
-    box-sizing: border-box;
     box-sizing: border-box;
 }
 

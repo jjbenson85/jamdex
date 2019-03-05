@@ -1,10 +1,12 @@
 @import '../_vars';
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
 header{
   position: fixed;
   top: 0;
   height: $header-height;
   width: 100vw;
-  background: linear-gradient(#fff 80%, transparent);
+  background: linear-gradient(#333 95%, transparent);
   display: flex;
   justify-content: space-between;
   z-index: 5;
@@ -15,6 +17,16 @@ header{
     display: flex;
     align-items: center;
     width: 7rem;
+    font-family: Rubik, sans-serif;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+
+    &:hover {
+      text-shadow: 1px 1px #000;
+      transform: scale(1.2);
+      color: #ccc;
+    }
 
     &:first-child{
 
@@ -33,21 +45,43 @@ header{
     margin: 0 2%;
   }
 
+  .right .nav-item {
+    width: 7rem;
+  }
+
   form {
     position: absolute;
     width: 100%;
     background: #ccc;
     left: 0;
-    top: 3em;
+    top: $header-height;
     height: 4em;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     height: 0;
     overflow: hidden;
     transition: height 0.5s ease;
+    font-family: Rubik, sans-serif;
+    font-size: 1rem;
 
     &.displayed {
       height: 4em;
+    }
+
+    input {
+      padding: 1%;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    button {
+      padding: 1%;
+      border-radius: 4px;
+      outline: none;
+      font-size: inherit;
+      font-family: inherit;
     }
   }
 }

@@ -45,7 +45,6 @@ class Tapes extends React.Component{
 
     return(
       <section className='tapes'>
-        <h1>Tapes</h1>
         <div className="tape-container">
           {this.props.tapes.map((tape, i)=>{
             return(
