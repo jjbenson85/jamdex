@@ -82,7 +82,7 @@ class InterfaceBeta extends React.Component{
                       value='sawtooth'
                       onChange={this.changeSettings}
                     />
-                    <div>sawtooth</div>
+                    <div onClick={()=>this.changeSettings()}>sawtooth</div>
                   </div>
 
                   <div className='row'>

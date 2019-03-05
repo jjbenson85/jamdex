@@ -36,7 +36,7 @@ class Cassette extends React.Component {
 
           <div className="cassette-cover-sticker">
             <input
-              className={`cassette-name ${this.props.disableSave?'disabled':''}`}
+              className={`cassette-name ${this.props.disableSave ? 'disabled' : '' }`}
               value={this.props.label}
               onChange={this.props.onChange}
             />
