@@ -1,15 +1,35 @@
 @import '../_vars';
 @import url('https://fonts.googleapis.com/css?family=VT323');
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
 @import url('https://fonts.googleapis.com/css?family=Candal');
+=======
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+>>>>>>> development
 
 .jam{
   height: 100%;
-
   &.bouncing{
     pointer-events: none;
   }
   .jam-inner{
+    &.top-jam{
+      background-color: grey;
+      .demo{
+        font-family: Rubik, sans-serif; 
+        position: absolute;
+        top:0px;
+        left:-100px;
+        height: 100px;
+        width: 200px;
+        background-color: blue;
+        background-color: red;
+        transform: rotate(-45deg);
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+    }
     // margin-top: -$header-height;
     height: 100%;
     // width: 100%;

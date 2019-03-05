@@ -42,24 +42,30 @@ class MonoSynthInterface extends React.Component{
   }
 
   changeSettings(e){
+    // console.log('interface changeSettings', this.props)
+
     const {name, value} = e.target
-    const settings = this.state.settings
-    const splitName = name.split('.')
-    const mod = splitName[0]
-    const cntrl = splitName[1]
-    settings[mod][cntrl] = value
+    const val = parseFloat(value)
+    const settings = this.props.settings
+    settings[name]= val || value
     settings.update = true
-    this.setState({settings: {...settings}})
+    // console.log('settings', settings)
+    // console.log(name, val || value)
+
+    this.props.updateSettings(settings)
+    // this.setState({settings: {...settings}})
 
   }
+  //
+  // componentDidUpdate(){
+  //   console.log('interface update', this.props)
+  //   if(this.state.settings.update){
+  //     const settings=this.state.settings
+  //     this.setState({settings: {...settings, update: false}})
+  //     this.props.updateSettings(this.state.settings)
+  //   }
+  // }
 
-  componentDidUpdate(){
-    if(this.state.settings.update){
-      const settings=this.state.settings
-      this.setState({settings: {...settings, update: false}})
-      this.props.updateSettings(this.state.settings)
-    }
-  }
 
   render(){
     const { id, currentBeat, currentPitch, currentVelocity, playing, handleChange, beats } = this.props
@@ -78,10 +84,11 @@ class MonoSynthInterface extends React.Component{
                   <div className='row'>
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value='sawtooth'
                       id='sawtooth'
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='sawtooth'}
                     />
                     <label htmlFor="sawtooth">◉
                     </label>
@@ -91,10 +98,11 @@ class MonoSynthInterface extends React.Component{
                   <div className='row'>
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value='square'
                       id='square'
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='square'}
                     />
                     <label htmlFor="square">◉
                     </label>
@@ -103,10 +111,11 @@ class MonoSynthInterface extends React.Component{
                   <div className='row'>
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value="pwm"
                       id="pwm"
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='pwm'}
                     />
                     <label htmlFor="pwm">◉
                     </label>
@@ -122,41 +131,41 @@ class MonoSynthInterface extends React.Component{
                   <input
                     type="range"
                     orient="vertical"
-                    name="envelope.attack"
+                    name="envelope_attack"
                     min={0.01}
                     max={5}
                     step="0.01"
-                    value={this.state.settings.envelope.attack}
+                    value={this.props.settings.envelope_attack}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="envelope.decay"
+                    name="envelope_decay"
                     min={0.01}
                     max={5}
                     step="0.01"
-                    value={this.state.settings.envelope.decay}
+                    value={this.props.settings.envelope_decay}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="envelope.sustain"
+                    name="envelope_sustain"
                     min={0}
                     max={1}
                     step="0.01"
-                    value={this.state.settings.envelope.sustain}
+                    value={this.props.settings.envelope_sustain}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="envelope.release"
+                    name="envelope_release"
                     min={0.01}
-                    max={20}
-                    step="0.0.2"
-                    value={this.state.settings.envelope.release}
+                    max={5}
+                    step="0.01"
+                    value={this.props.settings.envelope_release}
                     onChange={this.changeSettings}
                   />
                 </div>
@@ -169,41 +178,41 @@ class MonoSynthInterface extends React.Component{
                   <input
                     type="range"
                     orient="vertical"
-                    name="filterEnvelope.attack"
+                    name="filterEnvelope_attack"
                     min={0.01}
                     max={5}
                     step="0.01"
-                    value={this.state.settings.filterEnvelope.attack}
+                    value={this.props.settings.filterEnvelope_attack}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="filterEnvelope.decay"
+                    name="filterEnvelope_decay"
                     min={0.01}
                     max={5}
                     step="0.01"
-                    value={this.state.settings.filterEnvelope.decy}
+                    value={this.props.settings.filterEnvelope_decay}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="filterEnvelope.sustain"
+                    name="filterEnvelope_sustain"
                     min={0}
                     max={1}
                     step="0.01"
-                    value={this.state.settings.filterEnvelope.sustain}
+                    value={this.props.settings.filterEnvelope_sustain}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="filterEnvelope.release"
+                    name="filterEnvelope_release"
                     min={0.01}
-                    max={20}
-                    step="0.0.2"
-                    value={this.state.settings.filterEnvelope.release}
+                    max={5}
+                    step="0.01"
+                    value={this.props.settings.filterEnvelope_release}
                     onChange={this.changeSettings}
                   />
                 </div>
@@ -216,21 +225,21 @@ class MonoSynthInterface extends React.Component{
                   <input
                     type="range"
                     orient="vertical"
-                    name="filterEnvelope.baseFrequency"
+                    name="filterEnvelope_baseFrequency"
                     min={0}
-                    max={250}
+                    max={200}
                     step="1"
-                    value={this.state.settings.filterEnvelope.baseFrequency}
+                    value={this.props.settings.filterEnvelope_baseFrequency}
                     onChange={this.changeSettings}
                   />
                   <input
                     type="range"
                     orient="vertical"
-                    name="filter.Q"
-                    min={1}
-                    max={100}
+                    name="filter_Q"
+                    min={0}
+                    max={30}
                     step="0.1"
-                    value={this.state.settings.filter.Q}
+                    value={this.props.settings.filter_Q}
                     onChange={this.changeSettings}
                   />
 

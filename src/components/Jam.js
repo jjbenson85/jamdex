@@ -55,6 +55,7 @@ class Jam extends React.Component {
     const loggedIn = Auth.isAuthenticated()
     this.setState({...this.props, loggedIn})
     const that = this
+    Tone.Transport.stop()
     this.loop = new Tone.Sequence((time, beat) => {
       Tone.Transport.bpm.value = this.state.tempo
       that.setState({transport: {beat, time}})
@@ -204,23 +205,31 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
-
-  saveChanges(exported=false){
+  deleteTape(){
+    axios.delete(`/api/jams/${this.state.id}`)
+      .then(res => {
+        console.log('Deleted dat Jam\n', res)
+        this.props.history.push('/jam')
+      })
+      .catch(err => console.error(err.message))
+    
+  }
+  saveChanges(){
     if(this.props.disableSave) return
-    const state = {...this.state, exported: exported}
+    const state = {...this.state}
     console.log('About to save')
 
     //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
-    delete state.created_at
-    delete state.updated_at
+    // delete state.created_at
+    // delete state.updated_at
     state.owned_synths = state.owned_synths.map((instr)=>{
-      delete instr.created_at
-      delete instr.updated_at
+      // delete instr.created_at
+      // delete instr.updated_at
       return instr
     })
     state.owned_drums = state.owned_drums.map((instr)=>{
-      delete instr.created_at
-      delete instr.updated_at
+      // delete instr.created_at
+      // delete instr.updated_at
       return instr
     })
     axios.put(`/api/jams/${this.state.id}`,{...state})
@@ -229,11 +238,29 @@ class Jam extends React.Component {
   }
 
   updateSynthSettings(id, obj){
+<<<<<<< HEAD
     const ownedSynths = [...this.state.owned_synths]
     ownedSynths[id].settings = {...obj}
     this.setState({ owned_synths: ownedSynths })
+=======
+    const owned_synths = [...this.state.owned_synths]
+    owned_synths[id].settings[0] = {...obj}
+
+    for(const mod in obj){
+      for(const cntrl in obj[mod]){
+        const python = `${mod}_${cntrl}`
+        const value = obj[mod][cntrl]
+        owned_synths[id].settings[0][python] = value
+        // console.log(`${mod}_${cntrl}`)
+        // console.log(obj[mod][cntrl])
+      }
+
+    }
+    this.setState({owned_synths})
+    this.delayedCallback()
+>>>>>>> development
   }
-  returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
+  returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly, settings){
 
     let output
     switch(name){
@@ -249,6 +276,7 @@ class Jam extends React.Component {
           currentPitch={currentPitch}
           currentVelocity={currentVelocity}
           playing={playing}
+          settings={settings}
         />
         break
 
@@ -320,23 +348,26 @@ class Jam extends React.Component {
     return(
       <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
-        <div className='jam-inner'>
+        <div className={`jam-inner ${this.props.topJam? 'top-jam': ''}`}>
+          {this.props.topJam && <div className="demo"><div>DEMO!</div></div>}
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
-
+            if(!inst.settings) inst.settings = []
+            // console.log('inst.settings[0]',inst.settings[0])
             return this.returnInstrument(
               inst.synth_name,
               id,
               noteInfo,
               time,
-              inst.settings
+              inst.settings[0]
             )
           }
           )}
           <div className='interface-holder'>
             {instruments.map((inst, id) => {
               if(id!==this.state.displaySynth) return null
+              if(!inst.settings) inst.settings = []
               return this.returnInterface(
                 id,
                 inst.synth_name,
@@ -347,30 +378,41 @@ class Jam extends React.Component {
                 this.state.currentPitch,
                 this.state.currentVelocity,
                 this.state.playing,
-                inst.beats
+                inst.beats,
+                inst.settings[0]
               )
             })}
           </div>
           <div className="transport">
-            <div className='tabs'>
-              {instruments.map((inst, id) =>
-                <div
+            <div className="left">
+              <div className='tabs'>
+                {instruments.map((inst, id) =>
+                  <div
                   key={id}
                   className={`tab ${this.state.displaySynth === id ? 'selected':''}`}
                   onClick={()=>this.setState({displaySynth: id})}
-                >
+                  >
                   {inst.synth_name}
-                </div>
-              )}
-            </div>
-            <div className="left">
-              <div className="">
-                {this.state.jam_name}
+                  </div>
+                )}
               </div>
             </div>
             <div className="center">
+              {loggedIn &&
+              !this.state.playing &&
+                  <button
+                    className={`item bounce ${
+                      this.state.bouncing ? 'playing':''
+                    }`}
+                    onClick={this.bounce}
+                  >
+                    <img src="/assets/img/rec.png" style={{ width: '100%' }} />
+                  </button>}
+              {loggedIn && this.state.playing && <button disabled className="item bounce">
+                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
+              </button>}
               <button
-                className={`item ${this.state.playing ? 'playing':''}`}
+                className={`item ${this.state.playing||this.state.bouncing ? 'playing':''}`}
                 onClick={()=>this.playSound()}
               >
                 <img src="/assets/img/play.png" style={{ marginLeft: '4px' }} />
@@ -393,13 +435,7 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-              {loggedIn && !this.state.playing && <button className="item bounce" onClick={this.bounce}>
-                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
-              </button>}
-              {this.state.playing && <button disabled className="item bounce">
-                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
-              </button>}
-              {!loggedIn && <div>Login To Save!</div>}
+
             </div>
           </div>
         </div>}
@@ -407,6 +443,8 @@ class Jam extends React.Component {
         <div className='tape-inner'>
           <Cassette
             label={this.state.jam_name}
+            username={this.state.created_by.username}
+            createdAt={this.state.created_at}
             onChange={this.handleLabel}
             playing={this.state.playing}
             disableSave={this.props.disableSave}
@@ -414,12 +452,13 @@ class Jam extends React.Component {
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
-
+            if(!inst.settings) inst.settings = []
             return this.returnInstrument(
               inst.synth_name,
               id,
               noteInfo,
-              time
+              time,
+              inst.settings[0]
             )
           }
           )}
@@ -435,7 +474,8 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              <button onClick={()=>this.clap()}>
+              {this.state.created_by.id === Auth.getPayload() ?'disabled':''}
+              <button onClick={()=>this.clap()} >
                 <span>👏</span>
               </button>
             </div>

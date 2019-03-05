@@ -6,6 +6,7 @@ import axios from 'axios'
 import Register from '../auth/Register'
 import Login from '../auth/Login'
 import Auth from '../../lib/Auth'
+// import Tone from '../../lib/tone'
 
 import '../../scss/components/header.scss'
 
@@ -30,6 +31,7 @@ class Header extends React.Component {
     Auth.removeToken()
     this.setState({ loggedIn: false })
     this.props.updateUser()
+    this.props.history.push('/')
   }
 
   getInitialData() {
@@ -52,6 +54,7 @@ class Header extends React.Component {
         this.setState({ loggedIn: true, form: '', data: this.getInitialData() })
         this.props.updateUser()
       })
+      .then(()=>this.props.history.push('/jam'))
       .catch(err => {
         console.error(err.message)
       })

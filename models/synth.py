@@ -22,7 +22,7 @@ class SynthSchema(ma.ModelSchema, BaseSchema):
     beats = fields.Nested('BeatSchema', many=True,
         exclude=('created_at', 'updated_at', 'synth'))
 
-    synth_settings = fields.Nested('SynthSettingSchema', many=True,
+    settings = fields.Nested('SynthSettingSchema', many=True,
         exclude=('created_at', 'updated_at', 'synth'))
 
     class Meta:

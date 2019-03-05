@@ -82,9 +82,9 @@ class MonoSynth extends React.Component {
   constructor(){
     super()
 
-    this.state = presets[0]
+    // this.state = presets[0]
     this.updateSynth= this.updateSynth.bind(this)
-
+    this.unpackPythonSettings = this.unpackPythonSettings.bind(this)
     // this.state={
     //   'oscillator': {
     //     'type': 'sawtooth'
@@ -131,8 +131,10 @@ class MonoSynth extends React.Component {
   }
 
   updateSynth(){
-    const obj = this.props.settings
-    console.log(obj)
+    // const obj = this.props.settings
+    // console.log(obj)
+    const obj = this.unpackPythonSettings(this.props.settings)
+    // console.log('obj', obj)
     for( const mod in obj){
       for (const set in obj[mod]){
         const settings = {
@@ -140,9 +142,11 @@ class MonoSynth extends React.Component {
             [set]: obj[mod][set]
           }
         }
+        // console.log(settings)
         this.synth.set(settings)
       }
     }
+
 
     // this.synth.set({
     //   oscillator: {
@@ -170,12 +174,43 @@ class MonoSynth extends React.Component {
     //   }
     // })
   }
+  unpackPythonSettings(settings){
+
+    // console.log('settings',settings)
+    const newSettings= {
+      envelope: {},
+      filterEnvelope: {},
+      filter: {}
+
+    }
+    for (const python in settings){
+      // if(python==='id') continue
+      // console.log('python', python)
+      const pyArr = python.split('_')
+      const mod = pyArr[0]
+      const cntrl = pyArr[1]
+      if (pyArr[2]) break
+
+      const val = settings[python]
+      // console.log(mod, cntrl, val)
+      const currentMod = {...newSettings[mod], [cntrl]: val}
+      newSettings[mod] = {...currentMod}
+
+    }
+
+    return newSettings
+
+  }
   componentDidMount(){
-    this.synth = new Tone.MonoSynth({
-      oscillator: this.state.oscillator,
-      envelope: this.state.envelope,
-      filterEnvelope: this.state.filterEnvelope
-    }).toMaster()
+    const settings = this.props.settings
+    const newSettings = this.unpackPythonSettings(settings)
+    // console.log('newSettings',newSettings)
+    this.synth = new Tone.MonoSynth(newSettings).toMaster()
+    // this.synth = new Tone.MonoSynth({
+    //   oscillator: this.props.oscillator,
+    //   envelope: this.props.envelope,
+    //   filterEnvelope: this.props.filterEnvelope
+    // }).toMaster()
   }
 
   render(){

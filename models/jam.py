@@ -10,7 +10,6 @@ class Jam(db.Model, BaseModel):
     tempo = db.Column(db.Integer, nullable=False, default=120)
     swing = db.Column(db.Integer, nullable=False, default=0)
     applause = db.Column(db.Integer, nullable=False, default=0)
-    exported = db.Column(db.Boolean, nullable=False, default=False)
 
     # Create creator_id columns from creators id
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
