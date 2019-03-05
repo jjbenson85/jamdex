@@ -85,7 +85,10 @@ class Header extends React.Component {
     return(
       <header>
         <div className="left">
-          <Link to="/jamdex" className="nav-item"><h1>JamDex</h1></Link>
+          <Link
+            to="/jamdex"
+            className={`nav-item ${this.checkLocation('/jamdex') ? 'selected':''}`}
+          ><h1>JamDex</h1></Link>
           {this.state.loggedIn &&
             <Link
               to="/jam"

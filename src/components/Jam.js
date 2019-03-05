@@ -188,7 +188,7 @@ class Jam extends React.Component {
     if(this.props.disableSave) return
     const that = this
     const token = Auth.getToken()
-    that.setState({bouncing: true})
+    that.setState({ bouncing: true, playing: true })
     Tone.Transport.start()
     that.loop.start()
     axios({
@@ -468,8 +468,12 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              {this.state.created_by.id === Auth.getPayload() ?'disabled':''}
-              <button onClick={()=>this.clap()} >
+              {console.log(this.state.created_by.id, Auth.getPayload().sub)}
+
+              <button
+                onClick={()=>this.clap()}
+                className={this.state.created_by.id === Auth.getPayload().sub ? 'disabled':''}
+              >
                 <span>👏</span>
               </button>
             </div>

@@ -30,12 +30,10 @@ class Cassette extends React.Component {
 
           <div className="cassette-cover-sticker">
             <input
-              className={`cassette-name ${this.props.disableSave?'disabled':''}`}
+              className={`cassette-name ${false ? 'disabled':''}`}
               value={this.props.label}
               onChange={this.props.onChange}
             />
-            <div className='username'>{this.props.username}</div>
-            <div className='created-at'>{this.props.createdAt.split('T')[0]}</div>
             <div className="tape-level-wrap">
               <div className={`filament L ${playing ? 'playing':''}`}>
                 <div className={`hub ${playing ? 'playing':''}`}>
