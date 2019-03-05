@@ -29,6 +29,7 @@
           flex-grow: 1;
           outline: none;
           background: #ccc;
+          transition: box-shadow 0.1s ease;
 
           &:first-child {
             border-radius: 1rem 0 0 1rem;
@@ -36,6 +37,10 @@
 
           &:active, &.playing {
             box-shadow: inset -1px 2px 10px 1px #000;
+
+            & > * {
+              transform: scale(0.9)
+            }
           }
         }
 
@@ -58,8 +63,9 @@
           order: 3;
           border-radius: 0 1rem 1rem 0;
 
-          & + button {
+          & + button span {
             font-size: 2rem;
+            display: block;
           }
         }
       }

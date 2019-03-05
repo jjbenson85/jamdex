@@ -431,7 +431,9 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              <button onClick={()=>this.clap()}>👏</button>
+              <button onClick={()=>this.clap()}>
+                <span>👏</span>
+              </button>
             </div>
           }
           {this.props.disabled &&
@@ -443,7 +445,9 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              <button >👏</button>
+              <button disabled>
+                <span>👏</span>
+              </button>
             </div>
           }
         </div>}

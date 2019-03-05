@@ -86,13 +86,21 @@
 
         .number-control{
           width: 6rem;
-          margin: 0 3px;
+          margin: 0 3px 2px;
           display: flex;
           flex-direction: row;
 
           button{
             padding: 0 2px;
             font-size: 1.5rem;
+
+            &:first-child {
+              border-radius: 4px 0 0 4px;
+            }
+
+            &:last-child {
+              border-radius: 0 4px 4px 0;
+            }
           }
         }
       }
