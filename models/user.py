@@ -44,6 +44,11 @@ class User(db.Model, BaseModel):
 class UserSchema(ma.ModelSchema, BaseSchema):
 
     @validates_schema
+    def check_username(self, data):
+        if not data.get('password'):
+            raise ValidationError('No username provided')
+
+    @validates_schema
     def check_passwords_match(self, data):
         if data.get('password') != data.get('password_confirmation'):
             raise ValidationError(

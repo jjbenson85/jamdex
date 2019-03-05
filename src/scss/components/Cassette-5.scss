@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
 
 $label-center: #333;
-$tape-wrap: peachpuff;
-$case-color: rgba(170, 23, 5,0.6);
-$label-outer: #ccc;
+$tape-wrap: #e9e9e9;
+$case-color: rgba(20, 20, 20, 1);
+$label-outer: #F00;
 $tape-detail: darken($case-color, 20%);
+$text-color: #fff;
 
 * {
   margin: 0;
@@ -16,7 +17,7 @@ $tape-detail: darken($case-color, 20%);
   box-sizing: border-box;
 }
 
-.cassette-wrap-1 {
+.cassette-wrap-5 {
   position: relative;
   top: 0;
   left: 0;
@@ -32,20 +33,20 @@ $tape-detail: darken($case-color, 20%);
 
   .username{
     position: relative;
-    font-family: 'Gochi Hand', sans-serif;
+    font-family: 'Shadows Into Light', sans-serif;
     font-size: 2rem;
     z-index: 6;
-    color: #222831;
+    color: $text-color;
     top: 82%;
     left: 2%;
   }
   .created-at{
     position: relative;
-    font-family: 'Gochi Hand', sans-serif;
+    font-family: 'Shadows Into Light', sans-serif;
     font-size: 1.5rem;
     z-index: 6;
-    color: #222831;
-    top: 65%;
+    color: $text-color;
+    top: 56%;
     right: -72%;
   }
 
@@ -318,7 +319,7 @@ $tape-detail: darken($case-color, 20%);
   }
 
   .cassette-name {
-    font-family: 'Gochi Hand', sans-serif;
+    font-family: 'Shadows Into Light', sans-serif;
     outline: none;
     font-size: 2rem;
     height: 2.5rem;
@@ -328,7 +329,7 @@ $tape-detail: darken($case-color, 20%);
     padding: 6px 0 3px;
     position: relative;
     z-index: 6;
-    color: #222831;
+    color: $text-color;
     display: block;
     margin: -23px auto;
     background: $label-outer;

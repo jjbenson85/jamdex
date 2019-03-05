@@ -185,11 +185,14 @@ class MonoSynth extends React.Component {
     }
     for (const python in settings){
       // if(python==='id') continue
-      // console.log('python', python)
+      console.log('python', python)
       const pyArr = python.split('_')
       const mod = pyArr[0]
       const cntrl = pyArr[1]
-      if (pyArr[2]) break
+      if (pyArr[2]) {
+        delete settings[python]
+        continue
+      }
 
       const val = settings[python]
       // console.log(mod, cntrl, val)

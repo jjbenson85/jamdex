@@ -438,6 +438,7 @@ class Jam extends React.Component {
           <Cassette
             label={this.state.jam_name}
             username={this.state.created_by.username}
+            id={this.state.id}
             createdAt={this.state.created_at}
             onChange={this.handleLabel}
             playing={this.state.playing}

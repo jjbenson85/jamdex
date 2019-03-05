@@ -1,13 +1,19 @@
 import React from 'react'
 
 import '../scss/components/Cassette.scss'
+import '../scss/components/Cassette-2.scss'
+import '../scss/components/Cassette-3.scss'
+import '../scss/components/Cassette-4.scss'
+import '../scss/components/Cassette-5.scss'
 
 class Cassette extends React.Component {
 
   render(){
     const playing = this.props.playing
+    const rndm = (this.props.id%5)+1
+    console.log(rndm)
     return (
-      <div className="cassette-wrap">
+      <div className={`cassette-wrap-${rndm}`}>
         <span className="screw"></span>
         <span className="screw"></span>
         <span className="screw"></span>
