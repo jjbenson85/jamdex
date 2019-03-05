@@ -48,3 +48,28 @@ $drum-soft-color: #0F0;
     }
   }
 }
+
+@media only screen and (min-width: 1000px){
+  .pad{
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+@media only screen and (min-width: 1200px){
+  .pad{
+    width: 4rem;
+    height: 4rem;
+  }
+}
+@media only screen and (min-width: 1500px){
+  .pad{
+    width: 5rem;
+    height: 5rem;
+  }
+}
+@media only screen and (min-width: 1800px){
+  .pad{
+    width: 6rem;
+    height: 6rem;
+  }
+}

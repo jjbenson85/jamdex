@@ -1,5 +1,6 @@
 @import '../_vars';
 @import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
 
 .jam{
   height: 100%;
@@ -44,6 +45,15 @@
           margin-left: 10px;
           min-width: 100px;
           transition: box-shadow 0.1s ease;
+          height: 2rem;
+
+          &:first-child {
+            font-family: 'Major Mono Display', monospace;
+          }
+
+          &:last-child {
+            font-family: fantasy;
+          }
 
           &.selected{
             box-shadow: inset 0px 4px 10px 0px #000;
@@ -70,6 +80,7 @@
         height: 2.5rem;
         width: 2.5rem;
         outline: none;
+        background-image: radial-gradient(circle at top, #ccc, #222);
 
         &.playing {
           box-shadow: inset 0px 4px 10px 1px #000;

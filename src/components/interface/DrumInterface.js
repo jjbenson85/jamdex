@@ -82,7 +82,10 @@ class DrumInterface extends React.Component{
               <Pad current={this.state.selectedVelocity==='70'} velocity='70' onClick={this.handleMedium}/>
               <Pad current={this.state.selectedVelocity==='30'} velocity='30' onClick={this.handleSoft}/>
             </div>
-            <div className="drum-machine-logo">DrumMachine</div>
+            <div className="street-machine">
+              <h1 className="street">DRUM</h1>
+              <h3 className="machine">Machine</h3>
+            </div>
           </div>
           <div className='controller'>
             {this.matrix(currentBeat, poly)}

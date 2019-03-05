@@ -8,12 +8,13 @@
 }
 
 .bar {
-   background: #444;
-    bottom: 1px;
-    height: 20vh;
-    position: absolute;
-    width: 5vw;
-    animation: sound 0ms -20s ease infinite alternate;
+  background: #444;
+  border: 1px solid rgba(200, 200, 200, 0.5);
+  bottom: 1px;
+  height: 20vh;
+  position: absolute;
+  width: 5vw;
+  animation: sound 0ms -20s ease infinite alternate;
 }
 
 @keyframes sound {

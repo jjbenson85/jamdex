@@ -10,6 +10,7 @@ import Jamdex from './components/Jamdex'
 
 import Tapes from './components/Tapes'
 import Jam from './components/Jam'
+import Loading from './components/common/Loading'
 
 import './scss/style.scss'
 
@@ -50,7 +51,7 @@ class App extends React.Component {
 
     const TopJam = () => {
       console.log('topjam',this.state.top_jam)
-      if(!this.state.top_jam) return <div>Loooooading</div>
+      if(!this.state.top_jam) return <Loading />
       return (
         <Jam {...this.state.top_jam[0]} updateUser={this.updateUser} disableSave={true}/>
       )

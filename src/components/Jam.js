@@ -229,9 +229,9 @@ class Jam extends React.Component {
   }
 
   updateSynthSettings(id, obj){
-    const owned_synths = [...this.state.owned_synths]
-    owned_synths[id].settings = {...obj}
-    this.setState({owned_synths})
+    const ownedSynths = [...this.state.owned_synths]
+    ownedSynths[id].settings = {...obj}
+    this.setState({ owned_synths: ownedSynths })
   }
   returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly){
 

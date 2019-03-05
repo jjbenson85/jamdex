@@ -1,6 +1,6 @@
 @import '_vars';
 @import '_inputrange';
-@import url('https://fonts.googleapis.com/css?family=Monoton');
+
 
 $red: #f00;
 
@@ -23,14 +23,19 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  color: $red;
-  font-family: Monoton, monospace;
-}
-
 main {
   height:100vh;
   width: 100vw;
   margin-top: -$header-height;
   padding-top: $header-height;
+}
+
+@media only screen and (min-width: 1200px) {
+  body, main {
+    padding-top: 3.5rem;
+  }
+
+  main {
+    margin-top: -3.5rem;
+  }
 }

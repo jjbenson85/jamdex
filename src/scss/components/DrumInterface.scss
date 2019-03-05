@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Candal);
+@import url(https://fonts.googleapis.com/css?family=Mr+Dafoe);
+
 .drum-interface{
   height: 100%;
   display: flex;
@@ -13,24 +16,76 @@
     border: 3px solid black;
     border-radius: 5px;
     padding: 10px;
-    background-color: grey;
+    background-color: #444;
     .top-strip{
       display: flex;
       margin-bottom: 2rem;
       justify-content: space-between;
+      height: 40%;
       .velocity-buttons{
         display: flex;
       }
-      .drum-machine-logo{
-        color: black;
-        font-size: 2rem;
-        // transform: rotate(45deg);
-        font-weight: bolder;
-        font-family: fantasy;
+      .street-machine {
+      position: relative;
+      transform: scale(0.5);
+      margin-bottom: 10%;
+      padding: 2%;
+      }
+
+      .street {
+      position: relative;
+      font-family: 'Candal', sans-serif;
+      font-size: 180px;
+      font-style: italic;
+      -webkit-text-stroke: 0.1px #ed2121;
+      color: #fff;
+      text-shadow: -10px 10px 0px #ed2121;
+      margin: 0;
+    }
+
+
+      .street:before {
+      content: '';
+      position: absolute;
+      height: 4px;
+      width: 665px;
+      top: 83px;
+      left: 48px;
+      background: #ed2121;
+      box-shadow: -8px 13px #ed2121;
+      }
+
+      .street:after {
+      content: '';
+      position: absolute;
+      height: 4px;
+      width: 639px;
+      top: 109px;
+      left: 36px;
+      background: #ed2121;
+      box-shadow: -4px 13px #ed2121;
+      }
+
+      .machine {
+      position: absolute;
+      left: 50px;
+      top: 350px;
+      font-family: 'Mr Dafoe', cursive;
+      font-size: 130px;
+      transform:rotate(-15deg);
+      -ms-transform:rotate(-15deg); /* IE 9 */
+      -webkit-transform:rotate(-15deg); /* Safari and Chrome */
+      color: #ed2121;
+      margin: 0;
+      margin-top: -160px;
+      padding-left: 430px;
+      text-shadow: 1px 2px 0px #F9D2D2;
       }
     }
     .controller{
+      flex-grow: 0.8;
       .matrix{
+        height: 100%;
         display: flex;
         align-items: center;
         background-color: black;
