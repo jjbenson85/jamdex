@@ -205,24 +205,31 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
-
+  deleteTape(){
+    axios.delete(`/api/jams/${this.state.id}`)
+      .then(res => {
+        console.log('Deleted dat Jam\n', res)
+        this.props.history.push('/jam')
+      })
+      .catch(err => console.error(err.message))
+    
+  }
   saveChanges(){
-    console.log('save changes', this.props.disableSave, this.state)
     if(this.props.disableSave) return
     const state = {...this.state}
     console.log('About to save')
 
     //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
-    delete state.created_at
-    delete state.updated_at
+    // delete state.created_at
+    // delete state.updated_at
     state.owned_synths = state.owned_synths.map((instr)=>{
-      delete instr.created_at
-      delete instr.updated_at
+      // delete instr.created_at
+      // delete instr.updated_at
       return instr
     })
     state.owned_drums = state.owned_drums.map((instr)=>{
-      delete instr.created_at
-      delete instr.updated_at
+      // delete instr.created_at
+      // delete instr.updated_at
       return instr
     })
     axios.put(`/api/jams/${this.state.id}`,{...state})
