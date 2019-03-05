@@ -58,8 +58,7 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     password_confirmation = fields.String(required=True)
 
     created_jams = fields.Nested('JamSchema',
-        many=True,
-        exclude=('created_by',))
+        many=True)
 
     class Meta:
         model = User

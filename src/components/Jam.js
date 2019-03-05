@@ -371,25 +371,35 @@ class Jam extends React.Component {
             })}
           </div>
           <div className="transport">
-            <div className='tabs'>
-              {instruments.map((inst, id) =>
-                <div
+            <div className="left">
+              <div className='tabs'>
+                {instruments.map((inst, id) =>
+                  <div
                   key={id}
                   className={`tab ${this.state.displaySynth === id ? 'selected':''}`}
                   onClick={()=>this.setState({displaySynth: id})}
-                >
+                  >
                   {inst.synth_name}
-                </div>
-              )}
-            </div>
-            <div className="left">
-              <div className="">
-                {this.state.jam_name}
+                  </div>
+                )}
               </div>
             </div>
             <div className="center">
+              {loggedIn &&
+              !this.state.playing &&
+                  <button
+                    className={`item bounce ${
+                      this.state.bouncing ? 'playing':''
+                    }`}
+                    onClick={this.bounce}
+                  >
+                    <img src="/assets/img/rec.png" style={{ width: '100%' }} />
+                  </button>}
+              {loggedIn && this.state.playing && <button disabled className="item bounce">
+                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
+              </button>}
               <button
-                className={`item ${this.state.playing ? 'playing':''}`}
+                className={`item ${this.state.playing||this.state.bouncing ? 'playing':''}`}
                 onClick={()=>this.playSound()}
               >
                 <img src="/assets/img/play.png" style={{ marginLeft: '4px' }} />
@@ -412,13 +422,7 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-              {loggedIn && !this.state.playing && <button className="item bounce" onClick={this.bounce}>
-                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
-              </button>}
-              {this.state.playing && <button disabled className="item bounce">
-                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
-              </button>}
-              {!loggedIn && <div>Login To Save!</div>}
+
             </div>
           </div>
         </div>}
@@ -426,6 +430,8 @@ class Jam extends React.Component {
         <div className='tape-inner'>
           <Cassette
             label={this.state.jam_name}
+            username={this.state.created_by.username}
+            createdAt={this.state.created_at}
             onChange={this.handleLabel}
             playing={this.state.playing}
             disableSave={this.props.disableSave}
@@ -455,7 +461,8 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              <button onClick={()=>this.clap()}>
+              {this.state.created_by.id === Auth.getPayload() ?'disabled':''}
+              <button onClick={()=>this.clap()} >
                 <span>👏</span>
               </button>
             </div>
