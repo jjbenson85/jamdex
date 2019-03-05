@@ -55,6 +55,7 @@ class Jam extends React.Component {
     const loggedIn = Auth.isAuthenticated()
     this.setState({...this.props, loggedIn})
     const that = this
+    Tone.Transport.stop()
     this.loop = new Tone.Sequence((time, beat) => {
       Tone.Transport.bpm.value = this.state.tempo
       that.setState({transport: {beat, time}})
@@ -334,7 +335,8 @@ class Jam extends React.Component {
     return(
       <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
-        <div className='jam-inner'>
+        <div className={`jam-inner ${this.props.topJam? 'top-jam': ''}`}>
+          {this.props.topJam && <div className="demo"><div>DEMO!</div></div>}
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]

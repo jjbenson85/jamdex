@@ -52,7 +52,7 @@ class App extends React.Component {
       console.log('topjam',this.state.top_jam)
       if(!this.state.top_jam) return <div>Loooooading</div>
       return (
-        <Jam {...this.state.top_jam[0]} updateUser={this.updateUser} disableSave={true}/>
+        <Jam {...this.state.top_jam[0]} updateUser={this.updateUser} disableSave={true} topJam={true}/>
       )
     }
 
