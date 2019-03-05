@@ -1,27 +1,28 @@
 import React from 'react'
 
-const Login = ({ email, password, handleChange, display, handleSubmit }) => {
+const Login = ({ data, form, handleChange, handleSubmit }) => {
   return (
     <form
-      className={`login ${display ? 'displayed' : ''}`}
-      onSubmit={(e) => handleSubmit(e, 'login')}
+      name="login"
+      onSubmit={handleSubmit}
+      className={`${form === 'login' ? 'displayed':''}`}
     >
-      <label>Email
-        <input
-          name="email"
-          type="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </label>
-      <label>Password
-        <input
-          name="password"
-          type="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </label>
+      <input
+        name="email"
+        type="email"
+        value={data.email}
+        onChange={handleChange}
+        placeholder={'Email'}
+        style={{ width: '25rem' }}
+      />
+      <input
+        name="password"
+        type="password"
+        value={data.password}
+        onChange={handleChange}
+        placeholder={'Password'}
+        style={{ width: '25rem' }}
+      />
       <button>Log In</button>
     </form>
   )

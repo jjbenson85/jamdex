@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Tapes from './Tapes'
+import Loading from './common/Loading'
 
 import axios from 'axios'
 
@@ -14,7 +15,7 @@ class Jamdex extends React.Component{
       } )
   }
   render(){
-    if(!this.state) return null
+    if(!this.state) return <Loading />
     const jams = this.state.jams
     // console.log('JAM DEX jams',jams)
     jams.sort((A,B)=> B.id - A.id)

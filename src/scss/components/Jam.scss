@@ -1,24 +1,11 @@
 @import '../_vars';
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
 .jam{
   height: 100%;
-  
+
   &.bouncing{
     pointer-events: none;
-  }
-  .tabs{
-    background-color: #333;
-
-    display: flex;
-    justify-content: flex-start;
-    height: 40px;
-    padding: 4px;
-    .tab{
-      background-color: #BBB;
-      border: 1px solid black;
-      padding: 10px;
-      margin-left: 10px;
-      min-width: 100px;
-    }
   }
   .jam-inner{
     // margin-top: -$header-height;
@@ -35,28 +22,86 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 40px;
       border: 1px solid black;
       display: flex;
       justify-content: space-between;
-      padding: 0 2rem;
+      padding: 1rem 2rem 0;
+      flex-wrap: wrap;
+      background: #333;
+
+      .tabs{
+        background-color: #333;
+        display: flex;
+        justify-content: flex-start;
+        height: 3rem;
+        padding: 4px;
+        align-items: flex-start;
+
+        .tab{
+          background-color: #BBB;
+          padding: 10px 10px 0 10px;
+          border-radius: 4px;
+          margin-left: 10px;
+          min-width: 100px;
+          transition: box-shadow 0.1s ease;
+
+          &.selected{
+            box-shadow: inset 0px 4px 10px 0px #000;
+          }
+        }
+      }
       .display{
         display: flex;
         flex-direction: column;
         justify-content: center;
+        text-align: center;
+        font-family: VT323, monospace;
+        color: #f00;
+        background: #000;
+        font-size: 1.5rem;
       }
-      .item{
-        margin-left: 4px;
-        margin-right: 4px;
+      button{
+        outline: none;
+        border: 3px solid #000;
+      }
+      button.item{
+        margin: 0 4px;
+        border-radius: 100%;
+        height: 2.5rem;
+        width: 2.5rem;
+        outline: none;
+
+        &.playing {
+          box-shadow: inset 0px 4px 10px 1px #000;
+        }
+      }
+      button:active{
+        box-shadow: inset 0px 4px 10px 1px #000;
       }
       .center, .left, .right{
         flex-grow: 1;
-        border: 1px solid red;
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
+        height: 3rem;
+
         .number-control{
+          width: 6rem;
+          margin: 0 3px 2px;
           display: flex;
           flex-direction: row;
+
+          button{
+            padding: 0 2px;
+            font-size: 1.5rem;
+
+            &:first-child {
+              border-radius: 4px 0 0 4px;
+            }
+
+            &:last-child {
+              border-radius: 0 4px 4px 0;
+            }
+          }
         }
       }
       .left, .right{

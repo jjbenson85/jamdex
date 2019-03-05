@@ -6,10 +6,11 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
-import InterfaceBeta from './interface/InterfaceBeta'
+import MonoSynthInterface from './interface/MonoSynthInterface'
 import DrumInterface from './interface/DrumInterface'
 import noteRangeLookup from '../lib/noteRangeLookup'
 import Cassette from './Cassette'
+import Loading from './common/Loading'
 
 import '../scss/components/Jam.scss'
 
@@ -184,9 +185,11 @@ class Jam extends React.Component {
 
   bounce(){
     if(this.props.disableSave) return
-    this.saveChanges(true)
     const that = this
     const token = Auth.getToken()
+    that.setState({bouncing: true})
+    Tone.Transport.start()
+    that.loop.start()
     axios({
       method: 'post',
       url: '/api/jams',
@@ -197,9 +200,6 @@ class Jam extends React.Component {
     })
       .then(res => {
         console.log('RES', res)
-        Tone.Transport.start()
-        that.loop.start()
-        that.setState({bouncing: true})
       })
       .catch(err => console.error(err.message))
   }
@@ -252,7 +252,7 @@ class Jam extends React.Component {
     switch(name){
       case 'MonoSynth':
         output =
-        <InterfaceBeta
+        <MonoSynthInterface
           key={id}
           id={0}
           handleChange={handleChange}
@@ -313,7 +313,7 @@ class Jam extends React.Component {
 
   render(){
 
-    if(!this.state.owned_synths) return <h1>Loading...</h1>
+    if(!this.state.owned_synths) return <Loading />
 
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths
@@ -325,7 +325,7 @@ class Jam extends React.Component {
     const isJam = !this.props.tape
     const type = isTape ? 'tape': 'jam'
     const {bouncing} = this.state
-    if(this.state.bouncing && currentBeat===15){
+    if(bouncing && currentBeat===15){
       Tone.Transport.stop()
       this.loop.stop()
       this.props.updateUser()
@@ -335,17 +335,6 @@ class Jam extends React.Component {
       <div className={`${type} ${bouncing?'bouncing':''}`}>
         {isJam &&
         <div className='jam-inner'>
-          <div className='tabs'>
-            {instruments.map((inst, id) =>
-              <div
-                key={id}
-                className='tab'
-                onClick={()=>this.setState({displaySynth: id})}
-              >
-                {inst.synth_name}
-              </div>
-            )}
-          </div>
           {instruments.map((inst, id) =>{
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
@@ -380,6 +369,17 @@ class Jam extends React.Component {
             })}
           </div>
           <div className="transport">
+            <div className='tabs'>
+              {instruments.map((inst, id) =>
+                <div
+                  key={id}
+                  className={`tab ${this.state.displaySynth === id ? 'selected':''}`}
+                  onClick={()=>this.setState({displaySynth: id})}
+                >
+                  {inst.synth_name}
+                </div>
+              )}
+            </div>
             <div className="left">
               <div className="">
                 {this.state.jam_name}
@@ -387,12 +387,17 @@ class Jam extends React.Component {
             </div>
             <div className="center">
               <button
-                className="item"
+                className={`item ${this.state.playing ? 'playing':''}`}
                 onClick={()=>this.playSound()}
-              >PLAY</button>
+              >
+                <img src="/assets/img/play.png" style={{ marginLeft: '4px' }} />
+              </button>
               <button
                 className="item"
-                onClick={()=>this.stopSound()}>STOP</button>
+                onClick={()=>this.stopSound()}
+              >
+                <img src="/assets/img/stop.png" />
+              </button>
               <div className="item number-control">
                 <button onClick={()=>this.decTempo()}>-</button>
                 <div className="display">{`${this.state.tempo} BPM`}</div>
@@ -405,12 +410,11 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-
               {loggedIn && !this.state.playing && <button className="item bounce" onClick={this.bounce}>
-                Bounce
+                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
               </button>}
-              {loggedIn && this.state.playing && <button disabled className="item bounce">
-                Bounce
+              {this.state.playing && <button disabled className="item bounce">
+                <img src="/assets/img/rec.png" style={{ width: '100%' }} />
               </button>}
               {!loggedIn && <div>Login To Save!</div>}
             </div>
@@ -418,7 +422,6 @@ class Jam extends React.Component {
         </div>}
         {isTape &&
         <div className='tape-inner'>
-          Tape
           <Cassette
             label={this.state.jam_name}
             onChange={this.handleLabel}
@@ -440,17 +443,34 @@ class Jam extends React.Component {
           }
           )}
           {!this.props.disabled &&
-            <div>
-              <button onClick={()=>this.playSound()}>▶️</button>
-              <button onClick={()=>this.stopSound()}>⏹</button>
-              <div className="applause">{this.state.applause}</div>
-              <button onClick={()=>this.clap()}>👏</button>
+            <div className="tape-controls">
+              <button
+                onClick={()=>this.playSound()}
+                className={`${this.state.playing ? 'playing':''}`}
+              >
+                <img src="/assets/img/play.png" />
+              </button>
+              <button onClick={()=>this.stopSound()}>
+                <img src="/assets/img/stop.png" />
+              </button>
+              <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
+              <button onClick={()=>this.clap()}>
+                <span>👏</span>
+              </button>
             </div>
           }
           {this.props.disabled &&
-            <div>
-              <button disabled>PLAY</button>
-              <button disabled>STOP</button>
+            <div className="tape-controls disabled">
+              <button disabled>
+                <img src="/assets/img/play.png" />
+              </button>
+              <button disabled>
+                <img src="/assets/img/stop.png" />
+              </button>
+              <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
+              <button disabled>
+                <span>👏</span>
+              </button>
             </div>
           }
         </div>}
