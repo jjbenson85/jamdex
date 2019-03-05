@@ -1,0 +1,39 @@
+#loading-bars {
+    height: 60vh;
+    left: 25vw;
+    margin: -30px 0 0 -20px;
+    position: absolute;
+    top: 20vh;
+    width: 50vw;
+}
+
+.bar {
+   background: #444;
+    bottom: 1px;
+    height: 20vh;
+    position: absolute;
+    width: 5vw;
+    animation: sound 0ms -20s ease infinite alternate;
+}
+
+@keyframes sound {
+    0% {
+       opacity: .35;
+        height: 0;
+    }
+    100% {
+        opacity: 1;
+        height: 50vh;
+    }
+}
+
+.bar:nth-child(1)  { left: 0; animation-duration: 550ms; }
+.bar:nth-child(2)  { left: 5vw; animation-duration: 600ms; }
+.bar:nth-child(3)  { left: 10vw; animation-duration: 650ms; }
+.bar:nth-child(4)  { left: 15vw; animation-duration: 700ms; }
+.bar:nth-child(5)  { left: 20vw; animation-duration: 750ms; }
+.bar:nth-child(6)  { left: 25vw; animation-duration: 800ms; }
+.bar:nth-child(7)  { left: 30vw; animation-duration: 850ms; }
+.bar:nth-child(8)  { left: 35vw; animation-duration: 900ms; }
+.bar:nth-child(9)  { left: 40vw; animation-duration: 950ms; }
+.bar:nth-child(10) { left: 45vw; animation-duration: 1000ms; }

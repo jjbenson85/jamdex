@@ -1,12 +1,12 @@
 import React from 'react'
 
 import noteRangeLookup from '../../lib/noteRangeLookup'
-import '../../scss/components/InterfaceBeta.scss'
+import '../../scss/components/MonoSynthInterface.scss'
 
 
 import RangeInputs from './RangeInputs'
 
-class InterfaceBeta extends React.Component{
+class MonoSynthInterface extends React.Component{
   constructor(){
     super()
     this.state={
@@ -65,7 +65,7 @@ class InterfaceBeta extends React.Component{
     const { id, currentBeat, currentPitch, currentVelocity, playing, handleChange, beats } = this.props
     const {display} = this.state
     return (
-      <div className="interfaceBeta">
+      <div className="MonoSynthInterface">
         <div className="synth-case">
           <div className="panels">
             <div className="top-strip">
@@ -80,29 +80,36 @@ class InterfaceBeta extends React.Component{
                       type="radio"
                       name="oscillator.type"
                       value='sawtooth'
+                      id='sawtooth'
                       onChange={this.changeSettings}
                     />
+                    <label htmlFor="sawtooth">◉
+                    </label>
                     <div>sawtooth</div>
                   </div>
 
                   <div className='row'>
-
                     <input
                       type="radio"
                       name="oscillator.type"
                       value='square'
+                      id='square'
                       onChange={this.changeSettings}
                     />
-
+                    <label htmlFor="square">◉
+                    </label>
                     <div>square</div>
                   </div>
                   <div className='row'>
                     <input
                       type="radio"
                       name="oscillator.type"
-                      value='pwm'
+                      value="pwm"
+                      id="pwm"
                       onChange={this.changeSettings}
                     />
+                    <label htmlFor="pwm">◉
+                    </label>
                     <div>pwm</div>
                   </div>
                 </div>
@@ -272,4 +279,4 @@ class InterfaceBeta extends React.Component{
   }
 }
 
-export default InterfaceBeta
+export default MonoSynthInterface

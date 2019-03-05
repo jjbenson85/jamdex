@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Jam from '../components/Jam'
+import Loading from './common/Loading'
 // import Cassette from './Cassette'
 
 import '../scss/components/Tapes.scss'
@@ -39,7 +40,7 @@ class Tapes extends React.Component{
 
   render(){
     // const { playing } = this.state
-    if(!this.state.disabled) return null
+    if(!this.state.disabled) return <Loading />
     // console.log('tapes', this.state.disabled)
     // console.log('this.props.disableSave',this.props.disableSave)
 

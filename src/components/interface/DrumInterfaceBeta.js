@@ -4,7 +4,7 @@ import noteRangeLookup from '../../lib/noteRangeLookup'
 
 import RangeInputs from './RangeInputs'
 
-class DrumInterfaceBeta extends React.Component{
+class DrumMonoSynthInterface extends React.Component{
   constructor(){
     super()
     this.state={
@@ -16,7 +16,7 @@ class DrumInterfaceBeta extends React.Component{
     const {display} = this.state
     // console.log(beats)
     return (
-      <div className="interfaceBeta">
+      <div className="MonoSynthInterface">
         <div className="column">
           <div className="pitch-display" onClick={()=>this.setState({display: 'pitch'})} >
             Pitch <span>{currentPitch}</span>
@@ -46,4 +46,4 @@ class DrumInterfaceBeta extends React.Component{
   }
 }
 
-export default DrumInterfaceBeta
+export default DrumMonoSynthInterface

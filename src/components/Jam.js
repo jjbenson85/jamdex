@@ -6,10 +6,11 @@ import axios from 'axios'
 import Auth from '../lib/Auth'
 import MonoSynth from './instruments/MonoSynth'
 import DrumMachine from './instruments/DrumMachine'
-import InterfaceBeta from './interface/InterfaceBeta'
+import MonoSynthInterface from './interface/MonoSynthInterface'
 import DrumInterface from './interface/DrumInterface'
 import noteRangeLookup from '../lib/noteRangeLookup'
 import Cassette from './Cassette'
+import Loading from './common/Loading'
 
 import '../scss/components/Jam.scss'
 
@@ -238,7 +239,7 @@ class Jam extends React.Component {
     switch(name){
       case 'MonoSynth':
         output =
-        <InterfaceBeta
+        <MonoSynthInterface
           key={id}
           id={0}
           handleChange={handleChange}
@@ -298,7 +299,7 @@ class Jam extends React.Component {
 
   render(){
 
-    if(!this.state.owned_synths) return <h1>Loading...</h1>
+    if(!this.state.owned_synths) return <Loading />
 
     const currentBeat = this.state.transport.beat
     const synths = this.props.owned_synths

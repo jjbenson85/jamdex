@@ -6,7 +6,6 @@ import axios from 'axios'
 import Auth from './lib/Auth'
 // import Tone from '../../lib/tone'
 import Header from './components/common/Header'
-import Home from './components/Home'
 import Jamdex from './components/Jamdex'
 
 import Tapes from './components/Tapes'

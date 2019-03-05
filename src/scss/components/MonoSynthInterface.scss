@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
 
-.interfaceBeta{
+.MonoSynthInterface{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,16 +15,42 @@
     border-radius: 5px;
     margin: 4px;
     padding: 4px;
-    .labels{
 
+    .labels{
+      font-family: 'Major Mono Display', monospace;
+      color: #aaa;
     }
+
     .radios{
       display: flex;
       flex-direction: column;
+      font-family: 'Major Mono Display', monospace;
+      color: #ccc;
+
       .row{
         display: flex;
         input[type="radio"]{
-          margin-right: 8px;
+          display: none;
+        }
+
+        label {
+          border-radius: 100%;
+          height: 20px;
+          width: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #000;
+        }
+
+        input[type="radio"]:checked + label {
+          color: #f00;
+          box-shadow: inset 0 0 20px 0px #f00;
+        }
+
+        label + div {
+          display: flex;
+          align-items: center;
         }
       }
 
@@ -54,7 +82,7 @@
   .mono-synth-logo{
     font-size: 2rem;
     color: red;
-    font-family: monospace;
+    font-family: 'Major Mono Display', monospace;
     background-color: #ccc;
     // transform: rotate(-45deg);
     border-top: 5px solid red;
@@ -150,12 +178,15 @@
           display: flex;
           flex-direction: column;
           height: 40%;
+          width: 7rem;
 
           h3 {
             background: #ccc;
             text-align: center;
             border-radius: 4px 4px 0 0;
             transition: all 0.09s ease;
+            font-family: 'Major Mono Display', monospace;
+            font-size: 1rem;
           }
 
           span {
@@ -239,7 +270,7 @@
   }
 }
 //
-// div.interfaceBeta {
+// div.MonoSynthInterface {
 //   display: flex;
 //   justify-content: space-around;
 //
