@@ -142,6 +142,7 @@ class MonoSynth extends React.Component {
             [set]: obj[mod][set]
           }
         }
+        // console.log(settings)
         this.synth.set(settings)
       }
     }
@@ -184,10 +185,14 @@ class MonoSynth extends React.Component {
     }
     for (const python in settings){
       // if(python==='id') continue
+      // console.log('python', python)
       const pyArr = python.split('_')
       const mod = pyArr[0]
       const cntrl = pyArr[1]
+      if (pyArr[2]) break
+
       const val = settings[python]
+      // console.log(mod, cntrl, val)
       const currentMod = {...newSettings[mod], [cntrl]: val}
       newSettings[mod] = {...currentMod}
 
@@ -199,7 +204,7 @@ class MonoSynth extends React.Component {
   componentDidMount(){
     const settings = this.props.settings
     const newSettings = this.unpackPythonSettings(settings)
-    console.log('newSettings',newSettings)
+    // console.log('newSettings',newSettings)
     this.synth = new Tone.MonoSynth(newSettings).toMaster()
     // this.synth = new Tone.MonoSynth({
     //   oscillator: this.props.oscillator,

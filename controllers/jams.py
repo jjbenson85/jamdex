@@ -56,6 +56,7 @@ def create():
     settings = jam_state.owned_synths[0]['settings'][0]
     print('settings',settings)
     synth_setting = SynthSetting(
+    oscillator_type = settings['oscillator_type'],
     envelope_attack = settings['envelope_attack'],
     envelope_decay = settings['envelope_decay'],
     envelope_sustain = settings['envelope_sustain'],

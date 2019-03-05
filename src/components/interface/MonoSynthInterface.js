@@ -47,8 +47,11 @@ class MonoSynthInterface extends React.Component{
     const {name, value} = e.target
     const val = parseFloat(value)
     const settings = this.props.settings
-    settings[name]= val
+    settings[name]= val || value
     settings.update = true
+    // console.log('settings', settings)
+    // console.log(name, val || value)
+
     this.props.updateSettings(settings)
     // this.setState({settings: {...settings}})
 
@@ -81,10 +84,11 @@ class MonoSynthInterface extends React.Component{
                   <div className='row'>
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value='sawtooth'
                       id='sawtooth'
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='sawtooth'}
                     />
                     <label htmlFor="sawtooth">◉
                     </label>
@@ -94,22 +98,25 @@ class MonoSynthInterface extends React.Component{
                   <div className='row'>
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value='square'
                       id='square'
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='square'}
                     />
                     <label htmlFor="square">◉
                     </label>
                     <div>square</div>
                   </div>
                   <div className='row'>
+                    {console.log('radio', this.props.settings.oscillator_type)}
                     <input
                       type="radio"
-                      name="oscillator.type"
+                      name="oscillator_type"
                       value="pwm"
                       id="pwm"
                       onChange={this.changeSettings}
+                      checked={this.props.settings.oscillator_type==='pwm'}
                     />
                     <label htmlFor="pwm">◉
                     </label>
@@ -230,7 +237,7 @@ class MonoSynthInterface extends React.Component{
                     type="range"
                     orient="vertical"
                     name="filter_Q"
-                    min={1}
+                    min={0}
                     max={30}
                     step="0.1"
                     value={this.props.settings.filter_Q}
