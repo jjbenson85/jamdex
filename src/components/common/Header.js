@@ -20,9 +20,11 @@ class Header extends React.Component {
       form: null,
       data: this.getInitialData(),
       errors: {
-        _schema: null,
+        email: null,
+        username: null,
         password: null,
-        password_confirmation: null
+        password_confirmation: null,
+        message: null
       }
     }
 
