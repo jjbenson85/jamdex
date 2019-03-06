@@ -69,7 +69,7 @@ header{
     height: 4em;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: top;
     height: 0;
     overflow: hidden;
     transition: height 0.5s ease;
@@ -77,27 +77,34 @@ header{
     font-size: 1rem;
 
     &.displayed {
-      height: 4em;
+      height: 5em;
     }
 
 
     input {
-      padding: 1%;
+      padding: 0.5rem;
       border-radius: 4px;
       font-family: inherit;
       font-size: inherit;
+      margin-top: 0.5rem;
 
       &.error {
         background: #ff5252;
       }
     }
 
+    p {
+      color: #f00;
+      font-size: 0.8em;
+    }
+
     button {
-      padding: 1%;
+      padding: 0.5rem;
       border-radius: 4px;
       outline: none;
       font-size: inherit;
       font-family: inherit;
+      margin-top: 0.5rem;
     }
   }
 }
