@@ -27,11 +27,16 @@ header{
     color: #fff;
     cursor: pointer;
     justify-content: center;
+    transition: all 0.2s ease;
 
     &:hover {
-      text-shadow: 1px 1px #000;
       transform: scale(1.2);
+    }
+
+    &:hover, &.selected {
+      text-shadow: 1px 1px #000;
       color: #ccc;
+      text-decoration: underline;
     }
 
     &:first-child{

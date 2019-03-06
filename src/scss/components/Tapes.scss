@@ -31,6 +31,11 @@
           background: #ccc;
           transition: box-shadow 0.1s ease;
 
+          &.disabled {
+            background: #333;
+            pointer-events: none;
+          }
+
           &:first-child {
             border-radius: 1rem 0 0 1rem;
           }
