@@ -172,7 +172,7 @@ class Jam extends React.Component {
   }
 
   bounce(){
-    if(this.props.disableSave) return
+    if(this.props.disableSave) return false
     const that = this
     const token = Auth.getToken()
     that.setState({ bouncing: true, playing: true })
@@ -188,6 +188,7 @@ class Jam extends React.Component {
     })
       .then(res => {
         console.log('RES', res)
+        this.props.history.push('/mytapes')
       })
       .catch(err => console.error(err.message))
   }
