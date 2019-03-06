@@ -18,7 +18,7 @@ class Jamdex extends React.Component{
     if(!this.state) return <Loading />
     const jams = this.state.jams
     // console.log('JAM DEX jams',jams)
-    jams.sort((A,B)=> B.id - A.id)
+    jams.sort((A,B)=> B.applause - A.applause)
     // const tapes = jams.slice(1)
     return(
       <Tapes tapes={jams} disableSave={true}/>
