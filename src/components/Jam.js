@@ -1,5 +1,6 @@
 import React from 'react'
 import Tone from '../lib/tone'
+import { withRouter } from 'react-router-dom'
 import debounce from 'lodash/debounce'
 import axios from 'axios'
 
@@ -190,10 +191,6 @@ class Jam extends React.Component {
         Authorization: `Bearer ${token}`
       }
     })
-      .then(res => {
-        console.log('RES', res)
-        this.props.history.push('/mytapes')
-      })
       .catch(err => console.error(err.message))
   }
 
@@ -332,6 +329,7 @@ class Jam extends React.Component {
       Tone.Transport.stop()
       this.loop.stop()
       this.props.updateUser()
+      this.props.history.push('/mytapes')
     }
     const loggedIn = this.state.loggedIn
     return(
@@ -491,4 +489,4 @@ class Jam extends React.Component {
   }
 }
 
-export default Jam
+export default withRouter(Jam)
