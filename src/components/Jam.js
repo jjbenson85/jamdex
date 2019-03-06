@@ -42,16 +42,19 @@ class Jam extends React.Component {
     this.handleLabel = this.handleLabel.bind(this)
     this.drumMachineLevel = this.drumMachineLevel.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
+    this.delayedLabellback = debounce(this.saveChanges, 500)
+    this.delayedClapCallback = debounce(this.saveChanges, 500)
   }
 
   handleLabel(e){
     this.setState({ jam_name: e.target.value })
-    this.delayedCallback()
+    this.delayedLabellback()
   }
 
 
   componentDidMount(){
     const loggedIn = Auth.isAuthenticated()
+    console.log(this.props)
     this.setState({...this.props, loggedIn})
     const that = this
     Tone.Transport.stop()
@@ -87,11 +90,13 @@ class Jam extends React.Component {
     Tone.Transport.swing = parseInt(swing)/100
     this.setState({swing})
   }
+
   clap(){
+
     let applause = this.state.applause
     applause++
     this.setState({applause})
-    this.delayedCallback()
+    this.delayedClapCallback()
   }
   playSound(){
     //When played as a tape, tell the tape player we are playing
@@ -202,8 +207,9 @@ class Jam extends React.Component {
 
   }
   saveChanges(){
-    if(this.props.disableSave) return
+    // if(this.props.disableSave) return
     const state = {...this.state}
+    console.log('state', this.state)
     state.owned_synths = state.owned_synths.map((instr)=>{
       return instr
     })
@@ -211,7 +217,10 @@ class Jam extends React.Component {
       return instr
     })
     axios.put(`/api/jams/${this.state.id}`,{...state})
-      .then(res => console.log('Saved dat Jam\n', res))
+      .then(res => {
+        console.log('Saved dat Jam\n', res)
+        // this.props.updateUser()
+      })
       .catch(err => console.error(err.message))
   }
 

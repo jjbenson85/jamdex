@@ -117,7 +117,6 @@ def create():
 
 
 @api.route('/jams/<int:jam_id>', methods=['GET'])
-@secure_route
 def show(jam_id):
     jam = Jam.query.get(jam_id)
     return jam_schema.jsonify(jam)

@@ -7,6 +7,7 @@ import axios from 'axios'
 import Auth from './lib/Auth'
 import Header from './components/common/Header'
 import Jamdex from './components/Jamdex'
+import MyTapes from './components/MyTapes'
 import Tapes from './components/Tapes'
 import Jam from './components/Jam'
 import Loading from './components/common/Loading'
@@ -42,6 +43,8 @@ class App extends React.Component {
       } )
   }
 
+
+
   render(){
     const loggedIn = Auth.getPayload().sub
     const loaded = !!this.state.user
@@ -57,11 +60,11 @@ class App extends React.Component {
     }
 
     let JamWithProps
-    let TapesWithProps
+    // let TapesWithProps
     if(loggedAndLoaded){
       const jams = this.state.user.created_jams
       jams.sort((A,B)=> B.id - A.id)
-      const tapes = jams.slice(1)
+      // const tapes = jams.slice(1)
       const currentJam = jams[0]
 
       JamWithProps = () => {
@@ -69,11 +72,11 @@ class App extends React.Component {
           <Jam {...currentJam} updateUser={this.updateUser}/>
         )
       }
-      TapesWithProps = () => {
-        return (
-          <Tapes tapes={tapes}/>
-        )
-      }
+      // TapesWithProps = () => {
+      //   return (
+      //     <Tapes tapes={tapes}/>
+      //   )
+      // }
     }
 
     return(
@@ -86,7 +89,7 @@ class App extends React.Component {
               <Route path="/jam" component={JamWithProps} />
             }
             {loggedIn &&
-              <Route path="/tapes" component={TapesWithProps} />
+              <Route path="/mytapes" component={MyTapes} />
             }
             <Route path="/" component={TopJam} />
 

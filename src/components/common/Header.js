@@ -109,8 +109,8 @@ class Header extends React.Component {
           }
           {this.state.loggedIn &&
             <Link
-              to="/tapes"
-              className={`nav-item ${this.checkLocation('/tapes') ? 'selected':''}`}
+              to="/mytapes"
+              className={`nav-item ${this.checkLocation('/mytapes') ? 'selected':''}`}
             >My Tapes</Link>}
           {!this.state.loggedIn &&
             <Link
