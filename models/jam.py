@@ -22,6 +22,8 @@ class Jam(db.Model, BaseModel):
 class JamSchema(ma.ModelSchema, BaseSchema):
     created_by = fields.Nested('UserSchema', dump_only=True,
         only=('username', 'id'))
+    # created_by = fields.Nested('UserSchema',
+    #     only=('username', 'id'))
 
     owned_synths = fields.Nested('SynthSchema',
         many=True,

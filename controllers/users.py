@@ -30,10 +30,10 @@ def update(user_id):
     if not user:
         return jsonify({'message': 'Not found'}), 404
 
-    user, errors = partial_schema.load(request.get_json(), instance=user)
+    user, errors = user_schema.load(request.get_json(), instance=user)
     if errors:
         return jsonify(errors), 422
 
     user.save()
 
-    return partial_schema.jsonify(user), 200
+    return user_schema.jsonify(user), 200

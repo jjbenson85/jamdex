@@ -11,7 +11,6 @@ class Cassette extends React.Component {
   render(){
     const playing = this.props.playing
     const rndm = (this.props.id%5)+1
-    console.log(rndm)
     return (
       <div className={`cassette-wrap-${rndm}`}>
         <span className="screw"></span>

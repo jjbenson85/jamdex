@@ -335,7 +335,6 @@ class Jam extends React.Component {
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
             if(!inst.settings) inst.settings = []
-            // console.log('inst.settings[0]',inst.settings[0])
             return this.returnInstrument(
               inst.synth_name,
               id,
@@ -456,8 +455,6 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              {console.log(this.state.created_by.id, Auth.getPayload().sub)}
-
               <button
                 onClick={()=>this.clap()}
                 className={this.state.created_by.id === Auth.getPayload().sub ? 'disabled':''}

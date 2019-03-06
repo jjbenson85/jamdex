@@ -26,23 +26,18 @@ class Tapes extends React.Component{
   playTape(tapeId){
     const disabled = this.props.tapes.map(()=> true)
     disabled[tapeId] = false
-    console.log('disabled all tapes except ', tapeId)
     this.setState({disabled, tapeId, playing: true})
   }
 
   stopTape(){
     const disabled = this.props.tapes.map(()=> false)
-    console.log('enabled all tapes')
     this.setState({disabled, tapeId: '', playing: false})
   }
 
 
 
   render(){
-    // const { playing } = this.state
     if(!this.state.disabled) return <Loading />
-    // console.log('tapes', this.state.disabled)
-    // console.log('this.props.disableSave',this.props.disableSave)
 
     return(
       <section className='tapes'>
