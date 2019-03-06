@@ -46,7 +46,22 @@ class UserSchema(ma.ModelSchema, BaseSchema):
     @validates_schema
     def check_username(self, data):
         if not data.get('password'):
-            raise ValidationError('No username provided')
+            raise ValidationError('No username provided', 'username')
+
+    @validates_schema
+    def check_email(self, data):
+        if not data.get('email'):
+            raise ValidationError('No email provided', 'email')
+
+    @validates_schema
+    def check_password(self, data):
+        if not data.get('password'):
+            raise ValidationError('No password provided', 'password')
+
+    @validates_schema
+    def check_password_con(self, data):
+        if not data.get('password_confirmation'):
+            raise ValidationError('No password confirmation provided', 'password_confirmation')
 
     @validates_schema
     def check_passwords_match(self, data):

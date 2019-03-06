@@ -44,7 +44,6 @@ class DrumInterface extends React.Component{
         const current = (i===currentBeat) && this.props.playing
         return <div
           key={i}
-          // className={`col ${i===currentBeat?'current':''}`}
         >
           {col.map((j)=>{
             const velocity = poly[i].poly_beats[j].velocity
@@ -73,10 +72,17 @@ class DrumInterface extends React.Component{
   }
   render(){
     const {currentBeat, poly } = this.props
+    const level = []
+    for(let i=0; i<this.props.drumMachineLevel; i++){
+      level.push(i)
+    }
     return (
       <div className='drum-interface'>
         <div className='synth-case'>
           <div className='top-strip'>
+            <div className="bar-meter">
+              {level.map((i)=><div key={i} className='segment'></div>)}
+            </div>
             <div className='velocity-buttons'>
               <Pad current={this.state.selectedVelocity==='100'} velocity='100' onClick={this.handleHard}/>
               <Pad current={this.state.selectedVelocity==='70'} velocity='70' onClick={this.handleMedium}/>

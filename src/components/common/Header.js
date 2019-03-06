@@ -62,7 +62,7 @@ class Header extends React.Component {
       .then(()=>this.props.history.push('/jam'))
       .catch(err => {
         console.log(err)
-        console.error(err.error)
+        console.error(err.response.data)
       })
   }
 
