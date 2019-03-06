@@ -54,7 +54,6 @@ class Jam extends React.Component {
 
   componentDidMount(){
     const loggedIn = Auth.isAuthenticated()
-    console.log(this.props)
     this.setState({...this.props, loggedIn})
     const that = this
     Tone.Transport.stop()
