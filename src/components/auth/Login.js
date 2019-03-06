@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Login = ({ data, form, handleChange, handleSubmit }) => {
+const Login = ({ data, form, errors, handleChange, handleSubmit }) => {
   return (
     <form
       name="login"
@@ -14,6 +14,7 @@ const Login = ({ data, form, handleChange, handleSubmit }) => {
         onChange={handleChange}
         placeholder={'Email'}
         style={{ width: '25rem' }}
+        className={`${errors ? 'error':''}`}
       />
       <input
         name="password"
@@ -22,6 +23,7 @@ const Login = ({ data, form, handleChange, handleSubmit }) => {
         onChange={handleChange}
         placeholder={'Password'}
         style={{ width: '25rem' }}
+        className={`${errors ? 'error':''}`}
       />
       <button>Log In</button>
     </form>

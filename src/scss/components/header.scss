@@ -80,11 +80,16 @@ header{
       height: 4em;
     }
 
+
     input {
       padding: 1%;
       border-radius: 4px;
       font-family: inherit;
       font-size: inherit;
+
+      &.error {
+        background: #ff5252;
+      }
     }
 
     button {

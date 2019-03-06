@@ -3,6 +3,7 @@ import React from 'react'
 const Register = ({
   data,
   form,
+  errors,
   handleChange,
   handleSubmit
 }) => {
@@ -17,6 +18,7 @@ const Register = ({
         value={data.username}
         onChange={handleChange}
         placeholder={'Username'}
+        className={`${errors._schema ? 'error':''}`}
       />
       <input
         name="email"
@@ -24,6 +26,7 @@ const Register = ({
         value={data.email}
         onChange={handleChange}
         placeholder={'Email'}
+        className={`${errors._schema ? 'error':''}`}
       />
       <input
         name="password"
@@ -31,6 +34,7 @@ const Register = ({
         value={data.password}
         onChange={handleChange}
         placeholder={'Password'}
+        className={`${errors.password || errors.password_confirmation ? 'error':''}`}
       />
       <input
         name="password_confirmation"
@@ -38,6 +42,7 @@ const Register = ({
         value={data.password_confirmation}
         onChange={handleChange}
         placeholder={'Password Confirmation'}
+        className={`${errors.password || errors.password_confirmation ? 'error':''}`}
       />
       <button>Register</button>
     </form>

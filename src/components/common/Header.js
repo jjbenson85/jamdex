@@ -17,7 +17,12 @@ class Header extends React.Component {
     this.state = {
       loggedIn: false,
       form: null,
-      data: this.getInitialData()
+      data: this.getInitialData(),
+      errors: {
+        _schema: null,
+        password: null,
+        password_confirmation: null
+      }
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -62,7 +67,8 @@ class Header extends React.Component {
       .then(()=>this.props.history.push('/jam'))
       .catch(err => {
         console.log(err)
-        console.error(err.error)
+        console.error(err.response.data)
+        this.setState({ errors: err.response.data })
       })
   }
 
@@ -135,12 +141,14 @@ class Header extends React.Component {
           </div>
         }
         <Register
+          errors={this.state.errors}
           form={this.state.form}
           data={this.state.data}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
         <Login
+          errors={this.state.errors}
           form={this.state.form}
           data={this.state.data}
           handleChange={this.handleChange}
