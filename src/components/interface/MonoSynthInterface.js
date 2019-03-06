@@ -90,9 +90,10 @@ class MonoSynthInterface extends React.Component{
                       onChange={this.changeSettings}
                       checked={this.props.settings.oscillator_type==='sawtooth'}
                     />
-                    <label htmlFor="sawtooth">◉
+                    <label htmlFor="sawtooth">
+                      <span>◉</span>
+                      <span>SAWtooth</span>
                     </label>
-                    <div>sawtooth</div>
                   </div>
 
                   <div className='row'>
@@ -104,9 +105,10 @@ class MonoSynthInterface extends React.Component{
                       onChange={this.changeSettings}
                       checked={this.props.settings.oscillator_type==='square'}
                     />
-                    <label htmlFor="square">◉
+                    <label htmlFor="square">
+                      <span>◉</span>
+                      <span>SquAre</span>
                     </label>
-                    <div>square</div>
                   </div>
                   <div className='row'>
                     <input
@@ -117,9 +119,10 @@ class MonoSynthInterface extends React.Component{
                       onChange={this.changeSettings}
                       checked={this.props.settings.oscillator_type==='pwm'}
                     />
-                    <label htmlFor="pwm">◉
+                    <label htmlFor="pwm">
+                      <span>◉</span>
+                      <span>PWM</span>
                     </label>
-                    <div>pwm</div>
                   </div>
                 </div>
               </div>
