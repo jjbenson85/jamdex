@@ -10,6 +10,7 @@ import Auth from '../../lib/Auth'
 
 import '../../scss/components/header.scss'
 
+
 class Header extends React.Component {
   constructor(){
     super()
@@ -29,7 +30,6 @@ class Header extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.logout = this.logout.bind(this)
-    this.checkLocation = this.checkLocation.bind(this)
   }
 
   logout(){
@@ -66,7 +66,6 @@ class Header extends React.Component {
       })
       .then(()=>this.props.history.push('/jam'))
       .catch(err => {
-        console.log(err)
         console.error(err.response.data)
         this.setState({ errors: err.response.data })
       })
@@ -88,34 +87,15 @@ class Header extends React.Component {
     if (Auth.isAuthenticated()) this.setState({ loggedIn: true })
   }
 
-  checkLocation(location){
-    return this.props.location.pathname === location
-  }
-
   render(){
     console.table(this.state.data)
     return(
       <header>
         <div className="left">
-          <Link
-            to="/jamdex"
-            className={`nav-item ${this.checkLocation('/jamdex') ? 'selected':''}`}
-          ><h1>JamDex</h1></Link>
-          {this.state.loggedIn &&
-            <Link
-              to="/jam"
-              className={`nav-item ${this.checkLocation('/jam') ? 'selected':''}`}
-            >My Jam</Link>}
-          {this.state.loggedIn &&
-            <Link
-              to="/tapes"
-              className={`nav-item ${this.checkLocation('/tapes') ? 'selected':''}`}
-            >My Tapes</Link>}
-          {!this.state.loggedIn &&
-            <Link
-              to="/"
-              className={`nav-item ${this.checkLocation('/') ? 'selected':''}`}
-            >Demo Jam</Link>}
+          <Link to="/jamdex" className="nav-item"><h1>JamDex</h1></Link>
+          {this.state.loggedIn &&<Link to="/jam" className="nav-item">My Jam</Link>}
+          {this.state.loggedIn &&<Link to="/tapes" className="nav-item">My Tapes</Link>}
+          {!this.state.loggedIn &&<Link to="/" className="nav-item">Demo Jam</Link>}
         </div>
 
         {!this.state.loggedIn &&

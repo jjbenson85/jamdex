@@ -9,6 +9,8 @@ class DrumMachine extends React.Component {
   componentDidUpdate(prevProps){
     // console.log('DRUM UPDATE', this.props, prevProps, this.props===prevProps)
     if(this.props.time === prevProps.time) return
+    const level = this.meter.getLevel()
+    this.props.level(level)
     this.props.poly.forEach((beat)=>{
       // if(!beat) return
       const level = (beat.velocity/127)
@@ -66,6 +68,12 @@ class DrumMachine extends React.Component {
       'D2': 'assets/wav/sound-'+x+'-3.wav',
       'D#2': 'assets/wav/sound-'+x+'-4.wav'
     }).toMaster()
+
+
+    this.meter = new Tone.Meter()
+    this.sampler.connect(this.meter)
+
+
   }
   render(){
     return (

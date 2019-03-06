@@ -4,6 +4,7 @@ from lib.secure_route import secure_route
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+partial_schema = UserSchema(partial=True)
 
 api = Blueprint('users', __name__)
 
@@ -28,9 +29,11 @@ def update(user_id):
     user = User.query.get(user_id)
     if not user:
         return jsonify({'message': 'Not found'}), 404
+
     user, errors = user_schema.load(request.get_json(), instance=user)
     if errors:
         return jsonify(errors), 422
+
     user.save()
 
     return user_schema.jsonify(user), 200

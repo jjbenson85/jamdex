@@ -64,16 +64,17 @@ def new_jam(user):
 def register():
 
 
-
-    # print('about to make jam')
-    # new_jam(user)
-
     user, errors = user_schema.load(request.get_json())
     print('user', user)
+
 
     if errors:
         print('errors', errors)
         return jsonify(errors), 422
+
+    print('about to make jam')
+    # CREATE DEFAULT JAM FOR USER!
+    new_jam(user)
 
     user.save()
     return jsonify(msg='User successfully created', user_id=user.id), 200

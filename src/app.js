@@ -1,13 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-// import { Redirect } from 'react-router'
+
 import axios from 'axios'
+
 import Auth from './lib/Auth'
-// import Tone from '../../lib/tone'
 import Header from './components/common/Header'
 import Jamdex from './components/Jamdex'
-
 import Tapes from './components/Tapes'
 import Jam from './components/Jam'
 import Loading from './components/common/Loading'
@@ -24,7 +23,7 @@ class App extends React.Component {
     this.updateUser = this.updateUser.bind(this)
   }
   updateUser(){
-    console.log('update user', Auth.getPayload())
+    // console.log('update user', Auth.getPayload())
     const user = Auth.getPayload()
     if(user){
       axios.get(`/api/users/${user.sub}`)
@@ -57,12 +56,9 @@ class App extends React.Component {
       )
     }
 
-    // if(!this.state.user) return null
-    // console.log('APPA',this.state, loggedIn, loaded, loggedAndLoaded)
     let JamWithProps
     let TapesWithProps
     if(loggedAndLoaded){
-      // console.log('making jam with props')
       const jams = this.state.user.created_jams
       jams.sort((A,B)=> B.id - A.id)
       const tapes = jams.slice(1)

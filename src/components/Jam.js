@@ -30,8 +30,6 @@ class Jam extends React.Component {
         beat: 0,
         time: 0
       }
-      // poly: []
-
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -42,6 +40,7 @@ class Jam extends React.Component {
     this.decSwing = this.decSwing.bind(this)
     this.updateSynthSettings = this.updateSynthSettings.bind(this)
     this.handleLabel = this.handleLabel.bind(this)
+    this.drumMachineLevel = this.drumMachineLevel.bind(this)
     this.delayedCallback = debounce(this.saveChanges, 2000)
   }
 
@@ -144,17 +143,6 @@ class Jam extends React.Component {
 
   }
   handleDrumMachineChange(instId, beat, voice, type, value){
-    console.log('instId',instId, 'beat', beat, 'type', 'voice', voice, 'type', type, 'value', value)
-
-    // const synths = []
-    // this.props.owned_synths.forEach((synth,i) =>{
-    //   const poly = this.state.poly.map((step)=> step.map(()=> null))
-    //   synths.push(poly)
-    //   synth.beats.forEach((beat)=> {
-    //     synths[i][beat.step][beat.poly_id] = beat
-    //   })
-    // })
-    // this.setState({synths})
     //THIS NEEDS TO BE DEEP CLONED?
     const ownedDrums = [...this.state.owned_drums ]
 
@@ -217,19 +205,10 @@ class Jam extends React.Component {
   saveChanges(){
     if(this.props.disableSave) return
     const state = {...this.state}
-    console.log('About to save')
-
-    //Created at and Updated at are provided to us pre-formatted but aren't accepted in this format, so we remove them
-    // delete state.created_at
-    // delete state.updated_at
     state.owned_synths = state.owned_synths.map((instr)=>{
-      // delete instr.created_at
-      // delete instr.updated_at
       return instr
     })
     state.owned_drums = state.owned_drums.map((instr)=>{
-      // delete instr.created_at
-      // delete instr.updated_at
       return instr
     })
     axios.put(`/api/jams/${this.state.id}`,{...state})
@@ -237,21 +216,26 @@ class Jam extends React.Component {
       .catch(err => console.error(err.message))
   }
 
+  drumMachineLevel(func){
+    func = 16 + parseInt(func)/2
+    func = func || 0
+    const drumMachineLevel = parseInt((func))
+    this.setState({drumMachineLevel})
+  }
+
   updateSynthSettings(id, obj){
-    const owned_synths = [...this.state.owned_synths]
-    owned_synths[id].settings[0] = {...obj}
+    const ownedSynths = [...this.state.owned_synths]
+    ownedSynths[id].settings[0] = {...obj}
 
     for(const mod in obj){
       for(const cntrl in obj[mod]){
         const python = `${mod}_${cntrl}`
         const value = obj[mod][cntrl]
-        owned_synths[id].settings[0][python] = value
-        // console.log(`${mod}_${cntrl}`)
-        // console.log(obj[mod][cntrl])
+        ownedSynths[id].settings[0][python] = value
       }
 
     }
-    this.setState({owned_synths})
+    this.setState({owned_synths: ownedSynths})
     this.delayedCallback()
   }
   returnInterface(id, name, handleChange, updateSettings, beats, currentBeat, currentPitch, currentVelocity, playing, poly, settings){
@@ -286,6 +270,8 @@ class Jam extends React.Component {
           // currentVelocity={currentVelocity}
           playing={playing}
           poly={poly}
+          settings={settings}
+          drumMachineLevel={this.state.drumMachineLevel}
         />
         break
     }
@@ -313,6 +299,7 @@ class Jam extends React.Component {
           id={id}
           time={time}
           poly={poly.poly_beats}
+          level={this.drumMachineLevel}
         />
         break
     }
@@ -348,7 +335,6 @@ class Jam extends React.Component {
             const beats = inst.beats.sort((A, B)=> A.step - B.step)
             const noteInfo = beats[currentBeat]
             if(!inst.settings) inst.settings = []
-            // console.log('inst.settings[0]',inst.settings[0])
             return this.returnInstrument(
               inst.synth_name,
               id,
@@ -469,8 +455,6 @@ class Jam extends React.Component {
                 <img src="/assets/img/stop.png" />
               </button>
               <div className="applause">{this.state.applause === 0 ? '-':this.state.applause}</div>
-              {console.log(this.state.created_by.id, Auth.getPayload().sub)}
-
               <button
                 onClick={()=>this.clap()}
                 className={this.state.created_by.id === Auth.getPayload().sub ? 'disabled':''}
