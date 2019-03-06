@@ -94,7 +94,6 @@ class Jam extends React.Component {
     this.delayedCallback()
   }
   playSound(){
-    console.log('play')
     //When played as a tape, tell the tape player we are playing
     this.props.tape && this.props.playTape()
 
@@ -425,7 +424,7 @@ class Jam extends React.Component {
             label={this.state.jam_name}
             username={this.state.created_by.username}
             id={this.state.id}
-            createdAt={this.state.created_at}
+            createdAt={this.state.created_at.split('T')[0]}
             onChange={this.handleLabel}
             playing={this.state.playing}
             disableSave={this.props.disableSave}
