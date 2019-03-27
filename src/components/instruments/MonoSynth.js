@@ -56,6 +56,7 @@ class MonoSynth extends React.Component {
         delete settings[python]
         continue
       }
+      console.log(settings)
 
       const val = settings[python]
       const currentMod = {...newSettings[mod], [cntrl]: val}
@@ -66,6 +67,7 @@ class MonoSynth extends React.Component {
     return newSettings
 
   }
+
   componentDidMount(){
     const settings = this.props.settings
     const newSettings = this.unpackPythonSettings(settings)
