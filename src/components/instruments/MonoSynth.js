@@ -56,7 +56,6 @@ class MonoSynth extends React.Component {
         delete settings[python]
         continue
       }
-      console.log(settings)
 
       const val = settings[python]
       const currentMod = {...newSettings[mod], [cntrl]: val}
