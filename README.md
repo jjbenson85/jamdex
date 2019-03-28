@@ -31,7 +31,10 @@
 1. Open your local host on port 4000
 
 ### Our Application: JamDex - Create some music!
-![JamDexDemo](https://user-images.githubusercontent.com/34242042/55161706-0d189000-515e-11e9-9747-ac7e6519ef5a.gif)
+<!-- ![JamDexDemo](https://user-images.githubusercontent.com/34242042/55161706-0d189000-515e-11e9-9747-ac7e6519ef5a.gif) -->
+
+![JamDexMyJam](https://user-images.githubusercontent.com/34242042/55162463-c9bf2100-515f-11e9-8760-4fbf5fc3dea8.gif)
+
 
 
 You can find a hosted version here ----> [Live: JamDex](http://jamdex.herokuapp.com/)
@@ -83,15 +86,21 @@ Using two instruments, a synthesizer and drum-machine, users can create single f
 
   Just select a colour then click on the grid to add that level to that sound.
 
-  ![JamDex Drums](https://user-images.githubusercontent.com/34242042/55037414-9d978900-5015-11e9-9b4b-8e0732663188.png)
+  <!-- ![JamDex Drums](https://user-images.githubusercontent.com/34242042/55037414-9d978900-5015-11e9-9b4b-8e0732663188.png) -->
+  ![JamDexDrums](https://user-images.githubusercontent.com/34242042/55162371-9aa8af80-515f-11e9-8434-7978f89b4ba3.gif)
+
 
 1. When you are happy with your Jam, hit the red record button to 'record' your Jam to Tape. You will be redirected to the 'My Tapes' page. Here you can Change the name of your Jam by clicking on the label and play any of your Jams.
-  ![JamDex My Tapes](https://user-images.githubusercontent.com/34242042/55037413-9cfef280-5015-11e9-8e56-fde28c898054.png)
+  <!-- ![JamDex My Tapes](https://user-images.githubusercontent.com/34242042/55037413-9cfef280-5015-11e9-8e56-fde28c898054.png) -->
+  ![JamDexMyTapes](https://user-images.githubusercontent.com/34242042/55162315-74830f80-515f-11e9-9811-5f72e54a1570.gif)
+
 
 1. Click on the ```JamDex``` logo to go to the titular JamDex page. Here you will see all the Jams that users have created.
 
   You are able to listen to them and 'Applaud' them by clicking on the clapping hands icon. This can be done as many times as you like (but you can't applaud your own Jams!). The JamDex is ordered by the amount of Applause each Jam has. The most popular Jam is used as the default song on the Home page.
-  ![JamDex All Tapes](https://user-images.githubusercontent.com/34242042/55037412-9cfef280-5015-11e9-93b4-5004ceecd83d.png)
+  <!-- ![JamDex All Tapes](https://user-images.githubusercontent.com/34242042/55037412-9cfef280-5015-11e9-93b4-5004ceecd83d.png) -->
+  ![JamDexJamDex](https://user-images.githubusercontent.com/34242042/55162397-ab592580-515f-11e9-93ee-39a5f3c9b3ed.gif)
+
 
 
 
