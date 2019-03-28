@@ -31,7 +31,8 @@
 1. Open your local host on port 4000
 
 ### Our Application: JamDex - Create some music!
-![JamDex](https://user-images.githubusercontent.com/34242042/55036473-a044af00-5012-11e9-81ea-df30725b1286.png)
+![JamDexDemo](https://user-images.githubusercontent.com/34242042/55161706-0d189000-515e-11e9-9747-ac7e6519ef5a.gif)
+
 
 You can find a hosted version here ----> [Live: JamDex](http://jamdex.herokuapp.com/)
 
