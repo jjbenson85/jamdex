@@ -13,6 +13,8 @@ class MonoSynth extends React.Component {
       this.updateSynth()
     }
     if(this.props.time === prevProps.time) return
+    if(this.props.sync) this.rightPan.pan.value = 1
+    else this.rightPan.pan.value = 0
     const {pitch, duration, velocity} = this.props.noteInfo
     if(velocity==='0') {
       return
@@ -70,7 +72,10 @@ class MonoSynth extends React.Component {
   componentDidMount(){
     const settings = this.props.settings
     const newSettings = this.unpackPythonSettings(settings)
-    this.synth = new Tone.MonoSynth(newSettings).toMaster()
+    this.rightPan = new Tone.Panner(1)
+
+    this.rightPan.pan.value = 1
+    this.synth = new Tone.MonoSynth(newSettings).chain(this.rightPan, Tone.Master)
   }
 
   render(){

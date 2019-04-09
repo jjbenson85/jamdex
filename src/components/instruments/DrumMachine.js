@@ -4,11 +4,15 @@ import Tone from '../../lib/tone'
 class DrumMachine extends React.Component {
   constructor(){
     super()
+
   }
 
   componentDidUpdate(prevProps){
     // console.log('DRUM UPDATE', this.props, prevProps, this.props===prevProps)
     if(this.props.time === prevProps.time) return
+    if(this.props.sync) this.rightPan.pan.value = 1
+    else this.rightPan.pan.value = 0
+    this.rightPan.pan.value = 1
     const level = this.meter.getLevel()
     this.props.level(level)
     this.props.poly.forEach((beat)=>{
@@ -62,13 +66,14 @@ class DrumMachine extends React.Component {
     //   // 'E3': 'assets/wav/sound-'+x+'-16.wav'
     //
     // }).toMaster()
+    this.rightPan = new Tone.Panner(1)
+    // this.rightPan.pan.value = 1
     this.sampler = new Tone.Sampler({
       'C2': 'assets/wav/sound-'+x+'-1.wav',
       'C#2': 'assets/wav/sound-'+x+'-2.wav',
       'D2': 'assets/wav/sound-'+x+'-3.wav',
       'D#2': 'assets/wav/sound-'+x+'-4.wav'
-    }).toMaster()
-
+    }).chain(this.rightPan, Tone.Master)
 
     this.meter = new Tone.Meter()
     this.sampler.connect(this.meter)

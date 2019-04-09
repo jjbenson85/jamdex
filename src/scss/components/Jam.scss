@@ -99,9 +99,13 @@
         width: 2.5rem;
         outline: none;
         background-image: radial-gradient(circle at top, #ccc, #222);
+        color: black;
 
-        &.playing {
+        &.playing, &.sync {
           box-shadow: inset 0px 4px 10px 1px #000;
+        }
+        &.sync{
+          color: red;
         }
       }
       button:active{

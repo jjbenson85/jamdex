@@ -27,12 +27,20 @@ class Jam extends React.Component {
       currentPitch: '',
       currentVelocity: '',
       displaySynth: 0,
+      sync: true,
       transport: {
         beat: 0,
         time: 0
       }
     }
+    this.leftPan = new Tone.Panner(-1)
 
+
+    this.syncGen = new Tone.Sampler({
+      'C3': 'assets/wav/sync.wav'
+    }).chain(this.leftPan, Tone.Master)
+
+    this.toggleSync = this.toggleSync.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.bounce = this.bounce.bind(this)
     this.incTempo = this.incTempo.bind(this)
@@ -57,9 +65,10 @@ class Jam extends React.Component {
     const loggedIn = Auth.isAuthenticated()
     this.setState({...this.props, loggedIn})
     Tone.Transport.stop()
-    
+
     const component = this
     this.loop = new Tone.Sequence((time, beat) => {
+      this.state.sync && (beat%2===0) && component.syncGen.triggerAttack('c3', time, 1)
       Tone.Transport.bpm.value = this.state.tempo
       component.setState({transport: {beat, time}})
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], '16n')
@@ -261,6 +270,7 @@ class Jam extends React.Component {
           currentVelocity={currentVelocity}
           playing={playing}
           settings={settings}
+
         />
         break
 
@@ -278,6 +288,7 @@ class Jam extends React.Component {
           poly={poly}
           settings={settings}
           drumMachineLevel={this.state.drumMachineLevel}
+
         />
         break
     }
@@ -296,6 +307,7 @@ class Jam extends React.Component {
           time={time}
           noteInfo={noteInfo}
           settings={settings}
+          sync={this.state.sync}
         />
         break
 
@@ -306,10 +318,16 @@ class Jam extends React.Component {
           time={time}
           poly={poly.poly_beats}
           level={this.drumMachineLevel}
+          sync={this.state.sync}
         />
         break
     }
     return output
+  }
+
+  toggleSync(){
+    this.setState({sync: !this.state.sync})
+    console.log(this.state.sync)
   }
 
   render(){
@@ -422,7 +440,7 @@ class Jam extends React.Component {
               </div>
             </div>
             <div className="right">
-
+              <button className={`item ${this.state.sync? 'sync' : ''}`} onClick={this.toggleSync}>Sync</button>
             </div>
           </div>
         </div>}
