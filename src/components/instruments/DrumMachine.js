@@ -12,7 +12,7 @@ class DrumMachine extends React.Component {
     if(this.props.time === prevProps.time) return
     if(this.props.sync) this.rightPan.pan.value = 1
     else this.rightPan.pan.value = 0
-    this.rightPan.pan.value = 1
+    // this.rightPan.pan.value = 1
     const level = this.meter.getLevel()
     this.props.level(level)
     this.props.poly.forEach((beat)=>{

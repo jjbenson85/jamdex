@@ -27,7 +27,7 @@ class Jam extends React.Component {
       currentPitch: '',
       currentVelocity: '',
       displaySynth: 0,
-      sync: true,
+      sync: false,
       transport: {
         beat: 0,
         time: 0
