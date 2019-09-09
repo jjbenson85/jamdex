@@ -136,9 +136,9 @@ Another aspect of analogue hardware audio equipment is that you are limited by y
 
 A way we wanted to replicate this was with an in-app currency that could be exchanged for 'new' equipment. We decided we wanted to use an idea taken from the Medium app; applause.
 
-Our Minimum Viable Product would be to have the ability to log-in, create a melody where used changed the pitch and could turn notes on and off and have the melody save to the database where other users could 'Applaud' it.
+Our Minimum Viable Product would be to have the ability to log-in, create a melody (where users adjusted pitch and could turn notes on and off) and have the melody save to the database where other users could 'Applaud' it.
 
-We discussed ideas as to how the music could be saved, such as recording the audio potentially using the [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API).
+We discussed ideas as to how the music could be saved, such as recording the audio, potentially using the [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API).
 
 #### Experimentation
 
@@ -172,7 +172,7 @@ Our final ERD looks like this...
 
 The main difference between the synthesizer and the drum machine was that the synthesizer can only play one note at a time which is know as being mono-phonic (that is why it is called MonoSynth). The drum machine however can play up to four different sounds at the same time (poly-phonic). These sounds need to be stored individually so a Poly model was created to store the Poly Beats. The poly beats are similar to the Synth beats but also contain information about which voice it belongs to.
 
-(In retrospect, it may have been cleaner to create a generic Polyphonic Beat and for the mono synth just limit it to using one voice.)
+(In retrospect, it may have been cleaner to create a generic Polyphonic Beat and for the mono synth, and just limit it to using one voice.)
 
 To save the settings of the synth we needed somewhere to save the information in the Database, so we created the Settings model.
 
@@ -352,7 +352,7 @@ return(
 This system of using the Jam component to play back the Jams rather than creating a separate component, meant that we only had one Component to update. It was also simpler than recording the audio to disk, as we would then need somewhere to host that file.
 
 ###### Synchronisation
-The Jam components renders the instruments, both their music engines and their interfaces. It passes props to these components from its state.
+The Jam component renders the instruments, both their music engines and their interfaces. It passes props to these components from its state.
 
 
 
@@ -539,7 +539,7 @@ I think for a web based app built in a week, the sound quality and the ability t
 ###### Rebuild!
 I think that if this project was to continue it should be rebuilt from the ground up, using the lessons learnt as a basis for an improved site.
 
-I think it would be possible to simplify a lot of the code, particularly how not events and settings are passed around between components, maybe by using a central store with Redux.
+I think it would be possible to simplify a lot of the code, particularly how events and settings are passed around between components, maybe by using a central store with Redux.
 
 I think it would also be easier to build this site using a DB like Mongo, and keep the object oriented nature consistent through out the project.
 
